@@ -1,0 +1,29 @@
+.Actualizacion{
+    position: fixed ;
+    top: 10px;
+    width: 20vw;
+    background-color: #399626;
+    border-radius: 10px;
+    border-left: 8px solid #399626;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: disappear ease-in-out 5s forwards;
+    z-index: 3;
+}
+
+.msg{
+    padding: 4px;
+    font-size: 14px;
+    color: #f8f2f2;
+  }
+
+  @keyframes disappear {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
