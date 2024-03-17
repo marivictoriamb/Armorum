@@ -29,12 +29,16 @@ export default function Agrupations(){
 
 
     async function handleSubmit(){
-        await createClub(categoryId, contact, founder, members, mision, name, objectives, "", "", vision, year);
-        const c = await getCategoryById(categoryId)
+        let cname = categoryId;
+        if (categoryId == ""){
+          cname = await categories.id[0]
+        }
+        await createClub(cname, contact, founder, members, mision, name, objectives, "", "", vision, year);
+        const c = await getCategoryById(cname)
         const id = await getClubId(name)
         const newC = c.agrupations;
         newC.push(id)
-        await updateCategoryData(categoryId, c.name, newC)
+        await updateCategoryData(cname, c.name, newC)
         navigate(`/agrupaciones/${name}`);
     }
 
