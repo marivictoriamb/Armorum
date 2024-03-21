@@ -84,7 +84,6 @@ export default function Profile(){
         if (/^\d{4}\d{7}$/.test(number) == true){
             validations= true;
         } else {
-            alert(/^\d{4}\d{7}$/.test(number))
             setType('Introduzca un numero valido')
             setError(true);
         }

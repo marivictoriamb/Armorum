@@ -35,10 +35,10 @@ export default function Categories(){
       <div className={styles.All}>
         <Navbar></Navbar>
         <div className={styles.Options}>
-            <div className="Create">
-                <label> Nombre:<input value={name} onChange={(e) => setName(e.target.value)}/></label>
-                <button onClick={handleSubmit}>Enviar</button>
-            </div>
+            <form className="Create">
+                <label> Nombre:<input value={name} required={true} onChange={(e) => setName(e.target.value)}/></label>
+                <button button="submit" onClick={handleSubmit}>Enviar</button>
+            </form>
         </div>
         <div className={styles.Info}>
           <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
