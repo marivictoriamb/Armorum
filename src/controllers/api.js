@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getClubs, getClubsByCategory, getClubsByName, getClubsId } from "./clubs";
-import { getCategories, getCategoriesByName, getCategoriesId, getCategoryById, getCategoryByIdName, getCategoryId } from "./categories";
+import { getCategories, getCategoriesByName, getCategoriesByName2, getCategoriesId, getCategoryById, getCategoryByIdName, getCategoryId } from "./categories";
 
 export function useClubs(){
     const [data, setData] = useState(null);
@@ -36,10 +36,11 @@ export function useClub(name, type){
                 const ids = await getClubsId();
                 setId(ids);
             } else if (type == "Categoria") {
-                const category = await getCategoriesByName(name)
+                const category = await getCategoriesByName2(name)
                 try{
                     const i = await getCategoryId(category[0].name)
                     const clubs = await getClubsByCategory(i);
+                    alert(clubs)
                     setData(clubs);
                     const ids = await getClubsId();
                     setId(ids);

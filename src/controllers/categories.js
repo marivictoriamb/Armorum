@@ -1,5 +1,5 @@
 import { db } from "../firebase.js"
-import { collection, getDocs, query, where, getDoc, doc, updateDoc, addDoc, deleteDoc} from "firebase/firestore"
+import { collection, getDocs, query, where, getDoc, doc, updateDoc, addDoc, deleteDoc, orderBy, startAfter} from "firebase/firestore"
 import { getUserId } from "./auth.js";
 
 
@@ -26,6 +26,15 @@ export async function getCategoriesByName(id){ //getClub
     const clubsSnapshot = await getDocs(clubsQuery);
     const clubs = clubsSnapshot.docs.map((doc) => doc.data()); 
     return clubs;
+}
+
+export async function getCategoriesByName2(id){ //getClub
+    const clubsCollections = collection(db, "categories");
+    const clubsQuery = query(clubsCollections, orderBy('name'), startAfter(null));
+    const clubsSnapshot = await getDocs(clubsQuery);
+    const clubs = clubsSnapshot.docs.map((doc) => doc.data()); 
+
+    return ([...clubs.filter((doc) => doc.name.toLowerCase().startsWith(id.toLowerCase()))]);
 }
 
 export async function getCategoryId(id){

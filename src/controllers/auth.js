@@ -11,12 +11,16 @@ export async function signUpGoogle(){
         const adittionalInfo = getAdditionalUserInfo(result); 
 
         if(adittionalInfo.isNewUser){
+            number = result.user.phoneNumber
+            if (number == null){
+                number = "04120000000"
+            }
             await addDoc(collection(db, "users"), {
                 id: result.user.uid,
                 name: result.user.displayName,
                 email: result.user.email,
                 userRole: "1",
-                number: result.user.phoneNumber,
+                number: number,
                 image: result.user.photoURL,
                 carrer: "",
                 agrupations: [],
@@ -39,12 +43,16 @@ export async function signUpGoogle(){
         const adittionalInfo = getAdditionalUserInfo(result); 
 
         if(adittionalInfo.isNewUser){
+            number = result.user.phoneNumber
+            if (number == null){
+                number = "04120000000"
+            }
             await addDoc(collection(db, "users"), {
                 id: result.user.uid,
                 name: result.user.displayName,
                 email: result.user.email,
                 userRole: "1",
-                number: result.user.phoneNumber,
+                number: number,
                 image: result.user.photoURL,
                 carrer: "",
                 agrupations: [],
