@@ -90,7 +90,7 @@ function Login(){
               </div>
             </div>
             <div className={styles.Buttons}>
-              <button className={styles.Login} type="button" onClick={() => {submit.handleButtonClick(true), handleLogin()}}> Iniciar Sesion </button>
+              <button className={styles.Login} type="button" onClick={() => {submit.handleButtonClick(true), handleLogin()}}> Iniciar Sesión </button>
               <button className={styles.Register} style={{cursor:"pointer"}}onClick={() => {submit.handleButtonClick(false), navigate("/registro")}}>No tienes cuenta? Registrate aqui </button>
             </div>
             <div className={styles.Option}>

@@ -10,6 +10,7 @@ import { createClub, getClubById, getClubId } from "../controllers/clubs.js";
 import Loader from "../Components/Loader.jsx";
 import { create } from "../hooks/create.js";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
+import AgrupProfile from "./AgrupProfile.jsx";
 
 export default function Agrupations(){
     const [category, setCategory] = useState("");
@@ -34,8 +35,9 @@ export default function Agrupations(){
     const endYear = new Date().getFullYear();
 
 
-    const navigate = useNavigate();
-
+    const handleClickAddGroup = () => {
+      navigate(`/agrupaciones/${name}`);
+    };
 
 /*    No hay ningún formulario entonces podría borrarse
 async function handleSubmit(e){
@@ -88,13 +90,23 @@ async function handleSubmit(e){
         <div className={styles.Options}>
         </div>
           <div className={styles.Info}>
-          <label style={{ fontSize: "40px", textAlign: "left", padding: "100px"}}>Agrupaciones</label>
-          <a href="https://www.google.com" style={{ cursor: "pointer" }}>
-            <img 
-              src="AddGroupButton.png" 
-              style={{ width: "350px", height: "100px", float: "right"}}>
-            </img>
-          </a>
+          <label style={{ fontSize: "70px", textAlign: "left", margin: "0", paddingLeft: "4vw" }}>Agrupaciones</label>
+          <button 
+            onClick={handleClickAddGroup} 
+            style={{
+            width: "30vw",
+            marginRight:"2vw",
+            padding: "1vw",
+            borderRadius: "40px",
+            borderColor: "rgb(255, 145, 0)",
+            backgroundColor: "rgb(255, 145, 0)",
+            fontSize: "35px",
+            color: "white",
+            float: "right"
+            }}>
+            Agregar agrupación
+          </button>
+            
           <div style={{marginTop: "50px", display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
             {!want ?  (
             <div
