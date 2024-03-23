@@ -3,7 +3,7 @@ import { useCategories, useClubs } from "../controllers/api";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/Agrupations.module.css";
 import AgrupCard from "../Components/AgrupCard.jsx";
-import Navbar from "../Components/Navbar.jsx";
+import AdminHeader from "../Components/AdminHeader.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
 import { getCategoryById, getCategoryByIdName, getCategoryId, updateCategoryData } from "../controllers/categories.js";
 import { createClub, getClubById, getClubId } from "../controllers/clubs.js";
@@ -85,7 +85,7 @@ async function handleSubmit(e){
         </div>
         ) : (
       <div className={styles.All}>
-        <Navbar></Navbar>
+        <AdminHeader></AdminHeader>
         {error && <ErrorUpdate key={type} error={type}/>}
         <div className={styles.Options}>
         </div>

@@ -6,6 +6,7 @@ import Navbar from "../Components/Navbar.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
 import { createCategory } from "../controllers/categories.js";
 import CategoryCard from "../Components/CategoryCard.jsx";
+import AdminHeader from "../Components/AdminHeader.jsx";
 
 
 export default function Categories(){
@@ -33,7 +34,7 @@ export default function Categories(){
   
     return (
       <div className={styles.All}>
-        <Navbar></Navbar>
+        <AdminHeader></AdminHeader>
         <div className={styles.Options}>
             <form className="Create">
                 <label> Nombre:<input value={name} required={true} onChange={(e) => setName(e.target.value)}/></label>
