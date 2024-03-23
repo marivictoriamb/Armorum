@@ -91,7 +91,7 @@ async function handleSubmit(e){
           <label style={{ fontSize: "40px", textAlign: "left", padding: "100px"}}>Agrupaciones</label>
           <a href="https://www.google.com" style={{ cursor: "pointer" }}>
             <img 
-              src="/public/AddGroupButton.png" 
+              src="AddGroupButton.png" 
               style={{ width: "350px", height: "100px", float: "right"}}>
             </img>
           </a>
