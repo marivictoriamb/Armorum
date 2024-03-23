@@ -11,7 +11,6 @@ import Loader from "../Components/Loader.jsx";
 import { create } from "../hooks/create.js";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 
-
 export default function Agrupations(){
     const [category, setCategory] = useState("");
     const [categoryId, setCategoryId] = useState("");
@@ -38,7 +37,8 @@ export default function Agrupations(){
     const navigate = useNavigate();
 
 
-    async function handleSubmit(e){
+/*    No hay ningún formulario entonces podría borrarse
+async function handleSubmit(e){
         e.preventDefault();
 
         if (/\d{7}$/.test(contact) == true){
@@ -48,6 +48,7 @@ export default function Agrupations(){
             setError(true);
         }
       }
+      */
 
     async function handleCategory(value){
         const id = await getCategoryId(value);
@@ -85,35 +86,16 @@ export default function Agrupations(){
         <Navbar></Navbar>
         {error && <ErrorUpdate key={type} error={type}/>}
         <div className={styles.Options}>
-            <form className="Create" onSubmit={handleSubmit}>
-                <label> Nombre:<input required={true} value={name} onChange={(e) => {setName(e.target.value), setError(false)}}/></label>
-                <label className={styles.contact}> Contacto:<div className={styles.input}><select className={styles.select} style={{width:"45%", maxWidth:"340px"}}value={number} onChange={(e) => {setNumber(e.target.value), setError(false)}}>
-                <option className={styles.select} >0412</option>
-                <option className={styles.select} >0414</option>
-                <option className={styles.select} >0424</option>
-                <option className={styles.select} >0416</option>
-                  </select><input required={true} maxLength="7" minLength="7" style={{border:"none", width:"75%"}} value={contact} onChange={(e) => setContact(e.target.value)}/></div></label>
-                <label> Mision:<input required={true}  value={mision} onChange={(e) => {setMision(e.target.value), setError(false)}}/></label>
-                <label> Vision:<input required={true}  value={vision} onChange={(e) => {setVision(e.target.value), setError(false)}}/></label>
-                <label> Objetivos:<input required={true}  value={objectives} onChange={(e) => {setObjectives(e.target.value), setError(false)}}/></label>
-                <label> Año de Creacion:<select required value={year} onChange={(e) => {setYear(e.target.value), setError(false)}} id="year" name="year">
-                {Array.from({ length: endYear - startYear + 1 }, (_, i) => (
-                  <option key={i + startYear} value={startYear + i} className={styles.select}> {startYear + i} </option> ) ) }
-                  </select></label>
-                <label> Responsable:<input required value={founder} onChange={(e) => {setFounder(e.target.value), setError(false)}}/></label>
-                <label className={styles.Input}>Categoria: <select style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value), setError(false)}}>
-                        {categories.isLoading  ? (
-                            <option key={"loading"}> . . .</option>
-                        ) : (
-                            categories.data.map((category, id) => (<option className={styles.select} key={id} >{category.name}</option>
-                            ))
-                        )}
-                        </select></label>
-                <button type="submit">Enviar</button>
-            </form>
         </div>
-        <div className={styles.Info}>
-          <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
+          <div className={styles.Info}>
+          <label style={{ fontSize: "40px", textAlign: "left", padding: "100px"}}>Agrupaciones</label>
+          <a href="https://www.google.com" style={{ cursor: "pointer" }}>
+            <img 
+              src="/public/AddGroupButton.png" 
+              style={{ width: "350px", height: "100px", float: "right"}}>
+            </img>
+          </a>
+          <div style={{marginTop: "50px", display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
             {!want ?  (
             <div
               style={{
@@ -148,4 +130,3 @@ export default function Agrupations(){
     </div>
     );
   }
-  
