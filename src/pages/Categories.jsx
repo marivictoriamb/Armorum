@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useCategories, useClubs } from "../controllers/api";
 import { useNavigate } from "react-router-dom";
-import styles from "../css/Landing.module.css";
+import styles from "../css/Categories.module.css";
 import Navbar from "../Components/Navbar.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
 import { createCategory } from "../controllers/categories.js";
 import CategoryCard from "../Components/CategoryCard.jsx";
 import AdminHeader from "../Components/AdminHeader.jsx";
-
+import Sidebar from "../Components/SideBar.jsx";
 
 export default function Categories(){
     const categories = useCategories();
@@ -33,7 +33,8 @@ export default function Categories(){
     }
   
     return (
-      <div className={styles.All}>
+      <Sidebar>
+        <div className={styles.All} style={{marginTop:"-10vw"}}>
         <AdminHeader></AdminHeader>
         <div className={styles.Options}>
             <form className="Create">
@@ -71,6 +72,7 @@ export default function Categories(){
             </div>
         </div>
       </div>
+      </Sidebar>
     );
   }
   

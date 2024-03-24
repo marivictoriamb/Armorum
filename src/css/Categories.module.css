@@ -1,0 +1,82 @@
+.All {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding-bottom: 20px;
+  }
+  
+  button{
+    font-size: 18px;
+      color: white;
+      border: none;
+      padding: 1vw;
+      border-radius: 30px;
+      border-color: #5b3263;
+      background-color: #5b3263;
+      cursor: pointer;
+  }
+  
+  .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;  
+  }
+  
+  
+  .Info{
+    width: 100vw;
+  }
+  
+  
+  .Option{
+    margin: 4vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.05rem;
+    text-align: center;
+    color: rgb(236, 236, 235);
+  }
+  
+  .Option::before, .Option::after{
+    content: "";
+    height: 2px;
+    background-color: rgb(255, 125, 49);
+    display: block;
+  }
+  
+  .Border{
+    border-radius: 40px;
+    border: solid 2px rgb(255, 125, 49);
+  }
+  
+  #p{
+    font-size: 25px;
+    font-weight: 500;
+    color:rgb(10, 10, 10);
+    font-weight: 700;
+  }
+  
+  @media screen and (max-width: 730px) {
+    #p{
+        font-size: 20px;
+    }  
+  }
+  
+  @media screen and (max-width: 530px) {
+    #p{
+        font-size: 15px;
+    }  
+  }
+  
+  @media screen and (max-width: 40px) {
+    #p{
+        font-size: 8px;
+    }  
+  }
+  

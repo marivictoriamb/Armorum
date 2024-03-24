@@ -12,10 +12,10 @@ export default function AdminHeader() {
   }
 
   return (
-      <div className={`${styles.All} ${styles.OrangeLine}`}>
+      <div style={{position:"sticky", width:"100%"}} className={`${styles.All} ${styles.OrangeLine}`}>
         <img src="/Tree.png"  onClick={handleNavigate("/landing")}  className={styles.Img} style={{textAlign: 'left', width: '200px', marginLeft:"2vw"}}/>
         <img src="/name.png"  onClick={handleNavigate("/landing")}  className={styles.Img} style={{textAlign: 'left', width: '280px', paddingLeft:"1vw", height:"170px"}}/>
-        <img src="/profileHeader.png" onClick={handleNavigate("/perfil")} className={styles.Img} style={{cursor:"pointer", textAlign: 'right', width: '180px', marginLeft:"65%", height:"180px"}}/>
+        <img src="/profileHeader.png" onClick={handleNavigate("/perfil")} className={styles.Img} style={{cursor:"pointer", textAlign: 'right', width: '180px', marginLeft:"60%", height:"180px"}}/>
       </div>
   )
 }
