@@ -11,6 +11,7 @@ import Loader from "../Components/Loader.jsx";
 import { create } from "../hooks/create.js";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import AgrupProfile from "./AgrupProfile.jsx";
+import Sidebar from "../Components/SideBar.jsx";
 
 export default function Agrupations(){
     const [category, setCategory] = useState("");
@@ -78,7 +79,8 @@ async function handleSubmit(e){
   
   
     return (
-      <div>
+      <Sidebar>
+        <div>
         {(categories.isLoading || done == false)?(
         <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
             <Loader/>
@@ -95,7 +97,7 @@ async function handleSubmit(e){
             onClick={handleClickAddGroup} 
             style={{
             width: "30vw",
-            marginRight:"2vw",
+            marginRight:"10vw",
             padding: "1vw",
             borderRadius: "40px",
             borderColor: "rgb(255, 145, 0)",
@@ -140,5 +142,6 @@ async function handleSubmit(e){
       </div>
     )}
     </div>
+    </Sidebar>
     );
   }
