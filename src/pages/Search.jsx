@@ -24,7 +24,7 @@ export default function Search(){
             <Navbar/>
         <div className={styles.All}>
             <div className={styles.banner}>
-                <h2 className={styles.title}>Encuentra con que videojuegos contamos 🎮 </h2>
+                <h2 className={styles.title}>Encuentra la agrupación de tu preferencia </h2>
                 <div className={styles.searchBar}>
                     <div className={styles.bar}>
                         <img className={styles.Img} alt="loop" src={"/search.png"}/>
@@ -32,7 +32,7 @@ export default function Search(){
                     </div>
                     <div className={styles.Buttons}> 
                     <button className={styles.searchButton} onClick={()=>{handleClick()}}> Buscar </button>
-                    <select className={styles.searchButton} value={type} style={{ maxWidth:"150px", padding:"10px", borderColor:"#93679c", backgroundColor:"#93679c", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
+                    <select className={styles.searchButton} value={type} style={{ maxWidth:"150px", padding:"10px", borderColor:"rgb(223, 144, 98)", backgroundColor:"rgb(223, 144, 98)", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
                         <option className={styles.option}value="Nombre"> Nombre </option>
                         <option className={styles.option} value="Categoria"> Categoria </option>
                     </select>
