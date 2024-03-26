@@ -4,7 +4,7 @@ import styles from "../css/Search.module.css"
 import { useState } from "react";
 import CardLoader from "../Components/CardLoader.jsx";
 import ClubCard from '../Components/ClubCard.jsx'
-import Navbar from "../Components/Navbar.jsx";
+import Navbar from "../Components/NavbarUsuario.jsx";
 import { useUser } from "../hooks/user.js";
 import { getUserData } from "../controllers/auth.js";
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCategories, useClubs } from "../controllers/api";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/Categories.module.css";
-import Navbar from "../Components/Navbar.jsx";
+import Navbar from "../Components/NavbarUsuario.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
 import { createCategory } from "../controllers/categories.js";
 import CategoryCard from "../Components/CategoryCard.jsx";

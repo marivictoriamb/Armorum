@@ -6,7 +6,7 @@ import styles from "../css/ClubsProfile.module.css";
 import { getUserById, getUserData, getUserId, updateUserData } from "../controllers/auth.js";
 import { useUser } from "../hooks/user";
 import CardLoader from "../Components/CardLoader.jsx";
-import Navbar from "../Components/Navbar.jsx";
+import Navbar from "../Components/NavbarUsuario.jsx";
 import { getCategoryById } from "../controllers/categories.js";
 import Loader from "../Components/Loader.jsx";
 

@@ -8,7 +8,7 @@ import Actualizacion from "../Components/Actualizacion";
 import ClubCard from '../Components/ClubCard.jsx'
 import CardLoader from "../Components/CardLoader.jsx";
 import { getClubById, getClubId } from "../controllers/clubs";
-import Navbar from "../Components/Navbar.jsx";
+import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 

@@ -5,7 +5,7 @@ import CardLoader from "../Components/CardLoader.jsx";
 import { getUserData, logOut } from "../controllers/auth.js";
 import { useUser } from "../hooks/user.js";
 import styles from "../css/Landing.module.css";
-import Navbar from "../Components/Navbar.jsx";
+import Navbar from "../Components/NavbarUsuario.jsx";
 import { Carrusel } from "../Components/Carrusel.jsx";
 
 export default function Landing() {
@@ -46,7 +46,7 @@ export default function Landing() {
           <div className={styles.Border}><label id={styles.p} >Nuestras Agrupaciones</label></div>
         </div>
 
-        <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
+        <div id= "Cards" style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
           {!want ?  (
           <div
             style={{
