@@ -5,7 +5,7 @@ import CardLoader from "../Components/CardLoader.jsx";
 import { getUserData, logOut } from "../controllers/auth.js";
 import { useUser } from "../hooks/user.js";
 import styles from "../css/Landing.module.css";
-import Navbar from "../Components/NavbarUsuario.jsx";
+import Navbar from "../Components/NavbarVisitante.jsx";
 import { Carrusel } from "../Components/Carrusel.jsx";
 
 export default function Landing() {
