@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styles from './ClubCard.module.css'
+import styles from './AgrupCard.module.css'
 
 export default function AgrupCard({name, description, category}){    
     const navigate = useNavigate();

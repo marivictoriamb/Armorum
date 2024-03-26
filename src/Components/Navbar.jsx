@@ -14,8 +14,10 @@ export default function Navbar() {
   return (
       <div className={styles.All}>
         <img src="/game3.png"  onClick={handleNavigate("/landing")}  className={styles.Img}/>
-        <img src="/search.png" onClick={handleNavigate("/buscador")} className={styles.Buscador}  />
-        <img src="/user.png" onClick={handleNavigate("/perfil")}  className={styles.Profile} />
+        <div className={styles.Links}>
+            <img src="/search.png" onClick={handleNavigate("/buscador")} className={styles.Buscador}  />
+            <img src="/user.png" onClick={handleNavigate("/perfil")}  className={styles.Profile} />
+        </div>
       </div>
   )
 

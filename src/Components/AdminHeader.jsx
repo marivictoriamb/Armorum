@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from "./Navbar.module.css"
+import styles from "./AdminHeader.module.css"
 
 export default function AdminHeader() {
 
