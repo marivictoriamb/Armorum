@@ -16,28 +16,23 @@ export default function FooterUsuario() {
             <a href="https://www.unimet.edu.ve/">
               <img src="/logo.png" className={styles.Image} />
             </a>
-            <div className={styles.Referencias}>
+          </div>
+          <div className={styles.Referencias}>
+          <div className={styles.Column}>
               <a href="https://www.instagram.com/unimet/?hl=es">
                 <img src="/ig.png" className={styles.Icons} />
               </a>
+          </div>
+          <div className={styles.Column}>
               <a href="https://www.facebook.com/unimet/?locale=es_LA">
                 <img src="/fb.png" className={styles.Icons} />
               </a>
-            </div>
           </div>
-          <div className={styles.Column}>
-            <h4
-              onClick={() => {
-                const element = document.getElementById("Cards");
-                element.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              Agrupaciones
-            </h4>
+          <div className={styles.X} >
+              <a href="https://twitter.com/Unimet?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                <img src="/x.png" className={styles.Icons} id={styles.x}/>
+              </a>
           </div>
-          <div className={styles.Column}>
-            <h4 onClick={handleNavigate("/Perfil")}>Perfil</h4>
-            <ul></ul>
           </div>
         </div>
         <div className={styles.Pie}>
