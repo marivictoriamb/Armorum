@@ -12,9 +12,9 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
-import {storage} from "../firebase.js";
-import {collection, addDoc} from "firebase/storage";
-import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import {uploadImagen, getImageUrl} from "../controllers/files.js";
+import { useImageUrl } from "../hooks/files.js";
+
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -29,35 +29,23 @@ export default function Profile() {
   const [membresias, setMembresias] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [done, setDone] = useState(false);
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
 
   const [trigger, setTrigger] = useState(false);
   const [act, setAct] = useState(false);
   const [error, setError] = useState(false);
   const [type, setType] = useState("");
 
-  //PRUEBAAA
-
-  let urlImDesc;
-  const guardarinfo = async(e)=>{
-    e.preventDefault()
-    const 
-
+  const handleUpdate = async () => {
+    if(image){
+      const result = await uploadImagen(image);
+      const url = getImageUrl(result);
+      
+    }
   }
-  // const [image, setImage] = useState(null);
 
-  // const handleImageUpload = (e) => {
-  //   const file = e.target.files[0];
-  //   const storageRef = storage.ref();
-  //   const fileRef = storageRef.child(file.name);
-  //   fileRef.put(file).then(() => {
-  //     console.log('Imagen cargada con éxito');
-  //     fileRef.getDownloadURL().then((url) => {
-  //       setImage(url);
-  //     });
-  //   });
-  // };
-
-  //Termina prueba 
+  function 
 
   async function restoreData() {
     const data = await getUserData(user.email);
@@ -68,6 +56,7 @@ export default function Profile() {
     setMemberships(data.agrupations);
     setCarrer(data.carrer);
     setNumber(data.number);
+    setImage(data.image);
 
     const newArray = await Promise.all(
       data.agrupations.map(async (club) => {
@@ -101,7 +90,7 @@ export default function Profile() {
     const membershipValue = userData.agrupations.filter(
       (item) => item !== clubValue
     );
-    await updateUserData(name, email, 1, number, carrer, "", membershipValue);
+    await updateUserData(name, email, 1, number, carrer, image, membershipValue);
     restoreData();
     setDone(true);
   }
@@ -274,10 +263,14 @@ export default function Profile() {
                       value={email}
                     ></input>
                   </label>
+                  <label className={styles.Input}>
+                    Imagen:{" "}
+                    <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
+                  </label>
                 </div>
               </form>
               <div className={styles.Option}>
-                <label id={styles.p}>Clubs</label>
+                <label id={styles.p}>Agrupaciones</label>
               </div>
               <div className={styles.Clubs} id ="Cards">
                 <div className={styles.Clubs}>
@@ -311,6 +304,7 @@ export default function Profile() {
             number={number}
             email={email}
             carrer={carrer}
+            image={image}
             membresias={memberships}
             setTrigger={setTrigger}
             restoreData={restoreData}
@@ -319,11 +313,10 @@ export default function Profile() {
         </div>
       )}
 
-    {/* <div>
-      <h1>Perfil de Usuario</h1>
-      <input type="file" onChange={handleImageUpload} />
-      {image && <img src={image} alt="Imagen de Perfil" style={{ width: '200px', height: '200px' }} />}
-    </div> */}
+    <div>
+      <h1>Imagen</h1>
+      <img src={image} style={{ width: '200px', height: '200px' }} />
+    </div>
 
     <Footer/>
     </div>

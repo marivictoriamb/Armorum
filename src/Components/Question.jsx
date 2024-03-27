@@ -5,7 +5,7 @@ import { updateUserData } from "../controllers/auth";
 
 function Question(props) {
     async function handleData(){
-        await updateUserData(props.name, props.email, "1", props.number,  props.carrer, "", props.membresias);
+        await updateUserData(props.name, props.email, "1", props.number,  props.carrer, props.image, props.membresias);
         props.restoreData()
         props.setAct(true);
         props.setTrigger(false);
