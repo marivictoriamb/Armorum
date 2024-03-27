@@ -37,15 +37,6 @@ export default function Profile() {
   const [error, setError] = useState(false);
   const [type, setType] = useState("");
 
-  const handleUpdate = async () => {
-    if(image){
-      const result = await uploadImagen(image);
-      const url = getImageUrl(result);
-      
-    }
-  }
-
-  function 
 
   async function restoreData() {
     const data = await getUserData(user.email);

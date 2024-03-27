@@ -6,8 +6,10 @@ import { getUserData, logOut } from "../controllers/auth.js";
 import { useUser } from "../hooks/user.js";
 import styles from "../css/Landing.module.css";
 import Navbar from "../Components/NavbarUsuario.jsx";
+import NavbarV from "../Components/NavbarVisitante.jsx";
 import { Carrusel } from "../Components/Carrusel.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
+import Loader from "../Components/Loader.jsx";
 
 export default function Landing() {
   const [want, setWant] = useState(false);
@@ -15,10 +17,17 @@ export default function Landing() {
   const user = useUser();
   const clubs = useClubs();
   const [values, setValues] = useState([]);
+  const [visitor, IsVisitor] = useState(true);
+  const [done, setDone] = useState(false)
 
-  if (clubs != null && user != null && want == false) {
+  if (clubs != null && want == false) {
     if (clubs.isLoading != true && clubs.isCharging != true) {
-      getUserInfo();
+      if (user != null){
+        getUserInfo();
+      } else {
+        getInfo();
+      }
+      
     }
   }
 
@@ -31,12 +40,42 @@ export default function Landing() {
       }
       values.push(value);
     });
+    setDone(true)
+    IsVisitor(false);
+    setWant(true);
+  }
+
+  async function getInfo() {
+    clubs.id.forEach((club) => {
+      values.push(false);
+    });
+    setDone(true)
     setWant(true);
   }
 
   return (
+    <div>
+    {done == false ? (
+      <div
+        style={{
+          margin: "30px",
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          gap: "5vw",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loader />
+      </div>
+    ) : (
     <div className={styles.All}>
-      <Navbar></Navbar>
+      {visitor ? (
+        <NavbarV></NavbarV>
+      ): (
+        <Navbar></Navbar>
+      )}
       <div className={styles.Info}>
         <div className={styles.Option}>
           <div className={styles.Border}>
@@ -108,5 +147,7 @@ export default function Landing() {
       </div>
       <Footer/>
     </div>
+  )}
+  </div>
   );
 }
