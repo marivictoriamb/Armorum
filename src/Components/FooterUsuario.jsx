@@ -32,7 +32,7 @@ export default function FooterUsuario() {
                 element.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              Categorías
+              Agrupaciones
             </h4>
           </div>
           <div className={styles.Column}>
