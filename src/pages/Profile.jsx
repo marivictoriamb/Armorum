@@ -11,6 +11,7 @@ import { getClubById, getClubId } from "../controllers/clubs";
 import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
+import Footer from "../Components/FooterUsuario.jsx";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -251,7 +252,7 @@ export default function Profile() {
               <div className={styles.Option}>
                 <label id={styles.p}>Clubs</label>
               </div>
-              <div className={styles.Clubs}>
+              <div className={styles.Clubs} id ="Cards">
                 <div className={styles.Clubs}>
                   {membresias.map((club) => (
                     <ClubCard
@@ -290,6 +291,7 @@ export default function Profile() {
           />
         </div>
       )}
+    <Footer/>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default function Navbar() {
   const handleNavigate = (name) => () => {
     navigate(name);
   };
-
+  
   return (
     <div className={styles.All}>
       <img
