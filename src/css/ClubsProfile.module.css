@@ -3,12 +3,12 @@
   color: white;
   padding: 20px;
   padding-bottom: 0px;
-  text-shadow: 2px 2px 7px #657ad4;
+  text-shadow: 2px 2px 7px #d89126;
   align-self: center;
 }
 
 .Text{
-  background-color: #bb1b7860;
+  background-image: url("/background.png");
   width: 80%;
   border-radius: 10px;
   display: flex;
@@ -66,8 +66,8 @@
   border: none;
   padding: 1vw 5vw;
   border-radius: 40px;
-  border-color: #bb1b78;
-  background-color: #bb1b98;
+  border-color: rgb(255, 125, 49);
+  background-color: rgb(184, 77, 15);
   font-size: 18px;
   color: white;
   font-weight: 700;

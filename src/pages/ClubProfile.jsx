@@ -171,14 +171,14 @@ export default function ClubProfile() {
       <div className={styles.container}>
         <img className={styles.img}
           style={{ width: "40%", height: "100vh"}}
-          alt="GameRoom"
-          src={"/GameRoom.png"}
+          alt="Metrotech"
+          src={"/LogoMetrotech.png"}
         />
         <div className={styles.Right}>
           <Navbar/>
           <div>
             <div className={styles.position}>
-              <h1 className={styles.Name}>📺 {club[0].name} 🕹️</h1>
+              <h1 className={styles.Name}> {club[0].name} </h1>
               <div className={styles.Text}>
                 <div className={styles.info}>
                   <img className={styles.icon} alt="icon" src="/information.png" />
