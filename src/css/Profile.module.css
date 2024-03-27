@@ -32,7 +32,7 @@
 
 .menu{
     align-self: center;
-    background-color: #F8D3FF;
+    background-color: #f8cb94;
     width:95%;
     overflow: hidden;
     margin: 3vh 0px;
@@ -97,7 +97,7 @@
     padding: 1vw;
     border-radius: 30px;
     border-color: #5b3263;
-    background-color: #5b3263;
+    background-color: #f57c25;
     cursor: pointer;
 }
 
