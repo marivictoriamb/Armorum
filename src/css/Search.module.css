@@ -20,8 +20,8 @@
 }
 
 .Img{
-    width: 22px;
-    height:22px;
+    width: 30px;
+    height:30px;
     align-self: center;
 }
 
@@ -39,7 +39,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    gap: 5vw;
     border-radius: 40px;
     background-color: white;
     border: none;
@@ -56,12 +55,13 @@
     align-items:flex-start;
     justify-content: center;
     gap: 2px;
+
 }
 
 .inputbar{
     border: none;
     outline: none;
-    font-size: 2vh;
+    font-size: 3vh;
     color: rgb(255, 125, 49);
 }
 
