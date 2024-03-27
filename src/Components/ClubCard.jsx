@@ -35,10 +35,8 @@ function ClubCard({name, description, category, suscrito, button, handle}){
 
       useEffect(() => {
         async function fetchData() {
-          if (user != null){
             const ca = await getCategoryByIdName(category);
             setC(ca)
-          }
         };
     
         fetchData();

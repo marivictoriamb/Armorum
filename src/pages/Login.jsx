@@ -36,11 +36,7 @@ function Login() {
   }, [user, navigate]);
 
   function handleBack() {
-    if (user != null) {
-      navigate("/landing", { replace: true });
-    } else {
-      navigate("/inicio", { replace: true });
-    }
+    navigate("/landing", { replace: true });
   }
 
   const handleLogin = async () => {

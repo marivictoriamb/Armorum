@@ -7,6 +7,7 @@ import { getUserById, getUserData, getUserId, updateUserData } from "../controll
 import { useUser } from "../hooks/user";
 import CardLoader from "../Components/CardLoader.jsx";
 import Navbar from "../Components/NavbarUsuario.jsx";
+import NavbarV from "../Components/NavbarVisitante.jsx";
 import { getCategoryById } from "../controllers/categories.js";
 import Loader from "../Components/Loader.jsx";
 
@@ -22,6 +23,7 @@ export default function ClubProfile() {
    const [category, setCategory] = useState([])
    const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
+  const [visitor, IsVisitor] = useState(true);
  
 
   async function handleMembership(){
@@ -147,14 +149,44 @@ export default function ClubProfile() {
         const c = await getCategoryById(clubData[0].category);
         setCategory(c.name);
 
+        IsVisitor(false);
         setDone(true);
       }
+  };
+
+  async function fetchCData() {
+    const clubData = await getClubsByName(clubName.name);
+    setClub(clubData);
+
+    if (clubData[0].members != []){
+      const membersData = await Promise.all(
+        clubData[0].members.map(async (item) => {
+          return await getUserById(item);
+        })
+      );
+      
+      const membersN = await Promise.all(
+       membersData.map(async (item) => {
+          return await item.name;
+        })
+      );
+      setMembers(membersData);
+      setMembersId(clubData[0].members)
+      setMembersNames(membersN)
+    }
+
+        const c = await getCategoryById(clubData[0].category);
+        setCategory(c.name);
+
+        setDone(true);
   };
 
   useEffect(() => {
     async function fetchData() {
       if (user != null){
         fetchClubData()
+      } else {
+        fetchCData();
       }
     };
 
@@ -175,7 +207,11 @@ export default function ClubProfile() {
           src={"/LogoMetrotech.png"}
         />
         <div className={styles.Right}>
-          <Navbar/>
+        {visitor ? (
+        <NavbarV></NavbarV>
+      ): (
+        <Navbar></Navbar>
+      )}
           <div>
             <div className={styles.position}>
               <h1 className={styles.Name}> {club[0].name} </h1>
@@ -185,7 +221,7 @@ export default function ClubProfile() {
                   <h4 className={styles.Description}>{club[0].objectives}</h4>
                   <h4 className={styles.Description}>{category}</h4>
                 </div>
-              <button className={styles.Afiliacion} onClick={() => {handleMembership()}}>{show}</button>
+              {visitor ? (""):(<button className={styles.Afiliacion} onClick={() => {handleMembership()}}>{show}</button>)}
               </div>
             </div>
           </div>
