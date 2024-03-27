@@ -7,6 +7,7 @@ import { registerWithCredentials, signUpGoogle } from "../controllers/auth.js";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user.js";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
+import { getUserData } from "../controllers/auth";
 
 function Register() {
   const submit = useRequiered();
@@ -26,9 +27,17 @@ function Register() {
   const [type, setType] = useState("");
 
   useEffect(() => {
-    if (user != null) {
-      navigate("/landing", { replace: true });
-    }
+    const fetchUserData = async () => {
+      if (user != null) {
+        const data = await getUserData(user.email);
+        if (data.userRole == 0) {
+          navigate("/agrupaciones", { replace: true });
+        } else {
+          navigate("/landing", { replace: true });
+        }
+      }
+    };
+    fetchUserData();
   }, [user, navigate]);
 
   const handleRegister = async (e) => {
