@@ -36,13 +36,6 @@ export default function Profile() {
   const [type, setType] = useState("");
 
   //PRUEBAAA
-
-  let urlImDesc;
-  const guardarinfo = async(e)=>{
-    e.preventDefault()
-    const 
-
-  }
   // const [image, setImage] = useState(null);
 
   // const handleImageUpload = (e) => {
