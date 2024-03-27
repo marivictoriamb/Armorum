@@ -42,14 +42,14 @@ export default function ClubProfile() {
           membershipValue
         );
         const id = await getUserId(user.email)
-        members.push(id)
+        membersId.push(id)
         membersNames.push(userData.name)
         await updateClubData(
           club[0].category,
           club[0].contact,
           club[0].founder,
           club[0].id,
-          members,
+          membersId,
           club[0].mision,
           club[0].name,
           club[0].objectives,
@@ -120,7 +120,7 @@ export default function ClubProfile() {
           return await getUserById(item);
         })
       );
-
+      
       const membersN = await Promise.all(
        membersData.map(async (item) => {
           return await item.name;
