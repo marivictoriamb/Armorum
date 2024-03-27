@@ -12,6 +12,9 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
+import {storage} from "../firebase.js";
+import {collection, addDoc} from "firebase/storage";
+import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -31,6 +34,30 @@ export default function Profile() {
   const [act, setAct] = useState(false);
   const [error, setError] = useState(false);
   const [type, setType] = useState("");
+
+  //PRUEBAAA
+
+  let urlImDesc;
+  const guardarinfo = async(e)=>{
+    e.preventDefault()
+    const 
+
+  }
+  // const [image, setImage] = useState(null);
+
+  // const handleImageUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   const storageRef = storage.ref();
+  //   const fileRef = storageRef.child(file.name);
+  //   fileRef.put(file).then(() => {
+  //     console.log('Imagen cargada con éxito');
+  //     fileRef.getDownloadURL().then((url) => {
+  //       setImage(url);
+  //     });
+  //   });
+  // };
+
+  //Termina prueba 
 
   async function restoreData() {
     const data = await getUserData(user.email);
@@ -291,6 +318,13 @@ export default function Profile() {
           />
         </div>
       )}
+
+    {/* <div>
+      <h1>Perfil de Usuario</h1>
+      <input type="file" onChange={handleImageUpload} />
+      {image && <img src={image} alt="Imagen de Perfil" style={{ width: '200px', height: '200px' }} />}
+    </div> */}
+
     <Footer/>
     </div>
   );
