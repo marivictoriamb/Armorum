@@ -50,22 +50,57 @@
 .Words:hover{
     transform: scale(1.02);
     text-decoration: underline;
+    text-decoration-color: orange;
+}
+
+@media screen and (max-width: 657px){
+
+    .Img{
+        width: 150px;
+        height: 60px; 
+    }
 }
 
 @media screen and (max-width: 500px) {
-.Img{
-    width: 100px;
-    height: 70px;
-}  
+    .Img{
+        width: 100px;
+        height: 40px;
+    }  
+    
+    .Buscador{
+        width: 0px;
+        height: 0px;
+    }
+    
+    .Profile{
+        width: 30px;
+        height: 30px;
+    }
 
-.Buscador{
-    width: 20px;
-    height: 20px;
-}
+    .Words{
+        font-size: 12px;
+    }
+    
+    }
 
-.Profile{
-    width: 30px;
-    height: 30px;
-}
+    @media screen and (max-width: 390px) {
+        .Img{
+            width: 100px;
+            height: 40px;
+        }  
+        
+        .Buscador{
+            width: 0px;
+            height: 0px;
+        }
+        
+        .Profile{
+            width: 20px;
+            height: 20px;
+        }
 
-}
+        .Words{
+            font-size: 10px;
+        }
+        
+        }
