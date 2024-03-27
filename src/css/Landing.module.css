@@ -29,6 +29,9 @@ button{
 
 .Info{
   width: 100vw;
+  min-width: 100vh;
+  position: relative;
+  padding-bottom: 3rem;
 }
 
 
