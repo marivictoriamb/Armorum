@@ -10,6 +10,7 @@ import NavbarV from "../Components/NavbarVisitante.jsx";
 import { Carrusel } from "../Components/Carrusel.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
 import Loader from "../Components/Loader.jsx";
+import Slider from "../Components/Slider.jsx";
 
 export default function Landing() {
   const [want, setWant] = useState(false);
@@ -19,6 +20,11 @@ export default function Landing() {
   const [values, setValues] = useState([]);
   const [visitor, IsVisitor] = useState(true);
   const [done, setDone] = useState(false)
+
+  const images = [];
+  for (let i = 1; i <= 4; i++) {
+    images.push(`/unimet${i}.png`);
+  }
 
   if (clubs != null && want == false) {
     if (clubs.isLoading != true && clubs.isCharging != true) {
@@ -76,13 +82,16 @@ export default function Landing() {
       ): (
         <Navbar></Navbar>
       )}
+      <Slider images={images}/>
       <div className={styles.Info}>
         <div className={styles.Option}>
           <div className={styles.Border}>
             <label id={styles.p}>Sobre Nosotros</label>
           </div>
         </div>
-        <Carrusel />
+        <div id="carruselSection">
+          <Carrusel />
+        </div>
         <div className={styles.Option}>
           <div className={styles.Border}>
             <label id={styles.p}>Nuestras Agrupaciones</label>
