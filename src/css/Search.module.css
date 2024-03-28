@@ -1,96 +1,117 @@
-.All{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.banner{
-    margin:50px 0px;
-    background-image: url("/background.png");
-    width: 80%;
-    height: 100%;
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10vh;
-    padding: 30px;
-}
-
-.Img{
-    width: 30px;
-    height:30px;
-    align-self: center;
-}
-
-.title{
-    font-size: 30px;
-    color: white;
+/* Estilos para el banner */
+.banner {
+    background-color: #f2f2f2;
     padding: 20px;
-    text-shadow: 1px 1px 5px #eceaea;
-    text-align: center;
-    align-items: center;
-}
-
-.searchBar{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 40px;
-    background-color: white;
-    border: none;
-    outline: none;
-    width: 80%;
-    align-self: center;
-    height: 15vh;
-    flex-wrap: wrap;
-}
-
-.bar{
-    display: flex;
-    flex-direction: row;
-    align-items:flex-start;
-    justify-content: center;
-    gap: 2px;
-
-}
-
-.inputbar{
-    border: none;
-    outline: none;
-    font-size: 3vh;
-    color: rgb(255, 125, 49);
-}
-
-.searchButton{
-    position: relative;
-    right: 1.25;
-    font-size: 2vh;
-    color: white;
-    border: none;
-    padding: 1vw 4vw;
-    border-radius: 30px;
-    border-color: rgb(255, 125, 49);
-    background-color: rgb(255, 125, 49);
-    cursor: pointer;
-}
-
-.option{
-    font-size: 2vh;
-    color: white;
-    background-color: rgb(223, 144, 98);
-}
-
-
-.searchButton:hover{
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
   }
-
-
-.Buttons{
+  
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .searchBar {
     display: flex;
-    gap: 10px
-}
+    align-items: center;
+    justify-content: space-between; /* Alinea los elementos alrededor */
+  }
+  
+  .bar {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .inputbar {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px; /* Añade margen a la derecha para separar el input del botón */
+  }
+  
+  .Img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  .Buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchButton {
+    padding: 10px 20px;
+    background-color: rgb(255, 125, 49);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .searchButton:hover {
+    background-color: rgb(185, 93, 40);
+  }
+  
+  /* Estilos para los resultados */
+  .results {
+    margin-top: 20px;
+  }
+  
+  #Cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Estilos para la tarjeta del club */
+  /* Ajusta estos estilos según tu necesidad */
+  .card {
+    width: 200px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Media query para pantallas pequeñas */
+  @media screen and (max-width: 768px) {
+    .searchBar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .bar {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  
+    .inputbar {
+      width: 100%;
+      margin-right: 0; /* Elimina el margen derecho para ocupar todo el ancho */
+    }
+  
+    .Buttons {
+      flex-direction: column;
+    }
+  
+    .searchButton {
+      margin-top: 10px;
+    }
+  
+    .card {
+      width: calc(50% - 20px);
+    }
+  }
+  
