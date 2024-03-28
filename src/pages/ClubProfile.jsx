@@ -1,9 +1,19 @@
 import { useParams } from "react-router-dom";
-import { getClubById, getClubId, getClubsByName, updateClubData } from "../controllers/clubs.js";
+import {
+  getClubById,
+  getClubId,
+  getClubsByName,
+  updateClubData,
+} from "../controllers/clubs.js";
 import { useState, useEffect } from "react";
 import GameCard from "../Components/GameCard.jsx";
 import styles from "../css/ClubsProfile.module.css";
-import { getUserById, getUserData, getUserId, updateUserData } from "../controllers/auth.js";
+import {
+  getUserById,
+  getUserData,
+  getUserId,
+  updateUserData,
+} from "../controllers/auth.js";
 import { getImageUrl } from "../controllers/files.js";
 import { useUser } from "../hooks/user";
 import CardLoader from "../Components/CardLoader.jsx";
@@ -14,27 +24,66 @@ import Loader from "../Components/Loader.jsx";
 
 export default function ClubProfile() {
   const clubName = useParams();
-  const user = useUser(); 
+  const user = useUser();
   const [done, setDone] = useState(false);
 
   const [club, setClub] = useState(null);
-   const [members, setMembers] = useState([]);
-   const [membersNames, setMembersNames] = useState([]);
-   const [membersId, setMembersId] = useState([])
-   const [membersI, setMembersI] = useState([])
-   const [category, setCategory] = useState([])
-   const [show, setShow] = useState("...");
+  const [members, setMembers] = useState([]);
+  const [membersNames, setMembersNames] = useState([]);
+  const [membersId, setMembersId] = useState([]);
+  const [membersI, setMembersI] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
   const [visitor, IsVisitor] = useState(true);
- 
+  const [sdkReady, setSdkReady] = useState(false);
+  const [isButtonContainerRendered, setIsButtonContainerRendered] =
+    useState(false);
 
-  async function handleMembership(){
-    if (show != "..."){
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://www.paypal.com/sdk/js?client-id=Ad9nZ0bV62PEdpGYKkYBnwyCfl-G_7_z4_nAjhHHqnZuVhg1HKJlHWPQ3B8tEUDcTQitxOc88mymWKz-&currency=USD`;
+    script.addEventListener("load", () => setSdkReady(true));
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (sdkReady && isButtonContainerRendered) {
+      window.paypal
+        .Buttons({
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: "10.00", // Monto de la contribución
+                  },
+                },
+              ],
+            });
+          },
+          onApprove: (data, actions) => {
+            return actions.order.capture().then((details) => {
+              alert("Contribución realizada correctamente");
+              // Implementar lógica después de la contribución exitosa
+            });
+          },
+        })
+        .render("#paypal-button-container");
+    }
+  }, [sdkReady, isButtonContainerRendered]);
+
+  async function handleMembership() {
+    if (show != "...") {
       setDone(false);
 
-      const userData = await getUserData(user.email); 
+      const userData = await getUserData(user.email);
       const membershipValue = userData.agrupations;
-      if (want != true){
+      if (want != true) {
         membershipValue.push(club[0].id);
         await updateUserData(
           userData.name,
@@ -45,10 +94,10 @@ export default function ClubProfile() {
           userData.image,
           membershipValue
         );
-        const id = await getUserId(user.email)
-        membersId.push(id)
-        membersNames.push(userData.name)
-        membersI.push(userData.image)
+        const id = await getUserId(user.email);
+        membersId.push(id);
+        membersNames.push(userData.name);
+        membersI.push(userData.image);
         await updateClubData(
           club[0].category,
           club[0].contact,
@@ -65,7 +114,9 @@ export default function ClubProfile() {
         );
         setShow("Desafiliarse");
       } else {
-        const membershipValue = userData.agrupations.filter((item) => item !== club[0].id );
+        const membershipValue = userData.agrupations.filter(
+          (item) => item !== club[0].id
+        );
         const id = await getUserId(user.email);
         const newMembers = membersId.filter((member) => member !== id);
         setMembersId(newMembers);
@@ -92,7 +143,7 @@ export default function ClubProfile() {
           club[0].vision,
           club[0].year
         );
-        if (club[0].members != []){
+        if (club[0].members != []) {
           const membersData = await Promise.all(
             newMembers.map(async (item) => {
               return await getUserById(item);
@@ -101,159 +152,183 @@ export default function ClubProfile() {
 
           const membersN = await Promise.all(
             newMembers.map(async (item) => {
-               return await item.name;
-             })
-           );
+              return await item.name;
+            })
+          );
 
-           const membersIm = await Promise.all(
+          const membersIm = await Promise.all(
             membersData.map(async (item) => {
-               return await getImageUrl(item.image);
-             })
-           );
-        setMembersNames(membersN)
-        setMembers(membersData);
-        setMembersI(membersIm)
-        setShow("Afiliarse");
+              return await getImageUrl(item.image);
+            })
+          );
+          setMembersNames(membersN);
+          setMembers(membersData);
+          setMembersI(membersIm);
+          setShow("Afiliarse");
         }
       }
-  
+
       setWant(!want);
       setDone(true);
     }
-  };
+  }
 
   async function fetchClubData() {
     const clubData = await getClubsByName(clubName.name);
     setClub(clubData);
 
-    if (clubData[0].members != []){
+    if (clubData[0].members != []) {
       const membersData = await Promise.all(
         clubData[0].members.map(async (item) => {
           return await getUserById(item);
         })
       );
-      
+
       const membersN = await Promise.all(
-       membersData.map(async (item) => {
+        membersData.map(async (item) => {
           return await item.name;
         })
       );
 
       const membersIm = await Promise.all(
         membersData.map(async (item) => {
-           return await getImageUrl(item.image);
-         })
-       );
+          return await getImageUrl(item.image);
+        })
+      );
       setMembers(membersData);
-      setMembersId(clubData[0].members)
-      setMembersNames(membersN)
-      setMembersI(membersIm)
+      setMembersId(clubData[0].members);
+      setMembersNames(membersN);
+      setMembersI(membersIm);
     }
-    
 
-      if (user != null && clubData != null){
-        const data = await getUserData(user.email);
-        const clubValue = await getClubId(clubData[0].name);
-        const membershipValue = data.agrupations;
-        if (membershipValue.includes(clubValue) == true){
-          setWant(true)
-          setShow("Desafiliarse");
-        } else {
-          setWant(false)
-          setShow("Afiliarse")
-        }
-
-        const c = await getCategoryById(clubData[0].category);
-        setCategory(c.name);
-
-        IsVisitor(false);
-        setDone(true);
+    if (user != null && clubData != null) {
+      const data = await getUserData(user.email);
+      const clubValue = await getClubId(clubData[0].name);
+      const membershipValue = data.agrupations;
+      if (membershipValue.includes(clubValue) == true) {
+        setWant(true);
+        setShow("Desafiliarse");
+      } else {
+        setWant(false);
+        setShow("Afiliarse");
       }
-  };
+
+      const c = await getCategoryById(clubData[0].category);
+      setCategory(c.name);
+
+      IsVisitor(false);
+      setDone(true);
+    }
+  }
 
   async function fetchCData() {
     const clubData = await getClubsByName(clubName.name);
     setClub(clubData);
 
-    if (clubData[0].members != []){
+    if (clubData[0].members != []) {
       const membersData = await Promise.all(
         clubData[0].members.map(async (item) => {
           return await getUserById(item);
         })
       );
-      
+
       const membersN = await Promise.all(
-       membersData.map(async (item) => {
+        membersData.map(async (item) => {
           return await item.name;
         })
       );
       setMembers(membersData);
-      setMembersId(clubData[0].members)
-      setMembersNames(membersN)
+      setMembersId(clubData[0].members);
+      setMembersNames(membersN);
     }
 
-        const c = await getCategoryById(clubData[0].category);
-        setCategory(c.name);
+    const c = await getCategoryById(clubData[0].category);
+    setCategory(c.name);
 
-        setDone(true);
-  };
+    setDone(true);
+  }
 
   useEffect(() => {
     async function fetchData() {
-      if (user != null){
-        fetchClubData()
+      if (user != null) {
+        fetchClubData();
       } else {
         fetchCData();
       }
-    };
+    }
 
     fetchData();
   }, [user]);
 
-  return(
+  return (
     <div>
-    {(done==false)?(
-      <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
-        <Loader/>
-      </div>
-    ) : (
-      <div className={styles.container}>
-        <img className={styles.img}
-          style={{ width: "40%", height: "100vh"}}
-          alt="Metrotech"
-          src={"/LogoMetrotech.png"}
-        />
-        <div className={styles.Right}>
-        {visitor ? (
-        <NavbarV></NavbarV>
-      ): (
-        <Navbar></Navbar>
-      )}
-          <div>
-            <div className={styles.position}>
-              <h1 className={styles.Name}> {club[0].name} </h1>
-              <div className={styles.Text}>
-                <div className={styles.info}>
-                  <img className={styles.icon} alt="icon" src="/information.png" />
-                  <h4 className={styles.Description}>{club[0].objectives}</h4>
-                  <h4 className={styles.Description}>{category}</h4>
+      {done == false ? (
+        <div
+          style={{
+            margin: "30px",
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            gap: "5vw",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <img
+            className={styles.img}
+            style={{ width: "40%", height: "100vh" }}
+            alt="Metrotech"
+            src={"/LogoMetrotech.png"}
+          />
+          <div className={styles.Right}>
+            {visitor ? <NavbarV></NavbarV> : <Navbar></Navbar>}
+            <div>
+              <div className={styles.position}>
+                <h1 className={styles.Name}> {club[0].name} </h1>
+                <div className={styles.Text}>
+                  <div className={styles.info}>
+                    <img
+                      className={styles.icon}
+                      alt="icon"
+                      src="/information.png"
+                    />
+                    <h4 className={styles.Description}>{club[0].objectives}</h4>
+                    <h4 className={styles.Description}>{category}</h4>
+                  </div>
+                  {visitor ? (
+                    ""
+                  ) : (
+                    <button
+                      className={styles.Afiliacion}
+                      onClick={() => {
+                        handleMembership();
+                      }}
+                    >
+                      {show}
+                    </button>
+                  )}
                 </div>
-              {visitor ? (""):(<button className={styles.Afiliacion} onClick={() => {handleMembership()}}>{show}</button>)}
               </div>
             </div>
-          </div>
-          <div>
-            <div className={styles.Members}>
-              {membersNames.map((name, index) => (
-                <GameCard key={index}
-                name={name}
-                image={membersI[index]} />
-              ))}
+            <div>
+              <div className={styles.Members}>
+                {membersNames.map((name, index) => (
+                  <GameCard key={index} name={name} image={membersI[index]} />
+                ))}
+              </div>
             </div>
+            <div
+              id="paypal-button-container"
+              style={{ marginTop: "20px" }}
+              ref={() => setIsButtonContainerRendered(true)} // Se activa después de que el div se ha montado
+            ></div>
           </div>
         </div>
-      </div>
-    )}
-</div>
-  )
+      )}
+    </div>
+  );
 }
