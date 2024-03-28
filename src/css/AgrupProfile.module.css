@@ -1,0 +1,27 @@
+.div1{
+    width: '100%';
+    margin: '20px 0';
+    padding: '10px';
+    border: '1px solid #ccc';
+}
+
+.div2{
+    display: 'flex';
+    justify-content: 'space-between';
+    align-items: 'center';
+    margin-bottom: '10px';
+}
+
+.div3{
+    display: 'flex';
+    justify-content:space-evenly;
+    align-items:end;
+    margin-bottom: '10px';
+}
+
+.div4{
+    display: 'flex';
+    justify-content: 'space-between';
+    align-items: 'center';
+    margin-bottom: '10px';
+}
