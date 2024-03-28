@@ -87,13 +87,8 @@ async function handleSubmit(e){
         {categories.isLoading || done == false ? (
           <div
             style={{
-              margin: "30px",
-              display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "row",
-              gap: "5vw",
-              alignItems: "center",
-              justifyContent: "center",
+              width:"100vw",
+              overflow:"hidden"
             }}
           >
             <Loader />

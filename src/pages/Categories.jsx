@@ -93,7 +93,7 @@ export default function Categories(){
             ) : (
               categories.data.map(({ name, agrupations }, index) => (
                 <CategoryCard
-                  key={name}
+                  key={index}
                   name={name}
                 />
               )))}

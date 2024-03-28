@@ -8,30 +8,186 @@
     overflow: hidden;
 }
 
-.div1{
+
+.Card{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 1rem 1.5rem rgba(black, 0.5);
+}
+ 
+.banner{
+    background-image: url("/profile.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 11rem;
+    display: flex;
+    align-items: flex-end;
+    box-sizing: border-box;
+}
+
+.Controler{
+    position: relative;
+    z-index: 2;
+    margin-left: 3vw;
+    box-shadow: 0 0.5rem 1rem rgba(black, 0.3);
+    border-radius: 50%;
+    transform: translateY(50%);
+    transition: transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.menu{
+    align-self: center;
+    background-color: #ffbc6b;
+    width:95%;
+    overflow: hidden;
+    margin: 3vh 0px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+    padding: 4vw;
+    padding-top: 1vw;
+}
+
+.Form{
+    padding-left: 3vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4vw;
+    margin-top: 50px;
+}
+    
+.Image{
+    width: 20vw;
+    height: 20vw;
+
+    min-width: 100px;
+    min-height: 100px;
+
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.Nombre{
+    position: relative;
+    left: 18vw;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.SecondRow{
+    position: relative;
+    left: 18vw;
+    display: flex;
+    flex-direction: row;
+    gap:50%;
     width: 100%;
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
 }
 
-.div2{
+.Username{
+    font-size: 20px;
+    color: rgb(48, 46, 46);
+}
+
+.Button{
+    width: 95%;
+    margin: 3vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+}
+
+.button{
+
+    width: 95%;
+    margin: 3vw;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    border: none;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: #f57c25;
+    cursor: pointer;
+}
+
+.Update{
+    font-size: 18px;
+    color: white;
+    border: none;
+    padding: 1vw;
+    border-radius: 30px;
+    border-color: #5b3263;
+    background-color: #f57c25;
+    cursor: pointer;
+}
+
+.Update:hover{
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 6px 6px 4px rgba(0, 0, 0, .25);
+}
+
+.Option{
+    margin-top: 4vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    margin-bottom: 10px;
-}
+    justify-content: center;
+    column-gap: 1.6rem;
+  }
+  
+  .Option::before, .Option::after{
+    content: "";
+    height: 2px;
+    background-color: rgb(158, 158, 158);
+    display: block;
+  }
 
-.div3{
-    display: flex;
-    justify-content:space-evenly;
-    align-items:end;
-    margin-bottom: '10px';
-}
+  .select, .input{
+    font-size: 18px;
+    color: black;
+  }
 
-.div4{
+  #p{
+    font-size: 20px;
+    text-align:center;
+    color:rgb(94, 91, 91);
+  }
+
+  .Input{
+    font-size: 18px;
+  }
+
+  .ImgPrinc{
+    width: 100%;
+  }
+
+  .TextArea{
+    width: 95%;
+    height: 100px;
+    font-size: 18px;
+  }
+
+  .Members{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-}
+    gap: 20px;
+    padding-left: 20px;
+  }
+  
+  .label{
+    font-size: 18px;
+    color: black;
+  }
+
+  .botones{
+    text-align: right;
+  }
+
+  .boton{
+    margin: 10px auto;
+    background-color: #f57c25;
+  }

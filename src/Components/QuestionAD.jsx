@@ -10,7 +10,7 @@ function Question(props) {
 
     async function handleData(){
         const c = await getCategoryById(props.categoryId)
-        const newC = c.agrupations.filter((item) => item !== id );
+        const newC = c.agrupations.filter((item) => item !== props.id );
         await updateCategoryData(props.categoryId, c.name, newC)
         await deleteClub(props.id);
         navigate(`/agrupaciones`);

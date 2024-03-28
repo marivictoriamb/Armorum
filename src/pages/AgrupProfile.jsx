@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCategories } from '../controllers/api';
-import styles from '../css/Profile.module.css'
+import styles from '../css/AgrupProfile.module.css'
 import { useUser } from '../hooks/user';
 import { getClubId, getClubsByName, updateClubData } from '../controllers/clubs';
 import { getCategoryById, getCategoryId, updateCategoryData } from '../controllers/categories';
@@ -17,6 +17,9 @@ import Sidebar from "../Components/SideBar.jsx";
 import FooterUsuario from "../Components/FooterUsuario.jsx";
 import noimage from "/noimage.jpeg";
 import { Carrusel } from "../Components/Carrusel.jsx";
+import GameCard from "../Components/GameCard.jsx";
+import { getImageUrl } from '../controllers/files.js';
+
 
 
 export default function AgrupProfile(){
@@ -25,6 +28,7 @@ export default function AgrupProfile(){
     const [founder, setFounder] = useState(""); //
     const [members, setMembers] = useState([]); //
     const [membersN, setMembersN] = useState([]); //
+    const [membersI, setMembersI] = useState([]);
     const [mision, setMision] = useState(""); //
     const [name, setName] = useState(""); //
     const [objectives, setObjectives] = useState("");//
@@ -65,7 +69,15 @@ export default function AgrupProfile(){
             })
         );
         setMembersN(membersN);
+
+        const membersIm = await Promise.all(
+            membersData.map(async (item) => {
+                return await getImageUrl(item.image);
+            })
+            );
+        setMembersI(membersIm)
         }
+
         
 
         const c = await getCategoryById(clubData[0].category);
@@ -140,73 +152,83 @@ export default function AgrupProfile(){
                 <AdminHeader></AdminHeader>
                 <div className={styles.div1}>
                     <div style={{ display: 'flex', flexWrap:"wrap"}}>
-                        <div style={{ flex: 1, paddingRight: '20px' }}>
+                    {(done==false)?(
+                         <div
+                         style={{
+                           width:"100vw",
+                           overflow:"hidden"
+                         }}
+                       >
+                         <Loader />
+                       </div>
+                    ) : (
+                        <div>
+                        <div style={{ flex: 1, paddingRight: '20px', display: 'flex', justifyContent:"space-between"}}>
                         <h1 contentEditable="true" onBlur={(e) => setName(e.target.innerText)}>{name}</h1>
-                        <img src={noimage} className={styles.ImgPrinc}/>
-                        <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar Imagen</button>
-                        <Carrusel/>
-                        <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Subir foto al carrete</button>
+                        <div className={styles.botones}>
+                        <button className={styles.boton} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
+                        <button className={styles.boton} onClick={() => {handleDelete()}}>Eliminar</button>
+                        </div>
                         </div>
                         <div style={{ flex: 1 }}>
                             <h2>Información</h2>
-                                {(done==false)?(
-                                    <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
-                                    <Loader/>
-                                </div>
-                                ) : (
-                                    <div>
-                                    {act && <Actualizacion/>}
-                                    {error && <ErrorUpdate key={type} error={type}/>}
-                                    <div className="Create">
-                                    <div>
-                                    <label htmlFor="mision">Misión</label><br/>
-                                    <textarea id="mision" className={styles.TextArea} value={mision} onChange={(e) => setMision(e.target.value)}></textarea>
-                                    </div>
-                                    <div>
-                                    <label htmlFor="vision">Visión</label><br/>
-                                    <textarea id="vision" className={styles.TextArea} value={vision} onChange={(e) => setVision(e.target.value)}></textarea>
-                                    </div>
-                                    <div>
-                                    <label htmlFor="objectives">Objetivos</label><br/>
-                                    <textarea id="objectives" className={styles.TextArea} value={objectives} onChange={(e) => setObjectives(e.target.value)}></textarea>
-                                    </div>
-                                    <div>
-                                    <label htmlFor="contact">Contacto</label><br/>
-                                    <textarea id="contact" className={styles.TextArea} value={contact} onChange={(e) => setContact(e.target.value)}></textarea>
-                                    </div>
-                                    <label className={styles.Input}>Categoria<select className={styles.select} style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value)}}>
-                                                    {categories.isLoading  ? (
-                                                        <option key={"loading"}> . . .</option>
-                                                    ) : (
-                                                        categories.data.map((category, id) => (<option className={styles.select} key={id} >{category.name}</option>
-                                                        ))
-                                                    )}
-                                                    </select></label>
-                                        </div>
-                                        <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={""} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
-                                        <QuestionAD trigger={trigger2} id={id} categoryId={categoryId} setTrigger2={setTrigger2} />
-                                    </div> )}
+                        {act && <Actualizacion/>}
+                        {error && <ErrorUpdate key={type} error={type}/>}
+                        <div className={styles.Create} style={{width:"100%"}}>
+                        <div>
+                        <label htmlFor="mision">Misión</label><br/>
+                        <textarea id="mision" className={styles.TextArea} value={mision} onChange={(e) => setMision(e.target.value)}></textarea>
                         </div>
+                        <div>
+                        <label htmlFor="vision">Visión</label><br/>
+                        <textarea id="vision" className={styles.TextArea} value={vision} onChange={(e) => setVision(e.target.value)}></textarea>
+                        </div>
+                        <div>
+                        <label htmlFor="objectives">Objetivos</label><br/>
+                        <textarea id="objectives" className={styles.TextArea} value={objectives} onChange={(e) => setObjectives(e.target.value)}></textarea>
+                        </div>
+                        <div>
+                        <label htmlFor="contact">Contacto</label><br/>
+                        <textarea id="contact" className={styles.TextArea} value={contact} onChange={(e) => setContact(e.target.value)}></textarea>
+                        </div>
+                        <label className={styles.Input}>Categoria<select className={styles.select} style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value)}}>
+                                        {categories.isLoading  ? (
+                                            <option key={"loading"}> . . .</option>
+                                        ) : (
+                                            categories.data.map((category, id) => (<option className={styles.select} key={id} >{category.name}</option>
+                                            ))
+                                        )}
+                                        </select></label>
+                            </div>
+                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={""} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
+                            <QuestionAD trigger={trigger2} id={id} categoryId={categoryId} setTrigger2={setTrigger2} />
+                        
+                        </div> 
+                        <div style={{ flex: 1, paddingRight: '20px', display: 'flex', flexWrap:"wrap"}}>
+                        <img src={noimage} className={styles.ImgPrinc}/>
+                        <button className={styles.boton} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar Imagen</button>
+                        <Carrusel/>
+                        <button className={styles.boton} onClick={() => {setAct(false), setTrigger(true)}}>Subir foto al carrete</button>
+                        </div>
+                        </div>)}
                     </div>
-                                    {!done ? (
-                                                            <div style={{ margin: "30px", display: "flex", flexWrap: "wrap", flexDirection: "row", gap: "5vw", alignItems: "center", justifyContent: "center" }}>
-                                                                <CardLoader />
-                                                                <CardLoader />
-                                                                <CardLoader />
-                                                            </div>
-                                                        ) : (
-                                                            
-                                                            <div>
-                                                            <h1>Integrantes</h1>
-                                                                {Array.isArray(membersN) && membersN.map((member, index) => (
-                                                                    <div key={index}> 
-                                                                        <div> {member} </div>
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        )}
-                <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
-                <button className={styles.botones} onClick={() => {handleDelete()}}>Eliminar</button>
+                    {!done ? (
+                        <div style={{ margin: "30px", display: "flex", flexWrap: "wrap", flexDirection: "row", gap: "5vw", alignItems: "center", justifyContent: "center" }}>
+                            <CardLoader />
+                            <CardLoader />
+                            <CardLoader />
+                        </div>
+                    ) : (
+                        
+                        <div>
+                        <h1>Integrantes</h1>
+                        <div className={styles.Members}>
+                            {membersN.map((member, index) => (
+                                <GameCard key={index} name={member} image={membersI[index]} />
+                            ))}
+                        </div>
+                        </div>
+                    )}
                 </div>
                 </div>
             </div>
