@@ -6,8 +6,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    padding-bottom: 20px;
-  }
+}
   
   button{
     font-size: 18px;
@@ -33,7 +32,6 @@
   
   
   .Option{
-    margin: 4vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;

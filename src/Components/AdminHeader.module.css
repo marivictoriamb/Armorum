@@ -3,14 +3,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #5b3263;
     margin-bottom: 20px;
+    border-bottom: 1px solid orange;
 }
 
 .Img{
     padding-left:5vw;
-    width: 200px;
-    height: 137px;
+    width: 300px;
+    height: 90px;
     cursor: pointer;
 }
 

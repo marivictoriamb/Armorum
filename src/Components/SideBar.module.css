@@ -2,11 +2,11 @@
     margin:0;
     padding:0;
     text-decoration: none;
-    position:sticky
+    position:sticky;
 }
 .container{
     display:flex;
-    position:relative
+    position:relative;
 }
 main{
     width: 100%;
@@ -18,7 +18,7 @@ main{
     height: 100vh;
     width: 200px;
     transition: all 0.5s;
-    position:relative
+    position: relative;
 }
 .top_section{
     display: flex;
