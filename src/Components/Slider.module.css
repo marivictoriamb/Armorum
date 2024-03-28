@@ -33,37 +33,45 @@
     font-weight: 700;
     text-align: center;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    margin: 0 100px 0 100px;
   }
   
   .overlay button {
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: rgb(255, 125, 49);;
+    padding: 1em 2em;
+    font-size: 1em; 
+    background-color: rgb(255, 125, 49);
     border: none;
     color: white;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 2em; 
   }
   
   .overlay button:hover {
-    background-color: rgb(195, 94, 35);
+    background-color: rgb(199, 99, 42);
   }
   
+  @media screen and (max-width: 768px) {
+    .overlay button {
+      padding: 0.8em 1.6em; 
+      font-size: 0.5em; 
+      margin-top: 1.5em; 
+    }
+  }
   
   @media screen and (max-width: 730px) {
-    .overlay p {
-        font-size: 20px;
-    }  
-  }
-  
-  @media screen and (max-width: 530px) {
     .overlay p {
         font-size: 15px;
     }  
   }
   
+  @media screen and (max-width: 530px) {
+    .overlay p {
+        font-size: 10px;
+    }  
+  }
+  
   @media screen and (max-width: 40px) {
     .overlay p {
-        font-size: 8px;
+        font-size: 6px;
     }  
   }
