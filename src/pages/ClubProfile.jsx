@@ -52,7 +52,7 @@ export default function ClubProfile() {
   }, []);
 
   useEffect(() => {
-    if (sdkReady && isButtonContainerRendered) {
+    if (sdkReady && isButtonContainerRendered && show === "Desafiliarse") {
       window.paypal
         .Buttons({
           createOrder: (data, actions) => {
@@ -75,7 +75,7 @@ export default function ClubProfile() {
         })
         .render("#paypal-button-container");
     }
-  }, [sdkReady, isButtonContainerRendered]);
+  }, [sdkReady, isButtonContainerRendered, show]);
 
   async function handleMembership() {
     if (show != "...") {
@@ -321,11 +321,14 @@ export default function ClubProfile() {
                 ))}
               </div>
             </div>
-            <div
-              id="paypal-button-container"
-              style={{ marginTop: "20px" }}
-              ref={() => setIsButtonContainerRendered(true)} // Se activa después de que el div se ha montado
-            ></div>
+
+            {show === "Desafiliarse" && (
+              <div
+                id="paypal-button-container"
+                style={{ marginTop: "20px" }}
+                ref={() => setIsButtonContainerRendered(true)}
+              ></div>
+            )}
           </div>
         </div>
       )}
