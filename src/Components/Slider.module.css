@@ -1,0 +1,69 @@
+.sliderContainer {
+    position: relative;
+  }
+  
+  .slider {
+    position: relative;
+    width: 100%;
+  }
+  
+  .slider img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Un fondo semi-transparente */
+    color: white;
+  }
+  
+  .overlay p {
+    font-size: 40px;
+    font-weight: 500;
+    color:rgb(255, 125, 49);
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
+  
+  .overlay button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgb(255, 125, 49);;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .overlay button:hover {
+    background-color: rgb(195, 94, 35);
+  }
+  
+  
+  @media screen and (max-width: 730px) {
+    .overlay p {
+        font-size: 20px;
+    }  
+  }
+  
+  @media screen and (max-width: 530px) {
+    .overlay p {
+        font-size: 15px;
+    }  
+  }
+  
+  @media screen and (max-width: 40px) {
+    .overlay p {
+        font-size: 8px;
+    }  
+  }

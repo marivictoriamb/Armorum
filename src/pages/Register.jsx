@@ -63,11 +63,7 @@ function Register() {
   };
 
   function handleBack() {
-    if (user != null) {
-      navigate("/landing", { replace: true });
-    } else {
-      navigate("/registro", { replace: true });
-    }
+    navigate("/landing", { replace: true });
   }
 
   async function handleGoogleRegister() {

@@ -12,6 +12,9 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
+import {uploadImagen, getImageUrl, deletePhoto} from "../controllers/files.js";
+import { useImageUrl } from "../hooks/files.js";
+
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -27,11 +30,15 @@ export default function Profile() {
   const [membresias, setMembresias] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [done, setDone] = useState(false);
+  const [image, setImage] = useState("imagenes/user.png");
+  const [imageUrl, setImageUrl] = useState("/user.png");
+  const [is, setIs] = useState(true)
 
   const [trigger, setTrigger] = useState(false);
   const [act, setAct] = useState(false);
   const [error, setError] = useState(false);
   const [type, setType] = useState("");
+
 
   async function restoreData() {
     const data = await getUserData(user.email);
@@ -42,6 +49,11 @@ export default function Profile() {
     setMemberships(data.agrupations);
     setCarrer(data.carrer);
     setNumber(data.number);
+    setImage(data.image)
+
+    const url = await getImageUrl(data.image);
+    setImageUrl(url);
+
     setUserRole(data.userRole);
 
     const newArray = await Promise.all(
@@ -58,6 +70,8 @@ export default function Profile() {
     async function fetchData() {
       if (user != null) {
         restoreData();
+      }else{
+        navigate("/landing", { replace: true });
       }
     }
 
@@ -76,7 +90,7 @@ export default function Profile() {
     const membershipValue = userData.agrupations.filter(
       (item) => item !== clubValue
     );
-    await updateUserData(name, email, 1, number, carrer, "", membershipValue);
+    await updateUserData(name, email, 1, number, carrer, image, membershipValue);
     restoreData();
     setDone(true);
   }
@@ -106,6 +120,22 @@ export default function Profile() {
     }
   }
 
+  async function handlePhoto(file){
+    if (file != undefined){
+
+      if (image != "imagenes/user.png"){
+        deletePhoto(image)
+      }
+      setIs(false)
+      const result = await uploadImagen(file);
+      const url = await getImageUrl(result)
+      await updateUserData(name, email, "1", number,  carrer, result, memberships)
+      setImageUrl(url);
+      setImage(result);
+      setIs(true)
+    }
+  }
+
   return (
     <div>
       {done == false ? (
@@ -130,7 +160,12 @@ export default function Profile() {
               {act && <Actualizacion />}
               <div className={styles.Controler}>
                 <div>
+                  {is==false ? (
                   <img className={styles.Image} alt="control" src="/user.png" />
+                  ) : (
+                    <img className={styles.Image} alt="control" src={imageUrl} />
+                  )}
+                  <label className={styles.Edit}> <input type="file" onChange={(e) => {handlePhoto(e.target.files[0])}}/></label>
                 </div>
               </div>
             </div>
@@ -252,7 +287,7 @@ export default function Profile() {
                 </div>
               </form>
               <div className={styles.Option}>
-                <label id={styles.p}>Clubs</label>
+                <label id={styles.p}>Agrupaciones</label>
               </div>
               <div className={styles.Clubs} id="Cards">
                 <div className={styles.Clubs}>
@@ -304,6 +339,7 @@ export default function Profile() {
             number={number}
             email={email}
             carrer={carrer}
+            image={image}
             membresias={memberships}
             setTrigger={setTrigger}
             restoreData={restoreData}
@@ -311,6 +347,8 @@ export default function Profile() {
           />
         </div>
       )}
+
+    <Footer/>
       <Footer />
     </div>
   );
