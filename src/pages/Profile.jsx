@@ -12,9 +12,12 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
-import {uploadImagen, getImageUrl, deletePhoto} from "../controllers/files.js";
+import {
+  uploadImagen,
+  getImageUrl,
+  deletePhoto,
+} from "../controllers/files.js";
 import { useImageUrl } from "../hooks/files.js";
-
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -32,13 +35,12 @@ export default function Profile() {
   const [done, setDone] = useState(false);
   const [image, setImage] = useState("imagenes/user.png");
   const [imageUrl, setImageUrl] = useState("/user.png");
-  const [is, setIs] = useState(true)
+  const [is, setIs] = useState(true);
 
   const [trigger, setTrigger] = useState(false);
   const [act, setAct] = useState(false);
   const [error, setError] = useState(false);
   const [type, setType] = useState("");
-
 
   async function restoreData() {
     const data = await getUserData(user.email);
@@ -49,7 +51,7 @@ export default function Profile() {
     setMemberships(data.agrupations);
     setCarrer(data.carrer);
     setNumber(data.number);
-    setImage(data.image)
+    setImage(data.image);
 
     const url = await getImageUrl(data.image);
     setImageUrl(url);
@@ -70,7 +72,7 @@ export default function Profile() {
     async function fetchData() {
       if (user != null) {
         restoreData();
-      }else{
+      } else {
         navigate("/landing", { replace: true });
       }
     }
@@ -90,7 +92,15 @@ export default function Profile() {
     const membershipValue = userData.agrupations.filter(
       (item) => item !== clubValue
     );
-    await updateUserData(name, email, 1, number, carrer, image, membershipValue);
+    await updateUserData(
+      name,
+      email,
+      1,
+      number,
+      carrer,
+      image,
+      membershipValue
+    );
     restoreData();
     setDone(true);
   }
@@ -120,19 +130,26 @@ export default function Profile() {
     }
   }
 
-  async function handlePhoto(file){
-    if (file != undefined){
-
-      if (image != "imagenes/user.png"){
-        deletePhoto(image)
+  async function handlePhoto(file) {
+    if (file != undefined) {
+      if (image != "imagenes/user.png") {
+        deletePhoto(image);
       }
-      setIs(false)
+      setIs(false);
       const result = await uploadImagen(file);
-      const url = await getImageUrl(result)
-      await updateUserData(name, email, "1", number,  carrer, result, memberships)
+      const url = await getImageUrl(result);
+      await updateUserData(
+        name,
+        email,
+        "1",
+        number,
+        carrer,
+        result,
+        memberships
+      );
       setImageUrl(url);
       setImage(result);
-      setIs(true)
+      setIs(true);
     }
   }
 
@@ -160,12 +177,28 @@ export default function Profile() {
               {act && <Actualizacion />}
               <div className={styles.Controler}>
                 <div>
-                  {is==false ? (
-                  <img className={styles.Image} alt="control" src="/user.png" />
+                  {is == false ? (
+                    <img
+                      className={styles.Image}
+                      alt="control"
+                      src="/user.png"
+                    />
                   ) : (
-                    <img className={styles.Image} alt="control" src={imageUrl} />
+                    <img
+                      className={styles.Image}
+                      alt="control"
+                      src={imageUrl}
+                    />
                   )}
-                  <label className={styles.Edit}> <input type="file" onChange={(e) => {handlePhoto(e.target.files[0])}}/></label>
+                  <label className={styles.Edit}>
+                    {" "}
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        handlePhoto(e.target.files[0]);
+                      }}
+                    />
+                  </label>
                 </div>
               </div>
             </div>
@@ -302,25 +335,30 @@ export default function Profile() {
                   ))}
                 </div>
               </div>
+              {userRole === 0 && (
+                <div>
+                  <div className={styles.Option}>
+                    <label id={styles.p}>Vistas</label>
+                  </div>
+                  <div className={styles.containerButton}>
+                    <label
+                      className={styles.button}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/landing")}
+                    >
+                      Ir al landing de usuario
+                    </label>
+                    <label
+                      className={styles.button}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/Agrupaciones")}
+                    >
+                      Ir al DashBoard
+                    </label>
+                  </div>
+                </div>
+              )}
               <div className={styles.Option}>
-                {userRole === 0 && (
-                  <label
-                    className={styles.Button}
-                    style={{ cursor: "pointer", marginBottom: "10px" }}
-                    onClick={() => navigate("/landing")}
-                  >
-                    Ir al landing de usuario
-                  </label>
-                )}
-                {userRole === 0 && (
-                  <label
-                    className={styles.Button}
-                    style={{ cursor: "pointer", marginBottom: "10px" }}
-                    onClick={() => navigate("/Agrupaciones")}
-                  >
-                    Ir al DashBoard
-                  </label>
-                )}
                 <label
                   id={styles.p}
                   style={{ cursor: "pointer" }}
@@ -348,7 +386,6 @@ export default function Profile() {
         </div>
       )}
 
-    <Footer/>
       <Footer />
     </div>
   );
