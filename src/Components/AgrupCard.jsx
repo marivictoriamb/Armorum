@@ -20,7 +20,7 @@ export default function AgrupCard({name, description, category}){
                 <br />
                 <div className={styles.menu} >
                     <h1 className={styles.Name}>{name}</h1>
-                    <img src="https://cdn-icons-png.flaticon.com/512/6324/6324826.png" style={{cursor:"pointer", width: "3rem", height: "3rem"}}/>
+                    <img onClick={handleClick}src="https://cdn-icons-png.flaticon.com/512/6324/6324826.png" style={{cursor:"pointer", width: "3rem", height: "3rem"}}/>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@
     text-decoration: none;
     position:sticky;
     height: 100vh;
+    overflow-y: hidden;
 }
 .container{
     display:flex;

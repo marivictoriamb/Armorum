@@ -37,6 +37,33 @@ export default function Categories(){
         <div>
         <div className={styles.All} >
           <AdminHeader></AdminHeader>
+          <div className={styles.Options}></div>
+            <div className={styles.Info}>
+              <label
+                style={{
+                  fontSize: "30px",
+                  textAlign: "left",
+                  margin: "0",
+                  paddingLeft: "4vw",
+                }}
+              >
+                Categorias
+              </label>
+              <button
+                style={{
+                  width: "30vw",
+                  marginRight: "10vw",
+                  padding: "1vw",
+                  borderRadius: "40px",
+                  borderColor: "rgb(255, 145, 0)",
+                  backgroundColor: "rgb(255, 145, 0)",
+                  fontSize: "15px",
+                  color: "white",
+                  float: "right",
+                }}
+              >
+                Agregar categorias
+              </button>
           <div className={styles.Options}>
               <form className="Create">
                   <label> Nombre:<input value={name} required={true} onChange={(e) => setName(e.target.value)}/></label>
@@ -71,6 +98,7 @@ export default function Categories(){
                 />
               )))}
               </div>
+            </div>
           </div>
         </div>
         </div>

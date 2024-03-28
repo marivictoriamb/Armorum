@@ -134,15 +134,12 @@ export default function AgrupProfile(){
     }
 
     return(
+        <Sidebar>
             <div>
-                <Sidebar>
-                
-                <div>
-                    <AdminHeader></AdminHeader>
-                </div>
-
-                <div style={{ width: '100%', margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
-                    <div style={{ display: 'flex' }}>
+                <div className={styles.All} >
+                <AdminHeader></AdminHeader>
+                <div className={styles.div1}>
+                    <div style={{ display: 'flex', flexWrap:"wrap"}}>
                         <div style={{ flex: 1, paddingRight: '20px' }}>
                         <h1 contentEditable="true" onBlur={(e) => setName(e.target.innerText)}>{name}</h1>
                         <img src={noimage} className={styles.ImgPrinc}/>
@@ -208,11 +205,11 @@ export default function AgrupProfile(){
                                                                 ))}
                                                             </div>
                                                         )}
-                </div>
                 <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
                 <button className={styles.botones} onClick={() => {handleDelete()}}>Eliminar</button>
-                        </Sidebar>
-                    </div>
-                
-        )
+                </div>
+                </div>
+            </div>
+        </Sidebar>                
+     )
 }
