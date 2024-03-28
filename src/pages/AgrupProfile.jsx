@@ -125,9 +125,6 @@ export default function AgrupProfile(){
 
     async function handleDelete(){
         if (members.length == 0){
-            const c = await getCategoryById(categoryId)
-            const newC = c.agrupations.filter((item) => item !== id );
-            await updateCategoryData(categoryId, c.name, newC)
             setAct2(false);
             setTrigger2(true);
         } else {
@@ -190,7 +187,7 @@ export default function AgrupProfile(){
                                                     </select></label>
                                         </div>
                                         <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={""} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
-                                        <QuestionAD trigger={trigger2} id={id} setTrigger2={setTrigger2} />
+                                        <QuestionAD trigger={trigger2} id={id} categoryId={categoryId} setTrigger2={setTrigger2} />
                                     </div> )}
                         </div>
                     </div>
@@ -213,7 +210,7 @@ export default function AgrupProfile(){
                                                         )}
                 </div>
                 <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
-                                    <button className={styles.botones} onClick={() => {handleDelete()}}>Eliminar</button>
+                <button className={styles.botones} onClick={() => {handleDelete()}}>Eliminar</button>
                         </Sidebar>
                     </div>
                 

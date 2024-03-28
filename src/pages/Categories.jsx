@@ -34,44 +34,46 @@ export default function Categories(){
   
     return (
       <Sidebar>
-        <div className={styles.All} style={{marginTop:"-10vw"}}>
-        <AdminHeader></AdminHeader>
-        <div className={styles.Options}>
-            <form className="Create">
-                <label> Nombre:<input value={name} required={true} onChange={(e) => setName(e.target.value)}/></label>
-                <button button="submit" onClick={handleSubmit}>Enviar</button>
-            </form>
+        <div>
+        <div className={styles.All} >
+          <AdminHeader></AdminHeader>
+          <div className={styles.Options}>
+              <form className="Create">
+                  <label> Nombre:<input value={name} required={true} onChange={(e) => setName(e.target.value)}/></label>
+                  <button button="submit" onClick={handleSubmit}>Enviar</button>
+              </form>
+          </div>
+          <div className={styles.Info}>
+            <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
+              {!want ?  (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  gap: "5vw",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CardLoader />
+                <CardLoader />
+                <CardLoader />
+                <CardLoader />
+                <CardLoader />
+                <CardLoader />
+              </div>
+            ) : (
+              categories.data.map(({ name, agrupations }, index) => (
+                <CategoryCard
+                  key={name}
+                  name={name}
+                />
+              )))}
+              </div>
+          </div>
         </div>
-        <div className={styles.Info}>
-          <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
-            {!want ?  (
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                flexDirection: "row",
-                gap: "5vw",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CardLoader />
-              <CardLoader />
-              <CardLoader />
-              <CardLoader />
-              <CardLoader />
-              <CardLoader />
-            </div>
-          ) : (
-            categories.data.map(({ name, agrupations }, index) => (
-              <CategoryCard
-                key={name}
-                name={name}
-              />
-            )))}
-            </div>
         </div>
-      </div>
       </Sidebar>
     );
   }

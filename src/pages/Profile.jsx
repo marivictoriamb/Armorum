@@ -9,6 +9,7 @@ import ClubCard from "../Components/ClubCard.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
 import { getClubById, getClubId } from "../controllers/clubs";
 import Navbar from "../Components/NavbarUsuario.jsx";
+import NavbarA from "../Components/AdminHeader.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
@@ -171,7 +172,9 @@ export default function Profile() {
         </div>
       ) : (
         <div className={styles.All}>
-          <Navbar />
+          {userRole == 0 ? (
+            <NavbarA/>
+          ):(<Navbar />)}
           <div className={styles.Card}>
             <div className={styles.banner}>
               {act && <Actualizacion />}
@@ -335,7 +338,7 @@ export default function Profile() {
                   ))}
                 </div>
               </div>
-              {userRole === 0 && (
+              {userRole == 0 ? (
                 <div>
                   <div className={styles.Option}>
                     <label id={styles.p}>Vistas</label>
@@ -357,7 +360,7 @@ export default function Profile() {
                     </label>
                   </div>
                 </div>
-              )}
+              ) : ("")}
               <div className={styles.Option}>
                 <label
                   id={styles.p}
