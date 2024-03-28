@@ -12,7 +12,7 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
-import {uploadImagen, getImageUrl} from "../controllers/files.js";
+import {uploadImagen, getImageUrl, deletePhoto} from "../controllers/files.js";
 import { useImageUrl } from "../hooks/files.js";
 
 
@@ -29,8 +29,9 @@ export default function Profile() {
   const [membresias, setMembresias] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [done, setDone] = useState(false);
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState('');
+  const [image, setImage] = useState("imagenes/user.png");
+  const [imageUrl, setImageUrl] = useState("/user.png");
+  const [is, setIs] = useState(true)
 
   const [trigger, setTrigger] = useState(false);
   const [act, setAct] = useState(false);
@@ -47,7 +48,10 @@ export default function Profile() {
     setMemberships(data.agrupations);
     setCarrer(data.carrer);
     setNumber(data.number);
-    setImage(data.image);
+    setImage(data.image)
+
+    const url = await getImageUrl(data.image);
+    setImageUrl(url);
 
     const newArray = await Promise.all(
       data.agrupations.map(async (club) => {
@@ -63,6 +67,8 @@ export default function Profile() {
     async function fetchData() {
       if (user != null) {
         restoreData();
+      }else{
+        navigate("/landing", { replace: true });
       }
     }
 
@@ -111,6 +117,22 @@ export default function Profile() {
     }
   }
 
+  async function handlePhoto(file){
+    if (file != undefined){
+
+      if (image != "imagenes/user.png"){
+        deletePhoto(image)
+      }
+      setIs(false)
+      const result = await uploadImagen(file);
+      const url = await getImageUrl(result)
+      await updateUserData(name, email, "1", number,  carrer, result, memberships)
+      setImageUrl(url);
+      setImage(result);
+      setIs(true)
+    }
+  }
+
   return (
     <div>
       {done == false ? (
@@ -135,7 +157,12 @@ export default function Profile() {
               {act && <Actualizacion />}
               <div className={styles.Controler}>
                 <div>
+                  {is==false ? (
                   <img className={styles.Image} alt="control" src="/user.png" />
+                  ) : (
+                    <img className={styles.Image} alt="control" src={imageUrl} />
+                  )}
+                  <label className={styles.Edit}> <input type="file" onChange={(e) => {handlePhoto(e.target.files[0])}}/></label>
                 </div>
               </div>
             </div>
@@ -254,10 +281,6 @@ export default function Profile() {
                       value={email}
                     ></input>
                   </label>
-                  <label className={styles.Input}>
-                    Imagen:{" "}
-                    <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
-                  </label>
                 </div>
               </form>
               <div className={styles.Option}>
@@ -303,11 +326,6 @@ export default function Profile() {
           />
         </div>
       )}
-
-    <div>
-      <h1>Imagen</h1>
-      <img src={image} style={{ width: '200px', height: '200px' }} />
-    </div>
 
     <Footer/>
     </div>

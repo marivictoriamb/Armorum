@@ -105,7 +105,7 @@ export async function createUserData (id, name, email, number, carrer){
         email: email,
         userRole: "1",
         number: number,
-        image: "",
+        image: "imagenes/user.png",
         carrer: carrer,
         agrupations: [],
       });

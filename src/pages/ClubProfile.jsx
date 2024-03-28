@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import GameCard from "../Components/GameCard.jsx";
 import styles from "../css/ClubsProfile.module.css";
 import { getUserById, getUserData, getUserId, updateUserData } from "../controllers/auth.js";
+import { getImageUrl } from "../controllers/files.js";
 import { useUser } from "../hooks/user";
 import CardLoader from "../Components/CardLoader.jsx";
 import Navbar from "../Components/NavbarUsuario.jsx";
@@ -20,6 +21,7 @@ export default function ClubProfile() {
    const [members, setMembers] = useState([]);
    const [membersNames, setMembersNames] = useState([]);
    const [membersId, setMembersId] = useState([])
+   const [membersI, setMembersI] = useState([])
    const [category, setCategory] = useState([])
    const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
@@ -46,6 +48,7 @@ export default function ClubProfile() {
         const id = await getUserId(user.email)
         membersId.push(id)
         membersNames.push(userData.name)
+        membersI.push(userData.image)
         await updateClubData(
           club[0].category,
           club[0].contact,
@@ -101,8 +104,15 @@ export default function ClubProfile() {
                return await item.name;
              })
            );
+
+           const membersIm = await Promise.all(
+            membersData.map(async (item) => {
+               return await getImageUrl(item.image);
+             })
+           );
         setMembersNames(membersN)
         setMembers(membersData);
+        setMembersI(membersIm)
         setShow("Afiliarse");
         }
       }
@@ -128,9 +138,16 @@ export default function ClubProfile() {
           return await item.name;
         })
       );
+
+      const membersIm = await Promise.all(
+        membersData.map(async (item) => {
+           return await getImageUrl(item.image);
+         })
+       );
       setMembers(membersData);
       setMembersId(clubData[0].members)
       setMembersNames(membersN)
+      setMembersI(membersIm)
     }
     
 
@@ -227,9 +244,10 @@ export default function ClubProfile() {
           </div>
           <div>
             <div className={styles.Members}>
-              {membersNames.map((member) => (
-                <GameCard key={member}
-                member={member} />
+              {membersNames.map((name, index) => (
+                <GameCard key={index}
+                name={name}
+                image={membersI[index]} />
               ))}
             </div>
           </div>
