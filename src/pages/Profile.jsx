@@ -26,6 +26,7 @@ export default function Profile() {
   const [carrer, setCarrer] = useState("");
   const [number, setNumber] = useState("");
   const [email, setEmail] = useState("...");
+  const [userRole, setUserRole] = useState("");
   const [membresias, setMembresias] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [done, setDone] = useState(false);
@@ -52,6 +53,8 @@ export default function Profile() {
 
     const url = await getImageUrl(data.image);
     setImageUrl(url);
+
+    setUserRole(data.userRole);
 
     const newArray = await Promise.all(
       data.agrupations.map(async (club) => {
@@ -286,7 +289,7 @@ export default function Profile() {
               <div className={styles.Option}>
                 <label id={styles.p}>Agrupaciones</label>
               </div>
-              <div className={styles.Clubs} id ="Cards">
+              <div className={styles.Clubs} id="Cards">
                 <div className={styles.Clubs}>
                   {membresias.map((club) => (
                     <ClubCard
@@ -300,6 +303,24 @@ export default function Profile() {
                 </div>
               </div>
               <div className={styles.Option}>
+                {userRole === 0 && (
+                  <label
+                    className={styles.Button}
+                    style={{ cursor: "pointer", marginBottom: "10px" }}
+                    onClick={() => navigate("/landing")}
+                  >
+                    Ir al landing de usuario
+                  </label>
+                )}
+                {userRole === 0 && (
+                  <label
+                    className={styles.Button}
+                    style={{ cursor: "pointer", marginBottom: "10px" }}
+                    onClick={() => navigate("/Agrupaciones")}
+                  >
+                    Ir al DashBoard
+                  </label>
+                )}
                 <label
                   id={styles.p}
                   style={{ cursor: "pointer" }}
@@ -328,6 +349,7 @@ export default function Profile() {
       )}
 
     <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -12,6 +12,12 @@ import QuestionAD from "../Components/QuestionAD";
 import { getUserById } from '../controllers/auth';
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import Loader from '../Components/Loader.jsx';
+import AdminHeader from "../Components/AdminHeader.jsx";
+import Sidebar from "../Components/SideBar.jsx";
+import FooterUsuario from "../Components/FooterUsuario.jsx";
+import noimage from "/noimage.jpeg";
+import { Carrusel } from "../Components/Carrusel.jsx";
+
 
 export default function AgrupProfile(){
     const [category, setCategory] = useState(""); //
@@ -131,52 +137,85 @@ export default function AgrupProfile(){
     }
 
     return(
-        <div>
-        {(done==false)?(
-            <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
-            <Loader/>
-        </div>
-        ) : (
             <div>
-            {act && <Actualizacion/>}
-            {error && <ErrorUpdate key={type} error={type}/>}
-            <div className="Create">
-                    <label> Nombre:<input className={styles.Input} value={name} onChange={(e) => setName(e.target.value)}/></label>
-                    <label> Contacto:<input className={styles.Input} value={contact} onChange={(e) => setContact(e.target.value)}/></label>
-                    <label> Mision:<input className={styles.Input} value={mision} onChange={(e) => setMision(e.target.value)}/></label>
-                    <label> Vision:<input className={styles.Input} value={vision} onChange={(e) => setVision(e.target.value)}/></label>
-                    <label> Objetivos:<input className={styles.Input} value={objectives} onChange={(e) => setObjectives(e.target.value)}/></label>
-                    <label> Año de Creacion:<input className={styles.Input} value={year} onChange={(e) => setYear(e.target.value)}/></label>
-                    <label> Responsable:<input className={styles.Input} value={founder} onChange={(e) => setFounder(e.target.value)}/></label>
-                    <label className={styles.Input}>Categoria: <select className={styles.select} style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value)}}>
-                            {categories.isLoading  ? (
-                                <option key={"loading"}> . . .</option>
-                            ) : (
-                                categories.data.map((category, id) => (<option className={styles.select} key={id} >{category.name}</option>
-                                ))
-                            )}
-                            </select></label>
-                    <button onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
-                    <button onClick={() => {handleDelete()}}>Eliminar</button>
-                    {(done==false)?(
-                                <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
-                                    <CardLoader/>
-                                    <CardLoader/>
-                                    <CardLoader/>
-                                </div>
-                            ) : (
-                                (
-                                membersN.map((member, index) => (
-                                    <div> 
-                                        <div> Nombre: {member} </div>
-                                    </div>
-                                )))
-                            )}
+                <Sidebar>
+                
+                <div>
+                    <AdminHeader></AdminHeader>
                 </div>
-                <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={""} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
-                <QuestionAD trigger={trigger2} id={id} setTrigger2={setTrigger2} />
-            </div> )}
-            </div>
-        
-    )
+
+                <div style={{ width: '100%', margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ flex: 1, paddingRight: '20px' }}>
+                        <h1 contentEditable="true" onBlur={(e) => setName(e.target.innerText)}>{name}</h1>
+                        <img src={noimage} className={styles.ImgPrinc}/>
+                        <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar Imagen</button>
+                        <Carrusel/>
+                        <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Subir foto al carrete</button>
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <h2>Información</h2>
+                                {(done==false)?(
+                                    <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
+                                    <Loader/>
+                                </div>
+                                ) : (
+                                    <div>
+                                    {act && <Actualizacion/>}
+                                    {error && <ErrorUpdate key={type} error={type}/>}
+                                    <div className="Create">
+                                    <div>
+                                    <label htmlFor="mision">Misión</label><br/>
+                                    <textarea id="mision" className={styles.TextArea} value={mision} onChange={(e) => setMision(e.target.value)}></textarea>
+                                    </div>
+                                    <div>
+                                    <label htmlFor="vision">Visión</label><br/>
+                                    <textarea id="vision" className={styles.TextArea} value={vision} onChange={(e) => setVision(e.target.value)}></textarea>
+                                    </div>
+                                    <div>
+                                    <label htmlFor="objectives">Objetivos</label><br/>
+                                    <textarea id="objectives" className={styles.TextArea} value={objectives} onChange={(e) => setObjectives(e.target.value)}></textarea>
+                                    </div>
+                                    <div>
+                                    <label htmlFor="contact">Contacto</label><br/>
+                                    <textarea id="contact" className={styles.TextArea} value={contact} onChange={(e) => setContact(e.target.value)}></textarea>
+                                    </div>
+                                    <label className={styles.Input}>Categoria<select className={styles.select} style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value)}}>
+                                                    {categories.isLoading  ? (
+                                                        <option key={"loading"}> . . .</option>
+                                                    ) : (
+                                                        categories.data.map((category, id) => (<option className={styles.select} key={id} >{category.name}</option>
+                                                        ))
+                                                    )}
+                                                    </select></label>
+                                        </div>
+                                        <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={""} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
+                                        <QuestionAD trigger={trigger2} id={id} setTrigger2={setTrigger2} />
+                                    </div> )}
+                        </div>
+                    </div>
+                                    {!done ? (
+                                                            <div style={{ margin: "30px", display: "flex", flexWrap: "wrap", flexDirection: "row", gap: "5vw", alignItems: "center", justifyContent: "center" }}>
+                                                                <CardLoader />
+                                                                <CardLoader />
+                                                                <CardLoader />
+                                                            </div>
+                                                        ) : (
+                                                            
+                                                            <div>
+                                                            <h1>Integrantes</h1>
+                                                                {Array.isArray(membersN) && membersN.map((member, index) => (
+                                                                    <div key={index}> 
+                                                                        <div> {member} </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                </div>
+                <button className={styles.botones} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
+                                    <button className={styles.botones} onClick={() => {handleDelete()}}>Eliminar</button>
+                        </Sidebar>
+                    </div>
+                
+        )
 }
