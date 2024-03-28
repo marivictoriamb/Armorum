@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import GameCard from "../Components/GameCard.jsx";
 import styles from "../css/ClubsProfile.module.css";
 import { getUserById, getUserData, getUserId, updateUserData } from "../controllers/auth.js";
+import { getImageUrl } from "../controllers/files.js";
 import { useUser } from "../hooks/user";
 import CardLoader from "../Components/CardLoader.jsx";
 import Navbar from "../Components/NavbarUsuario.jsx";
+import NavbarV from "../Components/NavbarVisitante.jsx";
 import { getCategoryById } from "../controllers/categories.js";
 import Loader from "../Components/Loader.jsx";
 
@@ -19,9 +21,11 @@ export default function ClubProfile() {
    const [members, setMembers] = useState([]);
    const [membersNames, setMembersNames] = useState([]);
    const [membersId, setMembersId] = useState([])
+   const [membersI, setMembersI] = useState([])
    const [category, setCategory] = useState([])
    const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
+  const [visitor, IsVisitor] = useState(true);
  
 
   async function handleMembership(){
@@ -44,6 +48,7 @@ export default function ClubProfile() {
         const id = await getUserId(user.email)
         membersId.push(id)
         membersNames.push(userData.name)
+        membersI.push(userData.image)
         await updateClubData(
           club[0].category,
           club[0].contact,
@@ -99,8 +104,15 @@ export default function ClubProfile() {
                return await item.name;
              })
            );
+
+           const membersIm = await Promise.all(
+            membersData.map(async (item) => {
+               return await getImageUrl(item.image);
+             })
+           );
         setMembersNames(membersN)
         setMembers(membersData);
+        setMembersI(membersIm)
         setShow("Afiliarse");
         }
       }
@@ -126,9 +138,16 @@ export default function ClubProfile() {
           return await item.name;
         })
       );
+
+      const membersIm = await Promise.all(
+        membersData.map(async (item) => {
+           return await getImageUrl(item.image);
+         })
+       );
       setMembers(membersData);
       setMembersId(clubData[0].members)
       setMembersNames(membersN)
+      setMembersI(membersIm)
     }
     
 
@@ -147,14 +166,44 @@ export default function ClubProfile() {
         const c = await getCategoryById(clubData[0].category);
         setCategory(c.name);
 
+        IsVisitor(false);
         setDone(true);
       }
+  };
+
+  async function fetchCData() {
+    const clubData = await getClubsByName(clubName.name);
+    setClub(clubData);
+
+    if (clubData[0].members != []){
+      const membersData = await Promise.all(
+        clubData[0].members.map(async (item) => {
+          return await getUserById(item);
+        })
+      );
+      
+      const membersN = await Promise.all(
+       membersData.map(async (item) => {
+          return await item.name;
+        })
+      );
+      setMembers(membersData);
+      setMembersId(clubData[0].members)
+      setMembersNames(membersN)
+    }
+
+        const c = await getCategoryById(clubData[0].category);
+        setCategory(c.name);
+
+        setDone(true);
   };
 
   useEffect(() => {
     async function fetchData() {
       if (user != null){
         fetchClubData()
+      } else {
+        fetchCData();
       }
     };
 
@@ -175,7 +224,11 @@ export default function ClubProfile() {
           src={"/LogoMetrotech.png"}
         />
         <div className={styles.Right}>
-          <Navbar/>
+        {visitor ? (
+        <NavbarV></NavbarV>
+      ): (
+        <Navbar></Navbar>
+      )}
           <div>
             <div className={styles.position}>
               <h1 className={styles.Name}> {club[0].name} </h1>
@@ -185,15 +238,16 @@ export default function ClubProfile() {
                   <h4 className={styles.Description}>{club[0].objectives}</h4>
                   <h4 className={styles.Description}>{category}</h4>
                 </div>
-              <button className={styles.Afiliacion} onClick={() => {handleMembership()}}>{show}</button>
+              {visitor ? (""):(<button className={styles.Afiliacion} onClick={() => {handleMembership()}}>{show}</button>)}
               </div>
             </div>
           </div>
           <div>
             <div className={styles.Members}>
-              {membersNames.map((member) => (
-                <GameCard key={member}
-                member={member} />
+              {membersNames.map((name, index) => (
+                <GameCard key={index}
+                name={name}
+                image={membersI[index]} />
               ))}
             </div>
           </div>
