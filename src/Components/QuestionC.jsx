@@ -1,14 +1,19 @@
 import React from "react"
 import styles from './Question.module.css'
-import { updateCategoryData } from "../controllers/categories";
+import { getCategoriesByName, getCategoryId, updateCategoryData } from "../controllers/categories";
+import { useNavigate } from "react-router-dom";
 
 
 function Question(props) {
+    const navigate = useNavigate();
+
     async function handleData(){
-        await updateCategoryData(props.category, props.name, props.agrupations);
-        props.restoreData()
-        props.setAct(true);
+        const data = await getCategoriesByName(props.prev);
+        const id = await getCategoryId(props.prev);
+        await updateCategoryData(id, props.category, data[0].agrupations);
         props.setTrigger(false);
+        props.restoreData()
+        
     }
     return (props.trigger) ? (
         <div className={styles.popup} style={{ width: props.targetWidth, height: props.targetHeight }}>
@@ -20,7 +25,7 @@ function Question(props) {
                 </div>
                 <div className={styles.ButtonsP}>
                     <button className={styles.Yes} style={{cursor:"pointer"}}  onClick={() => {handleData()}}> Si </button>
-                    <button className={styles.No} style={{cursor:"pointer"}}onClick={() => {props.restoreData(), props.setTrigger(false)}}>No </button>
+                    <button className={styles.No} style={{cursor:"pointer"}}onClick={() => {props.setTrigger(false), props.restoreData()}}>No </button>
                 </div>
             </div>
         </div>
