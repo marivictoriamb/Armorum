@@ -17,6 +17,8 @@ import { create } from "../hooks/create.js";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import AgrupProfile from "./AgrupProfile.jsx";
 import Sidebar from "../Components/SideBar.jsx";
+import CreateAgrupations from "../Components/CreateAgrupations.jsx";
+
 
 export default function Agrupations() {
   const [category, setCategory] = useState("");
@@ -36,12 +38,18 @@ export default function Agrupations() {
   const [done, setDone] = useState(true);
   const [error, setError] = useState(false);
   const [type, setType] = useState("");
-
+  const navigate = useNavigate();
   const startYear = 2000;
   const endYear = new Date().getFullYear();
+  const [showCreateAgrupations, setShowCreateAgrupations] = useState(false);
+
+  const handleCloseCreateAgrupations = () => {
+    setShowCreateAgrupations(false);
+};
 
   const handleClickAddGroup = () => {
-    navigate(`/agrupaciones/${name}`);
+    //navigate(`/agrupaciones/${name}`);
+    setShowCreateAgrupations(true);
   };
 
   /*    No hay ningún formulario entonces podría borrarse
@@ -109,22 +117,24 @@ async function handleSubmit(e){
               >
                 Agrupaciones
               </label>
-              <button
-                onClick={handleClickAddGroup}
-                style={{
-                  width: "30vw",
-                  marginRight: "10vw",
-                  padding: "1vw",
-                  borderRadius: "40px",
-                  borderColor: "rgb(255, 145, 0)",
-                  backgroundColor: "rgb(255, 145, 0)",
-                  fontSize: "15px",
-                  color: "white",
-                  float: "right",
-                }}
-              >
-                Agregar agrupación
-              </button>
+              <button 
+              onClick={handleClickAddGroup}
+              style={{
+              width: "30vw",
+              marginRight: "10vw",
+              padding: "1vw",
+              borderRadius: "40px",
+              borderColor: "rgb(255, 145, 0)",
+              backgroundColor: "rgb(255, 145, 0)",
+              fontSize: "15px",
+              color: "white",
+              float: "right",
+            }}
+            >
+              Agregar agrupación
+            </button>
+
+            {showCreateAgrupations && <CreateAgrupations onClose={handleCloseCreateAgrupations}  />}
 
               <div
                 style={{
