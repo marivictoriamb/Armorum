@@ -17,6 +17,7 @@
 
 .Image{
     transform: translateY(50%);
+    height: 200px;
 }
   
   
@@ -95,7 +96,7 @@
     text-align: center;
     padding: 0 2rem 0.5rem;
     margin: 0;
-    color: rgb(0, 0, 0) ;
+    color:black;
 }
 
 .Gender{
@@ -146,6 +147,8 @@
     .Card{
         max-height: 300px;
         min-height: 300px;
+        max-width: 300px;
+        min-width: 300px;
         
     }
 
@@ -164,10 +167,14 @@
     }
   }
 
-  @media screen and (max-width: 240px) {
+  
+
+  @media screen and (max-width: 420px) {
     .Card{
         max-height: 200px;
         min-height: 200px;
+        max-width: 200px;
+        min-width: 200px;
     }
   }
 

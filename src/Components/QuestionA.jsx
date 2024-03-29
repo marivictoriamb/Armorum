@@ -6,7 +6,11 @@ import { getCategoryById, updateCategoryData } from "../controllers/categories";
 
 function Question(props) {
     async function handleData(){
-        await updateClubData(props.category, props.contact, props.founder, props.id, props.members, props.mision, props.name, props.objectives, props.photofounder, props.photos, props.vision, props.year);
+        let photo = []
+        if (props.photos[0] != `agrupaciones/noimage.jpeg`){
+            photo = props.photos;
+        }
+        await updateClubData(props.category, props.contact, props.founder, props.id, props.members, props.mision, props.name, props.objectives, props.photofounder, photo, props.vision, props.year);
         const c = await getCategoryById(props.category)
         const newC = c.agrupations
         newC.push(props.id)

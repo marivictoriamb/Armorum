@@ -18,7 +18,9 @@ import FooterUsuario from "../Components/FooterUsuario.jsx";
 import noimage from "/noimage.jpeg";
 import { Carrusel } from "../Components/Carrusel.jsx";
 import GameCard from "../Components/GameCard.jsx";
-import { getImageUrl } from '../controllers/files.js';
+import { deletePhoto, getImageUrl, uploadImages } from '../controllers/files.js';
+import Slider from '../Components/SliderAgrup.jsx';
+import PhotosContainer from '../Components/PhotosContainer.jsx';
 
 
 
@@ -48,8 +50,15 @@ export default function AgrupProfile(){
     const [act2, setAct2] = useState(false);
     const [done, setDone] = useState(false); 
 
+    const [image, setImage] = useState([]);
+    const [imageUrl, setImageUrl] = useState([]);
+    const [is, setIs] = useState(true);
+
     const [error, setError] = useState(false);
     const [type, setType] = useState("");
+
+    const startYear = 2000;
+    const endYear = new Date().getFullYear();
 
     
     async function fetchClubData() {
@@ -76,6 +85,21 @@ export default function AgrupProfile(){
             })
             );
         setMembersI(membersIm)
+        }
+
+
+        if (clubData[0].photos.length != 0){
+            setImage(clubData[0].photos)
+            const images = await Promise.all(
+                clubData[0].photos.map(async (item) => {
+                    return await getImageUrl(item);
+                })
+            );
+            setImageUrl(images)
+        } else {
+            setImage([`agrupaciones/noimage.jpeg`])
+            const result = await getImageUrl(`agrupaciones/noimage.jpeg`)
+            setImageUrl([result])
         }
 
         
@@ -113,19 +137,7 @@ export default function AgrupProfile(){
 
     async function restoreData(){
         setError(false)
-        const c = await getCategoryById(category);
-        setCategory(c.name)
-        setCategoryId(category)
-        setPrevCategoryId(category)
-        setContact(contact);
-        setFounder(founder);
-        setContact(contact);
-        setMision(mision);
-        setName(name);
-        setObjectives(objectives);
-        setVision(vision);
-        setYear(year);
-        setId(id);
+        await fetchClubData();
         
         setDone(true);
     }
@@ -145,6 +157,71 @@ export default function AgrupProfile(){
         }
     }
 
+    async function handlePhoto(file) {
+        setIs(false);
+        if (file[0] != undefined) {
+            let img = [];
+            if (image[0] != `agrupaciones/noimage.jpeg`){
+                    img = image
+            }
+
+            let imagesUrl = [];
+            const imgDefault = await getImageUrl(`agrupaciones/noimage.jpeg`);
+            if (imageUrl[0] != imgDefault){
+                imagesUrl = imageUrl;
+            }
+
+           for (let i = 0; i < file.length; i ++){
+                const result = await uploadImages(file[i], id);
+
+                img.push(result);
+
+                const url = await getImageUrl(result);
+
+                imagesUrl.push(url)
+           }
+           setImage(img)
+           setImageUrl(imagesUrl)
+          
+           await updateClubData(categoryId, contact, founder, id, members, mision, name, objectives, "", img, vision, year);
+          setIs(true);
+        }
+      }
+
+      async function handleElimination(img, url){
+        setIs(false);
+            deletePhoto(img);
+        let images = image.filter(
+            (item) => item !== img
+          );
+    
+          let urls = imageUrl.filter(
+            (item) => item !== url
+          );
+
+          if (images.length == 0){
+            images = [`agrupaciones/noimage.jpeg`];
+            const result = await getImageUrl(`agrupaciones/noimage.jpeg`)
+            urls = [result];
+          }
+        setImage(images);
+        setImageUrl(urls);
+        await updateClubData(categoryId, contact, founder, id, members, mision, name, objectives, "", images, vision, year);
+        setIs(true);
+      }
+
+
+
+      async function handleSubmit(e){
+        e.preventDefault();
+        if (/^(0412|0414|0424|0416)\d{7}$/.test(contact) == true){
+            setTrigger(true);
+        } else {
+            setType('Introduzca un numero valido')
+            setError(true);
+        }
+      }
+
     return(
         <Sidebar>
             <div>
@@ -162,53 +239,86 @@ export default function AgrupProfile(){
                          <Loader />
                        </div>
                     ) : (
-                        <div>
+                        <div style={{width:"100%"}}>
                         <div style={{ flex: 1, paddingRight: '20px', display: 'flex', justifyContent:"space-between"}}>
                         <h1 contentEditable="true" onBlur={(e) => setName(e.target.innerText)}>{name}</h1>
-                        <div className={styles.botones}>
-                        <button className={styles.boton} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
-                        <button className={styles.boton} onClick={() => {handleDelete()}}>Eliminar</button>
                         </div>
-                        </div>
-                        <div style={{ flex: 1 }}>
+                        <div style={{ flex: 1, borderTop:"solid orange", marginTop:"30px"}}>
                             <h2>Información</h2>
                         {act && <Actualizacion/>}
                         {error && <ErrorUpdate key={type} error={type}/>}
-                        <div className={styles.Create} style={{width:"100%"}}>
-                        <div>
-                        <label htmlFor="mision">Misión</label><br/>
-                        <textarea id="mision" className={styles.TextArea} value={mision} onChange={(e) => setMision(e.target.value)}></textarea>
+                        <form className={styles.Create} style={{width:"100%", flex: 1, paddingRight: '20px', display: 'flex', justifyContent:"space-between"}} onSubmit={handleSubmit}>
+                        <div className={styles.botones}>
+                        <button className={styles.boton} type="submit">Actualizar</button>
+                        <button className={styles.boton} onClick={() => {handleDelete()}}>Eliminar</button>
                         </div>
-                        <div>
-                        <label htmlFor="vision">Visión</label><br/>
-                        <textarea id="vision" className={styles.TextArea} value={vision} onChange={(e) => setVision(e.target.value)}></textarea>
+                        <div className={styles.textContainer}> 
+                        <label> Nombre</label>
+                        <input required={true} value={name} className={styles.TextArea} onChange={(e) => {setName(e.target.value), setError(false)}}/>
                         </div>
-                        <div>
-                        <label htmlFor="objectives">Objetivos</label><br/>
-                        <textarea id="objectives" className={styles.TextArea} value={objectives} onChange={(e) => setObjectives(e.target.value)}></textarea>
+                        <div className={styles.textContainer}>
+                        <label htmlFor="mision">Misión</label>
+                        <input required id="mision" className={styles.TextArea} value={mision} onChange={(e) => {setMision(e.target.value), setError(false)}}></input>
                         </div>
-                        <div>
-                        <label htmlFor="contact">Contacto</label><br/>
-                        <textarea id="contact" className={styles.TextArea} value={contact} onChange={(e) => setContact(e.target.value)}></textarea>
+                        <div className={styles.textContainer}>
+                        <label  htmlFor="vision">Visión</label>
+                        <input required id="vision" className={styles.TextArea} value={vision} onChange={(e) => {setVision(e.target.value), setError(false)}}></input>
                         </div>
-                        <label className={styles.Input}>Categoria<select className={styles.select} style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value)}}>
+                        <div className={styles.textContainer}>
+                        <label htmlFor="objectives">Objetivos</label>
+                        <input required id="objectives" className={styles.TextArea} value={objectives} onChange={(e) => {setObjectives(e.target.value), setError(false)}}></input>
+                        </div>
+                        <div className={styles.textContainer}>
+                        <label htmlFor="contact">Contacto</label>
+                        <input required id="contact" className={styles.TextArea} value={contact} onChange={(e) => {setContact(e.target.value), setError(false)}}></input>
+                        </div>
+                        <div className={styles.textContainer}>
+                        <label> Año de Creacion:</label>
+                            <select className={styles.select} required value={year} onChange={(e) => {setYear(e.target.value), setError(false)}} id="year" name="year">
+                        {Array.from({ length: endYear - startYear + 1 }, (_, i) => (
+                            <option key={i + startYear} value={startYear + i} className={styles.select}> {startYear + i} </option> ) ) }
+                            </select>
+                        </div>
+                        <div className={styles.textContainer}>
+                        <label >Categoria</label>
+                        <select className={styles.select} style={{width:"50vw", maxWidth:"340px"}}value={category} name="Categoria" onChange={(e) => {handleCategory(e.target.value), setCategory(e.target.value), setError(false)}}>
                                         {categories.isLoading  ? (
                                             <option key={"loading"}> . . .</option>
                                         ) : (
                                             categories.data.map((category, id) => (<option className={styles.select} key={id} >{category.name}</option>
                                             ))
                                         )}
-                                        </select></label>
-                            </div>
-                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={""} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
+                                        </select>
+                                </div>
+                            </form>
+                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={image} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
                             <QuestionAD trigger={trigger2} id={id} categoryId={categoryId} setTrigger2={setTrigger2} />
                         
                         </div> 
-                        <div style={{ flex: 1, paddingRight: '20px', display: 'flex', flexWrap:"wrap"}}>
-                        <img src={noimage} className={styles.ImgPrinc}/>
-                        <button className={styles.boton} onClick={() => {setAct(false), setTrigger(true)}}>Actualizar Imagen</button>
-                        <Carrusel/>
-                        <button className={styles.boton} onClick={() => {setAct(false), setTrigger(true)}}>Subir foto al carrete</button>
+                        <div style={{display:"flex", flexDirection:"column", borderTop:"solid orange", marginTop:"30px"}}>
+                        <h1>Imagenes</h1>
+                        {is == false ? (
+                            <Loader/>
+                        ) : (
+                            <div>
+                            <div style={{ flex: 1, padding: '30px', display: 'flex', flexWrap:"wrap", flexDirection:"column", alignItems:"center"}}>
+                        <Slider images={imageUrl}/>
+                        <label className={styles.Edit}>Cargar Archivos
+                            {" "}
+                            <input
+                            type="file"
+                            multiple
+                            onChange={(e) => {
+                                handlePhoto(e.target.files);
+                            }}
+                        />
+                        </label>
+                        </div>
+                        <div style={{ flex: 1, padding: '30px', display: 'flex', flexWrap:"wrap", flexDirection:"column", alignItems:"center"}}>
+                            <PhotosContainer photos={image} photosUrl={imageUrl} handlePhoto={handlePhoto} handleElimination={handleElimination}/>
+                        </div>
+                        </div>
+                        )}
                         </div>
                         </div>)}
                     </div>
@@ -219,8 +329,7 @@ export default function AgrupProfile(){
                             <CardLoader />
                         </div>
                     ) : (
-                        
-                        <div>
+                        <div style={{display:"flex", flexDirection:"column", borderTop:"solid orange", marginTop:"30px"}}>
                         <h1>Integrantes</h1>
                         <div className={styles.Members}>
                             {membersN.map((member, index) => (

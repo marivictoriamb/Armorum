@@ -17,3 +17,9 @@ export async function deletePhoto(path){
     const imageRef = ref(storage, path);
     deleteObject(imageRef);
 }
+
+export async function uploadImages(data, id){
+    const carpeta = ref(storage, `agrupaciones/${id}/${nanoid()}`);
+    const result = await uploadBytes(carpeta, data);
+    return result.metadata.fullPath
+}

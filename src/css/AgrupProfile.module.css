@@ -9,6 +9,13 @@
 }
 
 
+.div1{
+  width: 100%;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
 .Card{
     max-width: 100%;
     display: flex;
@@ -147,7 +154,7 @@
   }
 
   .select, .input{
-    font-size: 18px;
+    font-size: 16px;
     color: black;
   }
 
@@ -176,6 +183,7 @@
     align-items: center;
     gap: 20px;
     padding-left: 20px;
+    flex-wrap: wrap;
   }
   
   .label{
@@ -185,9 +193,43 @@
 
   .botones{
     text-align: right;
+    padding-right: 30px;
   }
 
   .boton{
     margin: 10px auto;
     background-color: #f57c25;
+  }
+
+  .Edit{
+    margin: 10px auto;
+    background-color: #f57c25;
+    color: white;
+    padding: 20px;
+    border-radius: 40px;
+    cursor: pointer;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .Create{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:30px;
+  }
+
+  .textContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+  }
+
+  @media screen and (max-width: 800px) {
+    .TextArea{
+      width: 80%;
+    }
+
   }

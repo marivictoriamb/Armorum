@@ -20,13 +20,14 @@ export default function CategoryCard({ name }) {
             <img
               style={{
                 margin: "auto",
-                width: "300px",
+                width: "250px",
                 height: "50%",
                 borderRadius: "100%",
                 objectFit: "contain",
+                backgroundColor:"rgba(255, 255, 255, 0.5)",
               }}
               alt="control"
-              src="/panda.png"
+              src="/Tree.png"
             />
           </div>
         </div>

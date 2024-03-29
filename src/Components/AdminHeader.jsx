@@ -16,7 +16,7 @@ export default function AdminHeader() {
     >
       <img
         src="/game3.png"
-        onClick={handleNavigate("/landing")}
+        onClick={handleNavigate("/agrupaciones")}
         className={styles.Img}
       />
       <div className={styles.Links}>
