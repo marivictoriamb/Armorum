@@ -18,9 +18,13 @@ import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import AgrupProfile from "./AgrupProfile.jsx";
 import Sidebar from "../Components/SideBar.jsx";
 import CreateAgrupations from "../Components/CreateAgrupations.jsx";
+import { useUser } from "../hooks/user.js";
+import { getUserData } from "../controllers/auth.js";
 
 
 export default function Agrupations() {
+  const user = useUser();
+
   const [category, setCategory] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const categories = useCategories();
@@ -70,11 +74,19 @@ async function handleSubmit(e){
 
   if (clubs != null && want == false) {
     if (clubs.isLoading != true && clubs.isCharging != true) {
-      getData();
+      if (user == null){
+        navigate("/landing")
+      } else {
+        getData();
+      }
     }
   }
 
   async function getData() {
+    const data = await getUserData(user.email);
+    if (data.userRole == "1"){
+      navigate("/landing")
+    }else{
     const categories = await Promise.all(
       clubs.data.map(async (item) => {
         return await getCategoryByIdName(item.category);
@@ -82,6 +94,7 @@ async function handleSubmit(e){
     );
     setValues(categories);
     setWant(true);
+  }
   }
 
   return (

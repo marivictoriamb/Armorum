@@ -11,8 +11,12 @@ import Sidebar from "../Components/SideBar.jsx";
 import ErrorUpdate from "../Components/ErrorUpdate.jsx";
 import QuestionC from "../Components/QuestionC.jsx"
 import QuestionCD from "../Components/QuestionCD.jsx"
+import { useUser } from "../hooks/user.js";
+import { getUserData } from "../controllers/auth.js";
+import Loader from "../Components/Loader.jsx";
 
 export default function Categories(){
+  const user = useUser();
     const categories = useCategories();
     const [name, setName] = useState("");//
     const [error, setError] = useState(false);
@@ -61,6 +65,20 @@ export default function Categories(){
   
     if (categories != null && want == false){
       if (categories.isLoading != true && categories.isCharging != true){
+        if (user == null){
+          navigate("/landing")
+        }else {
+          ask();
+        }
+        
+      }
+    }
+
+    async function ask(){
+      const data = await getUserData(user.email);
+      if (data.userRole == "1"){
+        navigate("/landing")
+      }else{
         setWant(true)
       }
     }
@@ -68,7 +86,10 @@ export default function Categories(){
     return (
       <Sidebar>
         <div>
-        <div className={styles.All} >
+        {want==false ? (
+          <Loader/>
+        ):(
+          <div className={styles.All} >
           <AdminHeader></AdminHeader>
           {error && <ErrorUpdate key={type} error={type} />}
           <div className={styles.Options}></div>
@@ -141,6 +162,7 @@ export default function Categories(){
             </div>
           </div>
         </div>
+        )}
         </div>
       </Sidebar>
     );
