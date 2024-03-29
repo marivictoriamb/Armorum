@@ -1,0 +1,99 @@
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(243, 243, 243);
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .labelContainer {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100%;
+}
+
+
+  .input-container {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .select-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: orange;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  .loader-container {
+    margin: 30px auto;
+    text-align: center;
+  }
+  
+  .closeButton{
+    background-color: rgb(243, 243, 243);
+    color: black;
+  }
+
+  label {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: bolder;
+    color: orange;
+    text-align: center;
+    text-shadow:rgb(255, 209, 135) 1px 0 10px;
+  }
+  
+  .botonEnviar{
+    background-color: orange;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    align-items: center;
+    width: 100%;
+  }
