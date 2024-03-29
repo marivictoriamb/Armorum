@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useClubs } from "../controllers/api.js";
 import ClubCard from "../Components/ClubCard.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
@@ -19,7 +19,9 @@ export default function Landing() {
   const clubs = useClubs();
   const [values, setValues] = useState([]);
   const [visitor, IsVisitor] = useState(true);
-  const [done, setDone] = useState(false)
+  const [done, setDone] = useState(false);
+  const [scroll, setScroll] = useState(false);
+
 
   const images = [];
   for (let i = 1; i <= 4; i++) {
@@ -59,6 +61,18 @@ export default function Landing() {
     setWant(true);
   }
 
+  const divDestinoRef = useRef(null);
+
+  useEffect(() => {
+    if (divDestinoRef.current) {
+      if(scroll){
+        divDestinoRef.current.scrollIntoView({ behavior: 'smooth' });
+        setScroll(false);
+      }
+      console.log("NO ENTRA EN EL IF")
+    }
+  }, [done]);
+
   return (
     <div>
     {done == false ? (
@@ -80,7 +94,7 @@ export default function Landing() {
       {visitor ? (
         <NavbarV></NavbarV>
       ): (
-        <Navbar></Navbar>
+        <Navbar setScroll={setScroll} />
       )}
       <Slider images={images}/>
       <div className={styles.Info}>
@@ -99,7 +113,7 @@ export default function Landing() {
         </div>
 
         <div
-          id="Cards"
+          ref={divDestinoRef} id ="div-destino"
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -163,3 +177,4 @@ export default function Landing() {
   </div>
   );
 }
+

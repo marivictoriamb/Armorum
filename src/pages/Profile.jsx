@@ -37,6 +37,7 @@ export default function Profile() {
   const [image, setImage] = useState("imagenes/user.png");
   const [imageUrl, setImageUrl] = useState("/user.png");
   const [is, setIs] = useState(true);
+  const [scroll, setScroll] = useState(false);
 
   const [trigger, setTrigger] = useState(false);
   const [act, setAct] = useState(false);
@@ -174,7 +175,7 @@ export default function Profile() {
         <div className={styles.All}>
           {userRole == 0 ? (
             <NavbarA/>
-          ):(<Navbar />)}
+          ):( <Navbar setScroll={setScroll} />)}
           <div className={styles.Card}>
             <div className={styles.banner}>
               {act && <Actualizacion />}

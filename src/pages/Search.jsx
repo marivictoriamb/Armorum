@@ -17,6 +17,8 @@ export default function Search(){
     const [type, setType] = useState("Nombre");
     const [on, setOn] = useState(false);
     const [visitor, IsVisitor] = useState(true);
+    
+    const [scroll, setScroll] = useState(false);
 
     function handleClick(){
         setOn(true);
@@ -37,7 +39,7 @@ export default function Search(){
            {visitor ? (
         <NavbarV></NavbarV>
       ): (
-        <Navbar></Navbar>
+        <Navbar setScroll={setScroll}></Navbar>
       )}
         <div className={styles.All}>
             <div className={styles.banner}>
