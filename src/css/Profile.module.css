@@ -32,7 +32,7 @@
 
 .menu{
     align-self: center;
-    background-color: #F8D3FF;
+    background-color: #ffbc6b;
     width:95%;
     overflow: hidden;
     margin: 3vh 0px;
@@ -60,6 +60,9 @@
 
     min-width: 100px;
     min-height: 100px;
+
+    border-radius: 100%;
+    object-fit: cover;
 }
 
 .Nombre{
@@ -90,6 +93,21 @@
     justify-content: flex-end;
 }
 
+.button{
+
+    width: 95%;
+    margin: 3vw;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    border: none;
+    padding: 1vw;
+    border-radius: 30px;
+    background-color: #f57c25;
+    cursor: pointer;
+}
+
 .Update{
     font-size: 18px;
     color: white;
@@ -97,7 +115,7 @@
     padding: 1vw;
     border-radius: 30px;
     border-color: #5b3263;
-    background-color: #5b3263;
+    background-color: #f57c25;
     cursor: pointer;
 }
 
@@ -136,6 +154,32 @@
     font-size: 18px;
   }
 
+  .ImgPrinc{
+    width: 100%;
+  }
+
+  .TextArea{
+    width: 100%;
+    height: 100px;
+    font-size: 18px;
+  }
+  
+  .label{
+    font-size: 18px;
+    color: black;
+  }
+
+  .botones{
+    margin: '10px auto';
+    background-color: #f57c25;
+  }
+
+
+  .containerButton{
+    display: flex;
+    justify-content: center;
+  }
+
 
 
   @media screen and (max-width: 600px) {
@@ -154,6 +198,7 @@
     .input, .select{
         font-size: 14px;
     }
+
   }
 
   
@@ -179,3 +224,52 @@
         width: fit-content;
     }
   }
+
+
+  input[type="file"] {
+    display: none;
+  }
+  
+  .Edit {
+    position: relative;
+    z-index: 3;
+    margin-bottom: 10px;
+    box-shadow: 0 0.5rem 1rem rgba(black, 0.3);
+    border-radius: 50%;
+    transform: translateX(-100%);
+    min-width: 50px;
+    min-height: 50px;
+
+    display: inline-block;
+    cursor: pointer;
+    background: url("/editS.png");
+  }  
+
+  @media screen and (max-width: 930px) {
+    .Edit{
+        margin-bottom: 5px;
+    }  
+  }
+
+  @media screen and (max-width: 810px) {
+    .Edit{
+        margin-bottom: 2px;
+    }  
+  }
+
+@media screen and (max-width: 650px) {
+    .Edit{
+        min-width: 30px;
+        min-height: 30px;
+        background: url("/editS2.png");
+    }  
+}
+
+@media screen and (max-width: 480px) {
+    .Edit{
+        min-width: 15px;
+        min-height: 15px;
+        transform: translateX(-120%);
+        background: url("/editS3.png");
+    }  
+}

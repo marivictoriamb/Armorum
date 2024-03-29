@@ -10,8 +10,8 @@ export async function signUpGoogle(){
 
         const adittionalInfo = getAdditionalUserInfo(result); 
 
-        if(adittionalInfo.isNewUser){
-            number = result.user.phoneNumber
+        if(adittionalInfo.isNewUser==true){
+            let number = result.user.phoneNumber
             if (number == null){
                 number = "04120000000"
             }
@@ -105,7 +105,7 @@ export async function createUserData (id, name, email, number, carrer){
         email: email,
         userRole: "1",
         number: number,
-        image: "",
+        image: "imagenes/user.png",
         carrer: carrer,
         agrupations: [],
       });

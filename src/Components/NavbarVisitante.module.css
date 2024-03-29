@@ -1,0 +1,92 @@
+.All{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid orange;
+}
+
+.Img{
+    padding-left:5vw;
+    width: 300px;
+    height: 70px;
+    cursor: pointer;
+}
+
+.Profile{
+    cursor: pointer;
+    width: 200px;
+    height: 60px;
+}
+
+.Profile:hover{
+    transform: scale(1.05);
+}
+
+.Buscador{
+    align-self: center;
+    width: 20px;
+    height: 20px;
+}
+
+.Links{
+    padding-right:5vw;
+    display: flex;
+    justify-content: center;
+    gap: 30px
+}
+
+.Search{
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+
+.Img:hover, .Search:hover{
+    transform: scale(1.02);
+}
+
+.Words:hover{
+    transform: scale(1.02);
+    text-decoration: underline;
+    text-decoration-color: orange;
+}
+
+@media screen and (max-width: 800px){
+
+    .Img{
+        width: 150px;
+        height: 50px; 
+    }
+
+    .Profile{
+        width: 100px;
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .Img{
+        width: 100px;
+        height: 30px;
+    }  
+    
+    .Buscador{
+        width: 0px;
+        height: 0px;
+    }
+
+    .Words{
+        font-size: 0px;
+    }
+    
+    }
+
+    @media screen and (max-width: 390px) {
+        .Img{
+            width: 90px;
+            height: 30px;
+        }  
+        
+        }

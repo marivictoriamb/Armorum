@@ -40,7 +40,6 @@ export function useClub(name, type){
                 try{
                     const i = await getCategoryId(category[0].name)
                     const clubs = await getClubsByCategory(i);
-                    alert(clubs)
                     setData(clubs);
                     const ids = await getClubsId();
                     setId(ids);

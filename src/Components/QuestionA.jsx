@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React from "react"
 import styles from './Question.module.css'
 import { updateClubData } from "../controllers/clubs";
@@ -5,8 +6,14 @@ import { getCategoryById, updateCategoryData } from "../controllers/categories";
 
 
 function Question(props) {
+    const navigate = useNavigate();
+
     async function handleData(){
-        await updateClubData(props.category, props.contact, props.founder, props.id, props.members, props.mision, props.name, props.objectives, props.photofounder, props.photos, props.vision, props.year);
+        let photo = []
+        if (props.photos[0] != `agrupaciones/noimage.jpeg`){
+            photo = props.photos;
+        }
+        await updateClubData(props.category, props.contact, props.id, props.members, props.mision, props.name, props.objectives, photo, props.vision, props.year);
         const c = await getCategoryById(props.category)
         const newC = c.agrupations
         newC.push(props.id)
@@ -17,7 +24,7 @@ function Question(props) {
         await updateCategoryData(props.prev, p.name, newP)
 
 
-        props.restoreData()
+        navigate(`/agrupaciones/${name}`);
         props.setAct(true);
         props.setTrigger(false);
     }

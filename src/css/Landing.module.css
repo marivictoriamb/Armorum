@@ -6,7 +6,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  padding-bottom: 20px;
 }
 
 button{
@@ -15,8 +14,8 @@ button{
     border: none;
     padding: 1vw;
     border-radius: 30px;
-    border-color: #5b3263;
-    background-color: #5b3263;
+    border-color: rgb(255, 125, 49);
+    background-color: rgb(255, 125, 49);
     cursor: pointer;
 }
 
@@ -29,6 +28,9 @@ button{
 
 .Info{
   width: 100vw;
+  min-width: 100vh;
+  position: relative;
+  padding-bottom: 3rem;
 }
 
 

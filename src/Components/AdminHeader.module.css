@@ -1,0 +1,59 @@
+.All{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    margin-bottom: 20px;
+    border-bottom: 1px solid orange;
+}
+
+.Img{
+    padding-left:5vw;
+    width: 300px;
+    height: 90px;
+    cursor: pointer;
+}
+
+.Profile{
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+}
+
+.Buscador{
+    align-self: center;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.Links{
+    padding-right:5vw;
+    display: flex;
+    justify-content: center;
+    gap: 30px
+}
+  
+
+.imagen:hover{
+transform: scale(1.05);
+}
+
+@media screen and (max-width: 500px) {
+.Img{
+    width: 100px;
+    height: 30px;
+}  
+
+.Buscador{
+    width: 20px;
+    height: 20px;
+}
+
+.Profile{
+    width: 30px;
+    height: 30px;
+}
+
+}

@@ -3,8 +3,9 @@ import styles from './ClubCard.module.css'
 import { useEffect, useState } from "react";
 import { getCategoryById, getCategoryByIdName } from "../controllers/categories";
 import { useUser } from "../hooks/user";
+import { getImageUrl } from "../controllers/files";
 
-function ClubCard({name, description, category, suscrito, button, handle}){    
+function ClubCard({name, description, category, suscrito, photos}){    
     const yes = "/yes.png";
     const nou = "/no.png";
     const si = "Suscrito";
@@ -12,6 +13,7 @@ function ClubCard({name, description, category, suscrito, button, handle}){
     const [c, setC] = useState("")
     const navigate = useNavigate();
     const user = useUser();
+    const [url, setUrl] = useState("");
 
     function ask1(){
         if (suscrito == true){
@@ -35,10 +37,13 @@ function ClubCard({name, description, category, suscrito, button, handle}){
 
       useEffect(() => {
         async function fetchData() {
-          if (user != null){
             const ca = await getCategoryByIdName(category);
             setC(ca)
-          }
+            if (photos.length != 0){
+                setUrl(await getImageUrl(photos[0]));
+              }else{
+                setUrl(await getImageUrl(`agrupaciones/noimage.jpeg`));
+              }
         };
     
         fetchData();
@@ -52,7 +57,11 @@ function ClubCard({name, description, category, suscrito, button, handle}){
                 <div className={styles.banner}>
                     <div className={styles.Controler} onClick={handleClick} style={{cursor:"pointer"}}>
                         <div className={styles.Image}>
-                            <img style={{width: "20vh", height:"20vh", objectFit:"contain", borderRadius:"50%"}} alt="control" src="/panda.png" />
+                        {url != "" ? (
+                            <img style={{margin:"auto", width: "250px", height:"200px", borderRadius:"100%", objectFit:"cover"}} alt="control" src={url}/>
+                        ):(
+                          <img style={{margin:"auto", width: "250px", height:"200px", borderRadius:"100%", objectFit:"cover"}} alt="control" src="/noimage.jpeg"/>
+                        )}
                         </div>
                     </div>
                 </div>
@@ -62,7 +71,6 @@ function ClubCard({name, description, category, suscrito, button, handle}){
                     <div className={styles.Gender}>{ask2(   )}<img alt="suscrito" src={ask1()} style={{width: "30px", height:"30px"}}/></div>
                     <div className={styles.Description}>{description}</div>
                     <div className={styles.Category}>{c}</div>
-                    {(button==true) ? (<button className={styles.Des}  onClick={() => {handle(name)}}> Desafiliarse </button>) : "" }
                 </div>
             </div>
         </div>
