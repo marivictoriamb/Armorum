@@ -33,7 +33,7 @@ export default function Search(){
       }, [user]);
 
     return(
-        <div>
+        <div style={{height:"100%"}}>
            {visitor ? (
         <NavbarV></NavbarV>
       ): (
@@ -59,10 +59,14 @@ export default function Search(){
             </div>
 
             <div className={styles.results}>
-                {on && <Game name={name} type={type} user={user}/>}
+                {on==true ? (
+                <Game name={name} type={type} user={user}/>
+              ) : (
+                <div style={{height:"30vh"}}></div>
+              )}
             </div>
+            <Footer/>
         </div>
-        <Footer/>
         </div>
     )
 

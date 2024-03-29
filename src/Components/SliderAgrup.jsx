@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from "./Slider.module.css";
+import styles from "./SliderAgrup.module.css";
 
 const Slider = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -17,7 +17,7 @@ const Slider = ({ images }) => {
   };
 
   return (
-    <div className={styles.sliderContainer} style={{width:"70%"}}>
+    <div className={styles.sliderContainer}>
       <div className={styles.slider}>
         <img style={{objectFit:"contain"}}src={images[currentImageIndex]} alt={`unimet${currentImageIndex + 1}`} />
       </div>

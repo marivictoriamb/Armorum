@@ -3,6 +3,7 @@ import styles from './Question.module.css'
 import { updateUserData } from "../controllers/auth";
 import { deleteClub } from "../controllers/clubs";
 import { useNavigate } from "react-router-dom";
+import { getCategoryById, updateCategoryData } from "../controllers/categories";
 
 
 function Question(props) {

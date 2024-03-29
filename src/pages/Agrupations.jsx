@@ -47,11 +47,6 @@ export default function Agrupations() {
     setShowCreateAgrupations(false);
 };
 
-  const handleClickAddGroup = () => {
-    //navigate(`/agrupaciones/${name}`);
-    setShowCreateAgrupations(true);
-  };
-
   /*    No hay ningún formulario entonces podría borrarse
 async function handleSubmit(e){
         e.preventDefault();
@@ -107,6 +102,7 @@ async function handleSubmit(e){
             {error && <ErrorUpdate key={type} error={type} />}
             <div className={styles.Options}></div>
             <div className={styles.Info}>
+              <div className={styles.Titles}>
               <label
                 style={{
                   fontSize: "30px",
@@ -118,23 +114,14 @@ async function handleSubmit(e){
                 Agrupaciones
               </label>
               <button 
-              onClick={handleClickAddGroup}
-              style={{
-              width: "30vw",
-              marginRight: "10vw",
-              padding: "1vw",
-              borderRadius: "40px",
-              borderColor: "rgb(255, 145, 0)",
-              backgroundColor: "rgb(255, 145, 0)",
-              fontSize: "15px",
-              color: "white",
-              float: "right",
-            }}
+              className={styles.Add}
+              onClick={() => {setShowCreateAgrupations(true)}}
             >
               Agregar agrupación
             </button>
+            </div>
 
-            {showCreateAgrupations && <CreateAgrupations onClose={handleCloseCreateAgrupations}  />}
+            <CreateAgrupations trigger={showCreateAgrupations} setTrigger={setShowCreateAgrupations} width={"100vw"} height={"100vh"}/>
 
               <div
                 style={{
@@ -172,22 +159,21 @@ async function handleSubmit(e){
                         year,
                         vision,
                         photos,
-                        photosfounder,
                         objectives,
                         name,
                         mision,
                         members,
                         id,
-                        founder,
                         contact,
                         category,
                       },
                       index
                     ) => (
                       <AgrupCard
-                        key={name}
+                        key={index}
                         name={name}
                         description={objectives}
+                        photos = {photos}
                         category={values[index]}
                       />
                     )

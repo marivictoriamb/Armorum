@@ -3,6 +3,11 @@
     padding: 40px;
   }
 
+  .All{
+    position: relative;
+    height: 100%;
+  }
+
   .searchBar {
     display: flex;
     align-items: center;

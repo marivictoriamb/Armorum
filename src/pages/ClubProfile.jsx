@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import {
   getClubById,
   getClubId,
-  getClubsByName,
+  getClubsByName2,
   updateClubData,
 } from "../controllers/clubs.js";
 import { useState, useEffect } from "react";
@@ -22,6 +22,8 @@ import NavbarV from "../Components/NavbarVisitante.jsx";
 import { getCategoryById } from "../controllers/categories.js";
 import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
+import Slider from '../Components/SliderAgrup.jsx';
+
 
 export default function ClubProfile() {
   const clubName = useParams();
@@ -34,6 +36,9 @@ export default function ClubProfile() {
   const [membersId, setMembersId] = useState([]);
   const [membersI, setMembersI] = useState([]);
   const [category, setCategory] = useState([]);
+  const [image, setImage] = useState([]);
+  const [imageUrl, setImageUrl] = useState([]);
+
   const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
   const [visitor, IsVisitor] = useState(true);
@@ -102,13 +107,11 @@ export default function ClubProfile() {
         await updateClubData(
           club[0].category,
           club[0].contact,
-          club[0].founder,
           club[0].id,
           membersId,
           club[0].mision,
           club[0].name,
           club[0].objectives,
-          club[0].photofounder,
           club[0].photos,
           club[0].vision,
           club[0].year
@@ -133,13 +136,11 @@ export default function ClubProfile() {
         await updateClubData(
           club[0].category,
           club[0].contact,
-          club[0].founder,
           club[0].id,
           newMembers,
           club[0].mision,
           club[0].name,
           club[0].objectives,
-          club[0].photofounder,
           club[0].photos,
           club[0].vision,
           club[0].year
@@ -175,7 +176,7 @@ export default function ClubProfile() {
   }
 
   async function fetchClubData() {
-    const clubData = await getClubsByName(clubName.name);
+    const clubData = await getClubsByName2(clubName.name);
     setClub(clubData);
 
     if (clubData[0].members != []) {
@@ -202,6 +203,22 @@ export default function ClubProfile() {
       setMembersI(membersIm);
     }
 
+    
+    if (clubData[0].photos.length != 0){
+      setImage(clubData[0].photos)
+      const images = await Promise.all(
+          clubData[0].photos.map(async (item) => {
+              return await getImageUrl(item);
+          })
+      );
+      setImageUrl(images)
+  } else {
+      setImage([`agrupaciones/noimage.jpeg`])
+      const result = await getImageUrl(`agrupaciones/noimage.jpeg`)
+      setImageUrl([result])
+  }
+
+
     if (user != null && clubData != null) {
       const data = await getUserData(user.email);
       const clubValue = await getClubId(clubData[0].name);
@@ -223,7 +240,7 @@ export default function ClubProfile() {
   }
 
   async function fetchCData() {
-    const clubData = await getClubsByName(clubName.name);
+    const clubData = await getClubsByName2(clubName.name);
     setClub(clubData);
 
     if (clubData[0].members != []) {
@@ -242,6 +259,21 @@ export default function ClubProfile() {
       setMembersId(clubData[0].members);
       setMembersNames(membersN);
     }
+
+    if (clubData[0].photos.length != 0){
+      setImage(clubData[0].photos)
+      const images = await Promise.all(
+          clubData[0].photos.map(async (item) => {
+              return await getImageUrl(item);
+          })
+      );
+      setImageUrl(images)
+  } else {
+      setImage([`agrupaciones/noimage.jpeg`])
+      const result = await getImageUrl(`agrupaciones/noimage.jpeg`)
+      setImageUrl([result])
+  }
+
 
     const c = await getCategoryById(clubData[0].category);
     setCategory(c.name);
@@ -283,12 +315,8 @@ export default function ClubProfile() {
           <div className={styles.content}>
             <div className={styles.left}>  
               <h1 className={styles.Name}> {club[0].name} </h1>
+              <Slider images={imageUrl}/>
               <div className={styles.image}>  
-                <img 
-                  className={styles.img}
-                  alt="Metrotech" 
-                  src={"/LogoMetrotech.png"}
-                />
                 <div className={styles.Buttons}>
                   {visitor ? (
                       ""
@@ -316,15 +344,24 @@ export default function ClubProfile() {
 
             <div className={styles.Right}>
               <div className={styles.info}>
+              <h4 className={styles.Description}> Mision: {club[0].mision}</h4>
+              <h4 className={styles.Description}> Vision: {club[0].vision}</h4>
                 <h4 className={styles.Description}> Objetivo: {club[0].objectives}</h4>
                 <h4 className={styles.Description}> Categoria: {category}</h4>
-                <h4 className={styles.Description}> Contacto: </h4>
                 <h4 className={styles.Description}> Miembros: </h4>
-                  <div className={styles.Members}> 
-                    {membersNames.map((name, index) => (
-                      <GameCard key={index} name={name} image={membersI[index]} />
-                    ))}
+                  {membersNames.length == 0 ? (
+                    <div className={styles.Members}> 
+                    <h4>No hay miembros actualmente</h4>
                   </div>
+                  ) : (
+                    <div className={styles.Members}> 
+                      {membersNames.map((name, index) => (
+                        <GameCard key={index} name={name} image={membersI[index]} />
+                      ))}
+                    </div>
+                  )}
+                  <h4 className={styles.Description}> Contacto: {club[0].contact}</h4>
+                  <h4 className={styles.Description}> Año de Creacion: {club[0].year}</h4>
               </div>
             </div> 
           </div> 

@@ -131,23 +131,26 @@ export default function Landing() {
             clubs.data.map(
               (
                 {
+                  year,
                   vision,
                   photos,
                   objectives,
                   name,
                   mision,
                   members,
+                  id,
                   contact,
                   category,
                 },
                 index
               ) => (
                 <ClubCard
-                  key={name}
+                  key={index}
                   name={name}
                   description={objectives}
                   category={category}
                   suscrito={values[index]}
+                  photos={photos}
                 />
               )
             )

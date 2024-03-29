@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCategories } from '../controllers/api';
 import styles from '../css/AgrupProfile.module.css'
 import { useUser } from '../hooks/user';
-import { getClubId, getClubsByName, updateClubData } from '../controllers/clubs';
+import { getClubId, getClubsByName2, updateClubData } from '../controllers/clubs';
 import { getCategoryById, getCategoryId, updateCategoryData } from '../controllers/categories';
 import { useParams } from 'react-router-dom';
 import CardLoader from '../Components/CardLoader';
@@ -19,7 +19,6 @@ import noimage from "/noimage.jpeg";
 import { Carrusel } from "../Components/Carrusel.jsx";
 import GameCard from "../Components/GameCard.jsx";
 import { deletePhoto, getImageUrl, uploadImages } from '../controllers/files.js';
-import Slider from '../Components/SliderAgrup.jsx';
 import PhotosContainer from '../Components/PhotosContainer.jsx';
 
 
@@ -27,7 +26,6 @@ import PhotosContainer from '../Components/PhotosContainer.jsx';
 export default function AgrupProfile(){
     const [category, setCategory] = useState(""); //
     const [contact, setContact] = useState(""); //
-    const [founder, setFounder] = useState(""); //
     const [members, setMembers] = useState([]); //
     const [membersN, setMembersN] = useState([]); //
     const [membersI, setMembersI] = useState([]);
@@ -62,7 +60,7 @@ export default function AgrupProfile(){
 
     
     async function fetchClubData() {
-        const clubData = await getClubsByName(clubName.name);
+        const clubData = await getClubsByName2(clubName.name);
         setClub(clubData);
 
         if (clubData[0].members.length != 0){
@@ -108,9 +106,7 @@ export default function AgrupProfile(){
         setCategory(c.name)
         setCategoryId(clubData[0].category)
         setPrevCategoryId(clubData[0].category)
-
         setContact(clubData[0].contact);
-        setFounder(clubData[0].founder);
         setContact(clubData[0].contact);
         setMembers(clubData[0].members)
         setMision(clubData[0].mision);
@@ -183,7 +179,7 @@ export default function AgrupProfile(){
            setImage(img)
            setImageUrl(imagesUrl)
           
-           await updateClubData(categoryId, contact, founder, id, members, mision, name, objectives, "", img, vision, year);
+           await updateClubData(categoryId, contact, id, members, mision, name, objectives, img, vision, year);
           setIs(true);
         }
       }
@@ -206,7 +202,7 @@ export default function AgrupProfile(){
           }
         setImage(images);
         setImageUrl(urls);
-        await updateClubData(categoryId, contact, founder, id, members, mision, name, objectives, "", images, vision, year);
+        await updateClubData(categoryId, contact, id, members, mision, name, objectives, images, vision, year);
         setIs(true);
       }
 
@@ -291,7 +287,7 @@ export default function AgrupProfile(){
                                         </select>
                                 </div>
                             </form>
-                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} founder={founder} id={id} members={members} mision={mision} name={name} objectives={objectives} photofounder={""} photos={image} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
+                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} id={id} members={members} mision={mision} name={name} objectives={objectives} photos={image} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
                             <QuestionAD trigger={trigger2} id={id} categoryId={categoryId} setTrigger2={setTrigger2} />
                         
                         </div> 
@@ -301,19 +297,6 @@ export default function AgrupProfile(){
                             <Loader/>
                         ) : (
                             <div>
-                            <div style={{ flex: 1, padding: '30px', display: 'flex', flexWrap:"wrap", flexDirection:"column", alignItems:"center"}}>
-                        <Slider images={imageUrl}/>
-                        <label className={styles.Edit}>Cargar Archivos
-                            {" "}
-                            <input
-                            type="file"
-                            multiple
-                            onChange={(e) => {
-                                handlePhoto(e.target.files);
-                            }}
-                        />
-                        </label>
-                        </div>
                         <div style={{ flex: 1, padding: '30px', display: 'flex', flexWrap:"wrap", flexDirection:"column", alignItems:"center"}}>
                             <PhotosContainer photos={image} photosUrl={imageUrl} handlePhoto={handlePhoto} handleElimination={handleElimination}/>
                         </div>

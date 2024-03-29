@@ -75,7 +75,7 @@ function Login() {
             <img
               className={styles.Logo}
               alt="Logo"
-              src="/logo.png"
+              src="/logo copy.png"
               style={{ marginTop: "2px", width: "25vh", height: "15vh" }}
             />
           </button>

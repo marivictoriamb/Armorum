@@ -334,6 +334,7 @@ export default function Profile() {
                       description={club.objectives}
                       category={club.category}
                       suscrito={true}
+                      photos={club.photos}
                     />
                   ))}
                 </div>
