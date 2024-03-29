@@ -4,23 +4,60 @@ import { useNavigate } from "react-router-dom";
 import styles from "../css/Categories.module.css";
 import Navbar from "../Components/NavbarUsuario.jsx";
 import CardLoader from "../Components/CardLoader.jsx";
-import { createCategory } from "../controllers/categories.js";
+import { createCategory, getCategoriesByName, getCategoriesByName2 } from "../controllers/categories.js";
 import CategoryCard from "../Components/CategoryCard.jsx";
 import AdminHeader from "../Components/AdminHeader.jsx";
 import Sidebar from "../Components/SideBar.jsx";
+import ErrorUpdate from "../Components/ErrorUpdate.jsx";
+import QuestionC from "../Components/QuestionC.jsx"
+import QuestionCD from "../Components/QuestionCD.jsx"
+import { useUser } from "../hooks/user.js";
+import { getUserData } from "../controllers/auth.js";
+import Loader from "../Components/Loader.jsx";
 
 export default function Categories(){
+  const user = useUser();
     const categories = useCategories();
     const [name, setName] = useState("");//
- 
+    const [error, setError] = useState(false);
+    const [type, setType] = useState("");
+
+    const [prev, setPrev] = useState("");
+    const [act, setAct] = useState("");
+    const [trigger, setTrigger] = useState(false);
+    const [trigger2, setTrigger2] = useState(false);
 
 
     const navigate = useNavigate();
 
 
     async function handleSubmit(){
-        await createCategory(name);
-        navigate(`/categorias/${name}`);
+      if (/[a-zA-Z]/.test(name)){
+
+      const result = await getCategoriesByName2 (name);
+      if (result.length != 0){
+        alert(result[0].name.toLowerCase())
+          if (result[0].name.toLowerCase() != name.toLowerCase()){
+            await createCategory(name);
+            restoreData();
+          }else{
+              setType('Ya existe una categoria con dicho nombre')
+              setError(true);
+          }
+        
+    }else{
+      await createCategory(name);
+      restoreData();
+    }
+
+      }else{
+          setType('Valor Invalido')
+          setError(true);
+      }
+    }
+
+    async function restoreData(){
+      window.location.reload();      
     }
 
 
@@ -28,6 +65,20 @@ export default function Categories(){
   
     if (categories != null && want == false){
       if (categories.isLoading != true && categories.isCharging != true){
+        if (user == null){
+          navigate("/landing")
+        }else {
+          ask();
+        }
+        
+      }
+    }
+
+    async function ask(){
+      const data = await getUserData(user.email);
+      if (data.userRole == "1"){
+        navigate("/landing")
+      }else{
         setWant(true)
       }
     }
@@ -35,10 +86,16 @@ export default function Categories(){
     return (
       <Sidebar>
         <div>
-        <div className={styles.All} >
+        {want==false ? (
+          <Loader/>
+        ):(
+          <div className={styles.All} >
           <AdminHeader></AdminHeader>
+          {error && <ErrorUpdate key={type} error={type} />}
           <div className={styles.Options}></div>
             <div className={styles.Info}>
+            <QuestionC trigger={trigger} prev={prev} category={act} setTrigger={setTrigger} restoreData={restoreData}/>
+            <QuestionCD trigger={trigger2} category={act} setTrigger2={setTrigger2} restoreData={restoreData}/>
               <label
                 style={{
                   fontSize: "30px",
@@ -65,10 +122,8 @@ export default function Categories(){
                 Agregar categorias
               </button>
           <div className={styles.Options}>
-              <form className="Create">
-                  <label> Nombre:<input value={name} required={true} onChange={(e) => setName(e.target.value)}/></label>
-                  <button button="submit" onClick={handleSubmit}>Enviar</button>
-              </form>
+                  <label> Nombre:<input value={name} required={true} onChange={(e) => {setError(false), setName(e.target.value)}}/></label>
+                  <button onClick={()=>(handleSubmit())}>Enviar</button>
           </div>
           <div className={styles.Info}>
             <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
@@ -95,12 +150,19 @@ export default function Categories(){
                 <CategoryCard
                   key={index}
                   name={name}
+                  setTrigger={setTrigger}
+                  setTrigger2={setTrigger2}
+                  setError={setError}
+                  setType={setType}
+                  setPrev={setPrev}
+                  setAct={setAct}
                 />
               )))}
               </div>
             </div>
           </div>
         </div>
+        )}
         </div>
       </Sidebar>
     );

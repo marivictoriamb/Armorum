@@ -3,15 +3,17 @@ import styles from './Question.module.css'
 import { updateUserData } from "../controllers/auth";
 import { deleteClub } from "../controllers/clubs";
 import { useNavigate } from "react-router-dom";
-import { deleteCategory } from "../controllers/categories";
+import { deleteCategory, getCategoryId } from "../controllers/categories";
 
 
 function Question(props) {
     const navigate = useNavigate();
 
     async function handleData(){
-        await deleteCategory(props.id);
-        navigate(`/categorias`);
+        const id = await getCategoryId(props.category);
+        await deleteCategory(id);
+        props.setTrigger2(false);
+        props.restoreData()
     }
     return (props.trigger) ? (
         <div className={styles.popup} style={{ width: props.targetWidth, height: props.targetHeight }}>

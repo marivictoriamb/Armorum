@@ -69,7 +69,7 @@ export default function Landing() {
         divDestinoRef.current.scrollIntoView({ behavior: 'smooth' });
         setScroll(false);
       }
-      console.log("NO ENTRA EN EL IF")
+      //console.log("NO ENTRA EN EL IF")
     }
   }, [done]);
 

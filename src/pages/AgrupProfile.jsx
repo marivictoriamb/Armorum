@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCategories } from '../controllers/api';
 import styles from '../css/AgrupProfile.module.css'
 import { useUser } from '../hooks/user';
-import { getClubId, getClubsByName2, updateClubData } from '../controllers/clubs';
+import { getClubId, getClubsByName, getClubsByName2, updateClubData } from '../controllers/clubs';
 import { getCategoryById, getCategoryId, updateCategoryData } from '../controllers/categories';
 import { useParams } from 'react-router-dom';
 import CardLoader from '../Components/CardLoader';
@@ -24,6 +24,7 @@ import PhotosContainer from '../Components/PhotosContainer.jsx';
 
 
 export default function AgrupProfile(){
+    const [original, setOriginal] = useState("")
     const [category, setCategory] = useState(""); //
     const [contact, setContact] = useState(""); //
     const [members, setMembers] = useState([]); //
@@ -111,6 +112,7 @@ export default function AgrupProfile(){
         setMembers(clubData[0].members)
         setMision(clubData[0].mision);
         setName(clubData[0].name);
+        setOriginal(clubData[0].name);
         setObjectives(clubData[0].objectives);
         setVision(clubData[0].vision);
         setYear(clubData[0].year);
@@ -211,7 +213,20 @@ export default function AgrupProfile(){
       async function handleSubmit(e){
         e.preventDefault();
         if (/^(0412|0414|0424|0416)\d{7}$/.test(contact) == true){
-            setTrigger(true);
+            
+            const result = await getClubsByName(name);
+            if (result.length != 0){
+                if ((result[0].name.toLowerCase() == original.toLocaleLowerCase())){
+                    setTrigger(true);
+                }else if (result[0].name.toLowerCase() != name.toLowerCase()){
+                    setTrigger(true);
+                }else{setType('Ya existe una categoria con dicho nombre')
+                    setError(true);
+                }
+                
+            }else{
+                setTrigger(true);
+            }
         } else {
             setType('Introduzca un numero valido')
             setError(true);

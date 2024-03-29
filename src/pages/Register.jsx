@@ -30,7 +30,7 @@ function Register() {
     const fetchUserData = async () => {
       if (user != null) {
         const data = await getUserData(user.email);
-        if (data.userRole == 0) {
+        if (data.userRole == "0") {
           navigate("/agrupaciones", { replace: true });
         } else {
           navigate("/landing", { replace: true });

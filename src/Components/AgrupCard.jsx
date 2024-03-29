@@ -40,7 +40,9 @@ export default function AgrupCard({name, description, photos, category}){
                 </div>
                 <div className={styles.Agrupaciones} >
                     <h1 className={styles.Name}>{name}</h1>
-                    <div style={{borderRadius:"50px", backgroundColor:"rgb(255, 145, 0)", width:"80px", textAlign:"center"}}><img onClick={handleClick}src="https://cdn-icons-png.flaticon.com/512/6324/6324826.png" style={{cursor:"pointer", width: "2rem", height: "2rem"}}/></div>
+                    <div style={{borderRadius:"50px", backgroundColor:"rgb(255, 145, 0)", width:"80px", textAlign:"center", color:"white", fontWeight:"700", padding:"10px", cursor:"pointer"}} onClick={handleClick}>
+                      Editar
+                      </div>
                 </div>
             </div>
         </div>
