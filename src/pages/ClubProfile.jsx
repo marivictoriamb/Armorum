@@ -21,6 +21,7 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import NavbarV from "../Components/NavbarVisitante.jsx";
 import { getCategoryById } from "../controllers/categories.js";
 import Loader from "../Components/Loader.jsx";
+import Footer from "../Components/FooterUsuario.jsx";
 
 export default function ClubProfile() {
   const clubName = useParams();
@@ -278,59 +279,61 @@ export default function ClubProfile() {
         </div>
       ) : (
         <div className={styles.container}>
-          <img
-            className={styles.img}
-            style={{ width: "40%", height: "100vh" }}
-            alt="Metrotech"
-            src={"/LogoMetrotech.png"}
-          />
-          <div className={styles.Right}>
-            {visitor ? <NavbarV></NavbarV> : <Navbar></Navbar>}
-            <div>
-              <div className={styles.position}>
-                <h1 className={styles.Name}> {club[0].name} </h1>
-                <div className={styles.Text}>
-                  <div className={styles.info}>
-                    <img
-                      className={styles.icon}
-                      alt="icon"
-                      src="/information.png"
-                    />
-                    <h4 className={styles.Description}>{club[0].objectives}</h4>
-                    <h4 className={styles.Description}>{category}</h4>
-                  </div>
+          {visitor ? <NavbarV></NavbarV> : <Navbar></Navbar>} 
+          <div className={styles.content}>
+            <div className={styles.left}>  
+              <h1 className={styles.Name}> {club[0].name} </h1>
+              <div className={styles.image}>  
+                <img 
+                  className={styles.img}
+                  alt="Metrotech" 
+                  src={"/LogoMetrotech.png"}
+                />
+                <div className={styles.Buttons}>
                   {visitor ? (
-                    ""
-                  ) : (
-                    <button
-                      className={styles.Afiliacion}
-                      onClick={() => {
-                        handleMembership();
-                      }}
-                    >
-                      {show}
-                    </button>
-                  )}
+                      ""
+                    ) : (
+                      <button
+                        className={styles.Afiliacion}
+                        onClick={() => {
+                          handleMembership();
+                        }}
+                      >
+                        {show}
+                      </button>
+                    )}
+                      
+                  {show === "Desafiliarse" && (
+                    <div
+                      id="paypal-button-container"
+                      style={{ marginTop: "20px" }}
+                      ref={() => setIsButtonContainerRendered(true)}
+                    ></div>
+                  )} 
                 </div>
               </div>
             </div>
-            <div>
-              <div className={styles.Members}>
-                {membersNames.map((name, index) => (
-                  <GameCard key={index} name={name} image={membersI[index]} />
-                ))}
-              </div>
-            </div>
 
-            {show === "Desafiliarse" && (
-              <div
-                id="paypal-button-container"
-                style={{ marginTop: "20px" }}
-                ref={() => setIsButtonContainerRendered(true)}
-              ></div>
-            )}
+            <div className={styles.Right}>
+              <div className={styles.info}>
+                <h4 className={styles.Description}> Objetivo: {club[0].objectives}</h4>
+                <h4 className={styles.Description}> Categoria: {category}</h4>
+                <h4 className={styles.Description}> Contacto: </h4>
+                <h4 className={styles.Description}> Miembros: </h4>
+                  <div className={styles.Members}> 
+                    {membersNames.map((name, index) => (
+                      <GameCard key={index} name={name} image={membersI[index]} />
+                    ))}
+                  </div>
+              </div>
+            </div> 
+          </div> 
+          <div className = {styles.Comments}>
+            <h2> comentarios, esta es el area donde iran los comentarios, faltan los comentarios </h2>
           </div>
-        </div>
+          <Footer/>
+        </div> 
+        
       )}
     </div>
   );

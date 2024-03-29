@@ -1,51 +1,60 @@
 /* Estilos para el banner */
 .banner {
-    background-color: #f2f2f2;
-    padding: 20px;
+    padding: 40px;
   }
-  
-  .title {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
+
   .searchBar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Alinea los elementos alrededor */
+    justify-content: space-between;
   }
   
   .bar {
     display: flex;
     align-items: center;
-    margin-right: 10px;
+    margin-left: 10px;
   }
   
   .inputbar {
-    padding: 10px;
+    font-size: 2vh;
+    color: rgb(255, 125, 49);
+    padding: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px; /* Añade margen a la derecha para separar el input del botón */
+    border-radius: 10px;
+    margin-left: 10px; 
   }
   
   .Img {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    align-self: center;
   }
   
   .Buttons {
     display: flex;
     align-items: center;
+    gap: 10px;
   }
   
   .searchButton {
-    padding: 10px 20px;
-    background-color: rgb(255, 125, 49);
-    border: none;
-    border-radius: 5px;
+    position: relative;
+    right: 1.25;
+    font-size: 2vh;
     color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 30px;
+    border-color: rgb(255, 125, 49);
+    background-color: rgb(255, 125, 49);
     cursor: pointer;
+    width: 120px;
+  }
+
+  .option{
+    font-size: 2vh;
+    color: white;
+    background-color: rgb(255, 125, 49)
   }
   
   .searchButton:hover {
@@ -55,34 +64,13 @@
   /* Estilos para los resultados */
   .results {
     margin-top: 20px;
+    margin-bottom: 20px ;
   }
   
   #Cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-  }
-  
-  /* Estilos para la tarjeta del club */
-  /* Ajusta estos estilos según tu necesidad */
-  .card {
-    width: 200px;
-    padding: 20px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  .card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .card p {
-    font-size: 14px;
-    color: #666;
   }
   
   /* Media query para pantallas pequeñas */
@@ -99,11 +87,7 @@
   
     .inputbar {
       width: 100%;
-      margin-right: 0; /* Elimina el margen derecho para ocupar todo el ancho */
-    }
-  
-    .Buttons {
-      flex-direction: column;
+      margin-right: 0; 
     }
   
     .searchButton {

@@ -2,7 +2,7 @@
     color: white;
     bottom: 0;
     width: 100%;
-    background-color: rgb(255, 133, 2);
+    background-color: rgb(255, 125, 49);
     text-align: center;
     padding: 10px 0;
     margin-top: auto;
@@ -17,13 +17,13 @@
 }
 
 .Image{
-    height: 80px;
+    height: 100px;
     width: 200px;
 }
 
 .Icons{
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
 }
 
 .logos{
