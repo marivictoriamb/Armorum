@@ -37,7 +37,7 @@ export default function Search(){
     return(
         <div style={{height:"100%"}}>
            {visitor ? (
-        <NavbarV></NavbarV>
+        <NavbarV setScroll={setScroll}></NavbarV>
       ): (
         <Navbar setScroll={setScroll}></Navbar>
       )}

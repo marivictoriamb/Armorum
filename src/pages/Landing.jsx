@@ -92,7 +92,7 @@ export default function Landing() {
     ) : (
     <div className={styles.All}>
       {visitor ? (
-        <NavbarV></NavbarV>
+        <NavbarV setScroll={setScroll}></NavbarV>
       ): (
         <Navbar setScroll={setScroll} />
       )}

@@ -38,6 +38,7 @@ export default function ClubProfile() {
   const [category, setCategory] = useState([]);
   const [image, setImage] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
+  const [scroll, setScroll] = useState(false);
 
   const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
@@ -311,7 +312,7 @@ export default function ClubProfile() {
         </div>
       ) : (
         <div className={styles.container}>
-          {visitor ? <NavbarV></NavbarV> : <Navbar></Navbar>} 
+          {visitor ? <NavbarV setScroll={setScroll}></NavbarV> : <Navbar setScroll={setScroll}></Navbar>} 
           <div className={styles.content}>
             <div className={styles.left}>  
               <h1 className={styles.Name}> {club[0].name} </h1>
