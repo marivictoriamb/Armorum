@@ -5,7 +5,7 @@ import { updateClubData } from "../controllers/clubs";
 import { getCategoryById, updateCategoryData } from "../controllers/categories";
 
 
-function Question(props) {
+function QuestionA(props) {
     const navigate = useNavigate();
 
     async function handleData(){
@@ -24,7 +24,7 @@ function Question(props) {
         await updateCategoryData(props.prev, p.name, newP)
 
 
-        navigate(`/agrupaciones/${name}`);
+        navigate(`/agrupaciones/${props.name}`);
         props.setAct(true);
         props.setTrigger(false);
     }
@@ -45,4 +45,4 @@ function Question(props) {
     ) : "";
 
 }
-export default Question
+export default QuestionA

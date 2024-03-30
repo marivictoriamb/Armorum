@@ -45,8 +45,7 @@ export default function AgrupProfile(){
     const [club, setClub] = useState(null);
     const [trigger, setTrigger] = useState(false);
     const [act, setAct] = useState(false);
-    const [trigger2, setTrigger2] = useState(false);
-    const [act2, setAct2] = useState(false);
+    const [triggerD, setTriggerD] = useState(false);
     const [done, setDone] = useState(false); 
 
     const [image, setImage] = useState([]);
@@ -147,8 +146,7 @@ export default function AgrupProfile(){
 
     async function handleDelete(){
         if (members.length == 0){
-            setAct2(false);
-            setTrigger2(true);
+            setTriggerD(true);
         } else {
             setError(true);
             setType('La agrupacion cuenta con miembros');
@@ -201,10 +199,12 @@ export default function AgrupProfile(){
             images = [`agrupaciones/noimage.jpeg`];
             const result = await getImageUrl(`agrupaciones/noimage.jpeg`)
             urls = [result];
+            await updateClubData(categoryId, contact, id, members, mision, name, objectives, [], vision, year);
+          }else{
+            await updateClubData(categoryId, contact, id, members, mision, name, objectives, images, vision, year);
           }
         setImage(images);
         setImageUrl(urls);
-        await updateClubData(categoryId, contact, id, members, mision, name, objectives, images, vision, year);
         setIs(true);
       }
 
@@ -261,7 +261,7 @@ export default function AgrupProfile(){
                         <form className={styles.Create} style={{width:"100%", flex: 1, paddingRight: '20px', display: 'flex', justifyContent:"space-between"}} onSubmit={handleSubmit}>
                         <div className={styles.botones}>
                         <button className={styles.boton} type="submit">Actualizar</button>
-                        <button className={styles.boton} onClick={() => {handleDelete()}}>Eliminar</button>
+                        <button className={styles.boton} type="button"style={{marginLeft:"20px"}}onClick={() => {handleDelete()}}>Eliminar</button>
                         </div>
                         <div className={styles.textContainer}> 
                         <label> Nombre</label>
@@ -302,9 +302,8 @@ export default function AgrupProfile(){
                                         </select>
                                 </div>
                             </form>
-                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} id={id} members={members} mision={mision} name={name} objectives={objectives} photos={image} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />
-                            <QuestionAD trigger={trigger2} id={id} categoryId={categoryId} setTrigger2={setTrigger2} />
-                        
+                            <QuestionA trigger={trigger} prev={prevCategoryId} category={categoryId} contact={contact} id={id} members={members} mision={mision} name={name} objectives={objectives} photos={image} vision={vision} year={year} setTrigger={setTrigger} restoreData={ restoreData} setAct={setAct} />                        
+                            <QuestionAD trigger={triggerD} id={id} categoryId={categoryId} setTrigger2={setTriggerD} />
                         </div> 
                         <div style={{display:"flex", flexDirection:"column", borderTop:"solid orange", marginTop:"30px"}}>
                         <h1>Imagenes</h1>
@@ -329,11 +328,19 @@ export default function AgrupProfile(){
                     ) : (
                         <div style={{display:"flex", flexDirection:"column", borderTop:"solid orange", marginTop:"30px"}}>
                         <h1>Integrantes</h1>
-                        <div className={styles.Members}>
-                            {membersN.map((member, index) => (
-                                <GameCard key={index} name={member} image={membersI[index]} />
-                            ))}
-                        </div>
+                        
+                            {membersN.length != 0 ? (
+                                <div className={styles.Members}>
+                                {membersN.map((member, index) => (
+                                    <GameCard key={index} name={member} image={membersI[index]} />
+                                ))}
+                                </div>
+                            ): (
+                                <div className={styles.Members}>
+                                    No hay miembros todavia
+                                </div>
+                            )}
+                            
                         </div>
                     )}
                 </div>

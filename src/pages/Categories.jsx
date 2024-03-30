@@ -14,6 +14,7 @@ import QuestionCD from "../Components/QuestionCD.jsx"
 import { useUser } from "../hooks/user.js";
 import { getUserData } from "../controllers/auth.js";
 import Loader from "../Components/Loader.jsx";
+import AddCategory from "../Components/AddCategory.jsx";
 
 export default function Categories(){
   const user = useUser();
@@ -26,9 +27,14 @@ export default function Categories(){
     const [act, setAct] = useState("");
     const [trigger, setTrigger] = useState(false);
     const [trigger2, setTrigger2] = useState(false);
+    const [add, setAdd] = useState(false);
 
 
     const navigate = useNavigate();
+
+    async function handleAdd(){
+      setAdd(!add);
+    }
 
 
     async function handleSubmit(){
@@ -36,7 +42,6 @@ export default function Categories(){
 
       const result = await getCategoriesByName2 (name);
       if (result.length != 0){
-        alert(result[0].name.toLowerCase())
           if (result[0].name.toLowerCase() != name.toLowerCase()){
             await createCategory(name);
             restoreData();
@@ -102,11 +107,13 @@ export default function Categories(){
                   textAlign: "left",
                   margin: "0",
                   paddingLeft: "4vw",
+                  marginBottom:"20px",
                 }}
               >
                 Categorias
               </label>
-              <button
+              {add == false && <button
+                onClick={()=>{handleAdd()}}
                 style={{
                   width: "30vw",
                   marginRight: "10vw",
@@ -120,13 +127,10 @@ export default function Categories(){
                 }}
               >
                 Agregar categorias
-              </button>
-          <div className={styles.Options}>
-                  <label> Nombre:<input value={name} required={true} onChange={(e) => {setError(false), setName(e.target.value)}}/></label>
-                  <button onClick={()=>(handleSubmit())}>Enviar</button>
-          </div>
-          <div className={styles.Info}>
-            <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "5vw",alignItems: "center",justifyContent: "center"}} >
+              </button>}
+          <div className={styles.Info} style={{marginTop:"20px"}}>
+            <div style={{display: "flex", flexWrap: "wrap",flexDirection: "row",gap: "40px",alignItems: "center",justifyContent: "center", width:"100%"}} >
+              {add == true && <AddCategory name={name} setName={setName} setError={setError} handleSubmit={handleSubmit} handleAdd={handleAdd}/>}
               {!want ?  (
               <div
                 style={{

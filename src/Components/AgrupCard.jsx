@@ -31,7 +31,7 @@ export default function AgrupCard({name, description, photos, category}){
                 <div className={styles.banner}>
                     <div className={styles.Image} onClick={handleClick} style={{cursor:"pointer"}}>
                         {url != "" ? (
-                            <img style={{margin:"auto", width: "250px", height:"200px", borderRadius:"100%", objectFit:"cover"}} alt="control" src={url}/>
+                            <img style={{margin:"auto", width: "250px", height:"200px", borderRadius:"100%", objectFit:"cover", backgroundColor:" rgba(255, 255, 255, 0.5)"}} alt="control" src={url}/>
                         ):(
                           <img style={{margin:"auto", width: "250px", height:"200px", borderRadius:"100%", objectFit:"cover"}} alt="control" src="/noimage.jpeg"/>
                         )}
