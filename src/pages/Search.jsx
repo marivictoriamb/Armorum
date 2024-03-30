@@ -121,15 +121,23 @@ export function Game({name, type, user}){
                         <CardLoader/>
                     </div>
                 ) : (
+                  <div>
+                  {clubs.length == 0 ? (
+                    <div style={{height:"30vh"}}></div>
+                  ):(
                     clubs.data.map(({ vision,photos, objectives, name,  mision, members, contact, category }, index) => (
-                        <ClubCard
-                          key={name}
-                          name={name}
-                          description={objectives}
-                          category = {category}
-                          suscrito={values[index]}
-                        />
-                )))}
+                      <ClubCard
+                        key={name}
+                        name={name}
+                        description={objectives}
+                        category = {category}
+                        suscrito={values[index]}
+                        photos={photos}
+                      />
+                    ))
+                  )}
+                  </div>
+                    )}
         </div>
     )
 
