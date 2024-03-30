@@ -64,7 +64,8 @@ export default function ClubProfile() {
         const id = await getUserId(user.email);
         membersId.push(id);
         membersNames.push(userData.name);
-        membersI.push(userData.image);
+        const img = await getImageUrl(userData.image)
+        membersI.push(img);
         await updateClubData(
           club[0].category,
           club[0].contact,
@@ -279,10 +280,10 @@ export default function ClubProfile() {
               <h1 className={styles.Name}> {club[0].name} </h1>
               <Slider images={imageUrl} />
               <div className={styles.image}>
-                <div className={styles.Buttons}>
                   {visitor ? (
                     ""
                   ) : (
+                    <div className={styles.Buttons}>
                     <button
                       className={styles.Afiliacion}
                       onClick={() => {
@@ -291,8 +292,7 @@ export default function ClubProfile() {
                     >
                       {show}
                     </button>
-                  )}
-                  <PayPalScriptProvider
+                    <PayPalScriptProvider
                     options={{
                       "client-id":
                         "Ad9nZ0bV62PEdpGYKkYBnwyCfl-G_7_z4_nAjhHHqnZuVhg1HKJlHWPQ3B8tEUDcTQitxOc88mymWKz-",
@@ -318,7 +318,8 @@ export default function ClubProfile() {
                       }}
                     />
                   </PayPalScriptProvider>
-                </div>
+                  </div>
+                  )}
               </div>
             </div>
 
@@ -338,21 +339,27 @@ export default function ClubProfile() {
                 </h4>
                 <h4 className={styles.Description}> Categoria: {category}</h4>
                 <h4 className={styles.Description}> Miembros: </h4>
-                {membersNames.length == 0 ? (
-                  <div className={styles.Members}>
-                    <h4>No hay miembros actualmente</h4>
+                {visitor ? (
+                    ""
+                  ) : (
+                    <div>
+                  {membersNames.length == 0 ? (
+                    <div className={styles.Members}>
+                      <h4>No hay miembros actualmente</h4>
+                    </div>
+                  ) : (
+                    <div className={styles.Members}>
+                      {membersNames.map((name, index) => (
+                        <GameCard
+                          key={index}
+                          name={name}
+                          image={membersI[index]}
+                        />
+                      ))}
+                    </div>
+                  )}
                   </div>
-                ) : (
-                  <div className={styles.Members}>
-                    {membersNames.map((name, index) => (
-                      <GameCard
-                        key={index}
-                        name={name}
-                        image={membersI[index]}
-                      />
-                    ))}
-                  </div>
-                )}
+                  )}
                 <h4 className={styles.Description}>
                   {" "}
                   Contacto: {club[0].contact}
@@ -364,13 +371,15 @@ export default function ClubProfile() {
               </div>
             </div>
           </div>
-          <div className={styles.Comments}>
+          {visitor ? (""):(
+            <div className={styles.Comments}>
             <h2>
               {" "}
               comentarios, esta es el area donde iran los comentarios, faltan
               los comentarios{" "}
             </h2>
           </div>
+          )}
           <Footer />
         </div>
       )}

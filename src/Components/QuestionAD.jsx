@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getCategoryById, updateCategoryData } from "../controllers/categories";
 
 
-function Question(props) {
+function QuestionAD(props) {
     const navigate = useNavigate();
 
     async function handleData(){
@@ -33,4 +33,4 @@ function Question(props) {
     ) : "";
 
 }
-export default Question
+export default QuestionAD
