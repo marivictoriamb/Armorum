@@ -293,7 +293,10 @@ export default function ClubProfile() {
                     </button>
                   )}
                   <PayPalScriptProvider
-                    options={{ "client-id": "" }}
+                    options={{
+                      "client-id":
+                        "Ad9nZ0bV62PEdpGYKkYBnwyCfl-G_7_z4_nAjhHHqnZuVhg1HKJlHWPQ3B8tEUDcTQitxOc88mymWKz-",
+                    }}
                   >
                     <PayPalButtons
                       style={{ layout: "vertical" }}
