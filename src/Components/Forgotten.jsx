@@ -33,7 +33,7 @@ export default function Forgotten(props) {
             <div className={styles.popupContent}>
             {popUp2 && <ErrorLogin/>}
             {popUp && <Exit/>}
-                <img className={styles.Logo} alt="Logo" src="/logo.png" style={{width: "170px", height:"120px"}}/>
+                <img className={styles.Logo} alt="Logo" src="/logo copy.png" style={{width: "170px", height:"120px"}}/>
                 <div className={styles.Tittle}>
                     <h1 style={{fontSize:"20px"}}>Olvidó su Contraseña?</h1>
                     <p style={{fontSize: "1pxx"}}> Ingrese su dirección de correo para obtener restablecer su contraseña.</p>
@@ -43,8 +43,8 @@ export default function Forgotten(props) {
                     <div className={styles.CorreoInputP}><input onChange={(e) => setEmail(e.target.value)} value={email}    required={true} style={{fontSize: "12px", padding:"10px", paddingLeft:"20px"}}/></div> 
                 </div>
                 <div className={styles.ButtonsP}>
-                    <button className={styles.Establish} type="button" onClick={() => {handleSubmit()}}> Cambiar Contraseña </button>
-                    <button className={styles.LoginP} style={{cursor:"pointer"}}onClick={() => {handleButtonClickP(false); handleClose()}}>Ir a Inicio de Sesion </button>
+                    <button className={styles.Establish} onClick={() => {handleSubmit()}}> Cambiar Contraseña </button>
+                    <button className={styles.LoginP} type="button" style={{cursor:"pointer"}}onClick={() => {handleClose()}}>Ir a Inicio de Sesion </button>
                 </div>
             </div>
         </div>

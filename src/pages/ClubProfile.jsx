@@ -282,10 +282,10 @@ export default function ClubProfile() {
               <h1 className={styles.Name}> {club[0].name} </h1>
               <Slider images={imageUrl} />
               <div className={styles.image}>
-                <div className={styles.Buttons}>
                   {visitor ? (
                     ""
                   ) : (
+                    <div className={styles.Buttons}>
                     <button
                       className={styles.Afiliacion}
                       onClick={() => {
@@ -294,8 +294,7 @@ export default function ClubProfile() {
                     >
                       {show}
                     </button>
-                  )}
-                  <button onClick={() => setShowPaymentPopup(true)}>
+                    <button className={styles.Afiliacion} onClick={() => setShowPaymentPopup(true)}>
                     Contribucion
                   </button>
                   {showPaymentPopup && (
@@ -304,7 +303,8 @@ export default function ClubProfile() {
                       // Aquí pasarías los props necesarios para mostrar la información de la tarjeta
                     />
                   )}
-                </div>
+                  </div>
+                  )}
               </div>
             </div>
 
@@ -324,21 +324,27 @@ export default function ClubProfile() {
                 </h4>
                 <h4 className={styles.Description}> Categoria: {category}</h4>
                 <h4 className={styles.Description}> Miembros: </h4>
-                {membersNames.length == 0 ? (
-                  <div className={styles.Members}>
-                    <h4>No hay miembros actualmente</h4>
+                {visitor ? (
+                    ""
+                  ) : (
+                    <div>
+                  {membersNames.length == 0 ? (
+                    <div className={styles.Members}>
+                      <h4>No hay miembros actualmente</h4>
+                    </div>
+                  ) : (
+                    <div className={styles.Members}>
+                      {membersNames.map((name, index) => (
+                        <GameCard
+                          key={index}
+                          name={name}
+                          image={membersI[index]}
+                        />
+                      ))}
+                    </div>
+                  )}
                   </div>
-                ) : (
-                  <div className={styles.Members}>
-                    {membersNames.map((name, index) => (
-                      <GameCard
-                        key={index}
-                        name={name}
-                        image={membersI[index]}
-                      />
-                    ))}
-                  </div>
-                )}
+                  )}
                 <h4 className={styles.Description}>
                   {" "}
                   Contacto: {club[0].contact}
