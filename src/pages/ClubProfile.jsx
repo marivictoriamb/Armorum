@@ -24,6 +24,7 @@ import Loader from "../Components/Loader.jsx";
 import Footer from "../Components/FooterUsuario.jsx";
 import Slider from "../Components/SliderAgrup.jsx";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import PaymentPopup from "../Components/PaymentPopUp.jsx";
 
 export default function ClubProfile() {
   const clubName = useParams();
@@ -39,6 +40,7 @@ export default function ClubProfile() {
   const [image, setImage] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
   const [scroll, setScroll] = useState(false);
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
   const [show, setShow] = useState("...");
   const [want, setWant] = useState(false);
@@ -292,32 +294,12 @@ export default function ClubProfile() {
                       {show}
                     </button>
                   )}
-                  <PayPalScriptProvider
-                    options={{
-                      "client-id":
-                        "Ad9nZ0bV62PEdpGYKkYBnwyCfl-G_7_z4_nAjhHHqnZuVhg1HKJlHWPQ3B8tEUDcTQitxOc88mymWKz-",
-                    }}
-                  >
-                    <PayPalButtons
-                      style={{ layout: "vertical" }}
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value: "10.00",
-                              },
-                            },
-                          ],
-                        });
-                      }}
-                      onApprove={(data, actions) => {
-                        return actions.order.capture().then((details) => {
-                          alert("Pago realizado con éxito");
-                        });
-                      }}
-                    />
-                  </PayPalScriptProvider>
+                  <button onClick={() => setShowPaymentPopup(true)}>
+                    Contribuir
+                  </button>
+                  {showPaymentPopup && (
+                    <PaymentPopup setTrigger={setShowPaymentPopup} />
+                  )}
                 </div>
               </div>
             </div>
