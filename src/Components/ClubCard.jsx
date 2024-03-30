@@ -69,7 +69,6 @@ function ClubCard({name, description, category, suscrito, photos}){
                 <div className={styles.menu}>
                     <h2 className={styles.Name}>{name}</h2>
                     <div className={styles.Gender}>{ask2(   )}<img alt="suscrito" src={ask1()} style={{width: "30px", height:"30px"}}/></div>
-                    <div className={styles.Description}>{description}</div>
                     <div className={styles.Category}>{c}</div>
                 </div>
             </div>

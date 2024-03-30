@@ -60,7 +60,7 @@ export default function CreateAgrupations(props){
                     setPopUp(true)
                     setUploading(false);
                 }else{
-                    setType('Ya existe una categoria con dicho nombre')
+                    setType('Ya existe una agrupacion con dicho nombre')
                     setError(true);
                 }
                 

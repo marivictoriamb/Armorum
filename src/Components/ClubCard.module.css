@@ -24,8 +24,8 @@
     background-color: rgb(250, 188, 129);
     max-width: 360px;
     min-width: 360px;
-    max-height: 500px;
-    min-height: 500px;
+    max-height: 450px;
+    min-height: 450px;
     display: flex;
     overflow: hidden;
     flex-direction: column;
@@ -132,8 +132,8 @@
 
 @media screen and (max-width: 370px) {
     .Card{
-        max-height: 600px;
-        min-height: 600px;
+        max-height: 500px;
+        min-height: 500px;
     }
   }
 

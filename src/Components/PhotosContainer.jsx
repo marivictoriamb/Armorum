@@ -5,13 +5,13 @@ export default function PhotosContainer(props){
         <div className={styles.card}>
             <div className={styles.top}>
             <span className={styles.Inner}>Imagenes</span>
-                <button>Agrega<input
+                <label className={styles.button}>Agrega<input
                             type="file"
                             multiple
                             onChange={(e) => {
                                 props.handlePhoto(e.target.files);
                             }}
-                        /></button>
+                        /></label>
             </div>
             <form className={styles.Form} action="/upload" method="post">
             <label className={styles.Edit}>Cargar Archivos
