@@ -1,5 +1,7 @@
 .sliderContainer {
     position: relative;
+    width: 400px;
+    padding-left: 5px;
   }
   
   .slider {
@@ -10,6 +12,7 @@
   .slider img {
     width: 100%;
     height: auto;
+    border-radius: 10px;
   }
   
   .overlay {

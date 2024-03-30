@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
     border-bottom: 1px solid orange;
 }
 
@@ -53,7 +52,7 @@
     text-decoration-color: orange;
 }
 
-@media screen and (max-width: 657px){
+@media screen and (max-width: 700px){
 
     .Img{
         width: 150px;

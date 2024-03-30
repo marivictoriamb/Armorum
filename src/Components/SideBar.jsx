@@ -50,7 +50,7 @@ const Sidebar = ({ children }) => {
             </NavLink>
           ))}
         </div>
-        <main>{children}</main>
+        <div className={sidebar.Right}>{children}</div>
       </div>
     </div>
   );

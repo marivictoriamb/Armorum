@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+function Navbar(props) {
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (name) => () => {
     navigate(name);
+  };
+
+  const handleClick = () => {
+    props.setScroll(true);
+    window.location.href = '/landing#div-destino';
   };
   
   return (
@@ -19,10 +25,7 @@ export default function Navbar() {
       />
       <div className={styles.Links}>
         <div
-          onClick={() => {
-            const element = document.getElementById("Cards");
-            element.scrollIntoView({ behavior: "smooth" });
-          }}
+          onClick={handleClick}
           className={styles.Words}
         >
           Agrupaciones
@@ -48,3 +51,5 @@ export default function Navbar() {
     </div>
   );
 }
+
+export default Navbar

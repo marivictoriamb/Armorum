@@ -8,7 +8,7 @@ import Navbar from "../Components/NavbarUsuario.jsx";
 import NavbarV from "../Components/NavbarVisitante.jsx";
 import { useUser } from "../hooks/user.js";
 import { getUserData } from "../controllers/auth.js";
-
+import Footer from "../Components/FooterUsuario.jsx";
 
 export default function Search(){
     const user = useUser();
@@ -17,6 +17,8 @@ export default function Search(){
     const [type, setType] = useState("Nombre");
     const [on, setOn] = useState(false);
     const [visitor, IsVisitor] = useState(true);
+    
+    const [scroll, setScroll] = useState(false);
 
     function handleClick(){
         setOn(true);
@@ -33,15 +35,15 @@ export default function Search(){
       }, [user]);
 
     return(
-        <div>
+        <div style={{height:"100%"}}>
            {visitor ? (
-        <NavbarV></NavbarV>
+        <NavbarV setScroll={setScroll}></NavbarV>
       ): (
-        <Navbar></Navbar>
+        <Navbar setScroll={setScroll}></Navbar>
       )}
         <div className={styles.All}>
             <div className={styles.banner}>
-                <h2 className={styles.title}>Encuentra la agrupación de tu preferencia </h2>
+                
                 <div className={styles.searchBar}>
                     <div className={styles.bar}>
                         <img className={styles.Img} alt="loop" src={"/search.png"}/>
@@ -49,7 +51,7 @@ export default function Search(){
                     </div>
                     <div className={styles.Buttons}> 
                     <button className={styles.searchButton} onClick={()=>{handleClick()}}> Buscar </button>
-                    <select className={styles.searchButton} value={type} style={{ maxWidth:"150px", padding:"10px", borderColor:"rgb(223, 144, 98)", backgroundColor:"rgb(223, 144, 98)", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
+                    <select className={styles.searchButton} value={type} style={{ maxWidth:"120px", padding:"10px", borderColor:"rgb(255, 125, 49)", backgroundColor:"rgb(255, 125, 49)", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
                         <option className={styles.option}value="Nombre"> Nombre </option>
                         <option className={styles.option} value="Categoria"> Categoria </option>
                     </select>
@@ -59,8 +61,13 @@ export default function Search(){
             </div>
 
             <div className={styles.results}>
-                {on && <Game name={name} type={type} user={user}/>}
+                {on==true ? (
+                <Game name={name} type={type} user={user}/>
+              ) : (
+                <div style={{height:"30vh"}}></div>
+              )}
             </div>
+            <Footer/>
         </div>
         </div>
     )

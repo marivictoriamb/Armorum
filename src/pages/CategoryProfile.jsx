@@ -48,6 +48,8 @@ export default function CategoryProfile(){
             const c = await getCategoryId(categoryName.name);
             setCategoryId(c)
         }
+
+        setDone(true);
         
     }
 
@@ -55,7 +57,6 @@ export default function CategoryProfile(){
     async function fetchData() {
       if (user != null){
         await fetchClubData()
-        setDone(true);
       }
     };
 
@@ -87,14 +88,19 @@ export default function CategoryProfile(){
     return(
         <div>
         {(done==false)?(
-            <div style={{margin:"30px", display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
-            <Loader/>
-        </div>
+             <div
+             style={{
+               width:"100vw",
+               overflow:"hidden"
+             }}
+           >
+             <Loader />
+           </div>
         ) : (
         <div>
         {act && <Actualizacion/>}
-        {error && <ErrorUpdate key={type} error={type}/>}
-        <div className="Create">
+        {error && <ErrorUpdate key={categoryId} error={type}/>}
+        <div className={styles.Create}>
                 <label> Nombre:<input className={styles.Input} value={name} onChange={(e) => setName(e.target.value)}/></label>
                 <button onClick={() => {setAct(false), setTrigger(true)}}>Actualizar</button>
                 <button onClick={() => {handleDelete()}}>Eliminar</button>

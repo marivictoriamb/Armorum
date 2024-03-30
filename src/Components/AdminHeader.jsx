@@ -12,25 +12,12 @@ export default function AdminHeader() {
 
   return (
     <div
-      style={{ position: "sticky", width: "100%" }}
-      className={`${styles.All} ${styles.OrangeLine}`}
+      className={styles.All}
     >
       <img
-        src="/Tree.png"
-        onClick={handleNavigate("/landing")}
+        src="/game3.png"
+        onClick={handleNavigate("/agrupaciones")}
         className={styles.Img}
-        style={{ textAlign: "left", width: "200px", marginLeft: "2vw" }}
-      />
-      <img
-        src="/name.png"
-        onClick={handleNavigate("/landing")}
-        className={styles.Img}
-        style={{
-          textAlign: "left",
-          width: "280px",
-          paddingLeft: "1vw",
-          height: "170px",
-        }}
       />
       <div className={styles.Links}>
         <img
@@ -42,8 +29,4 @@ export default function AdminHeader() {
     </div>
   );
 }
-/*
-<div className={styles.Links}>
-<img src="/search.png" onClick={handleNavigate("/buscador")} className={styles.Buscador}  />
-<img src="/user.png" onClick={handleNavigate("/perfil")}  className={styles.Profile} />
-</div>*/
+

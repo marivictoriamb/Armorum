@@ -16,16 +16,30 @@
 }
 
 .Image{
-    height: 200px;
+    transform: translateY(70%);
+    height: 400px;
 }
+
+.Add{
+    width: 15vw;
+    margin-right: 10vw;
+    padding: 1vw;
+    border-radius: 40px;
+    border-color: rgb(255, 145, 0);
+    background-color: rgb(255, 145, 0);
+    font-feature-settings: 15px;
+    color: white;
+    float: right;
+    font-size: 12px;
+  }
   
   
 .Card{
-    background-color: rgb(250, 188, 129);
-    max-width: 360px;
-    min-width: 360px;
-    max-height: 500px;
-    min-height: 500px;
+    background-color: rgb(255, 207, 161);
+    max-width: 400px;
+    min-width: 400px;
+    max-height: 400px;
+    min-height: 400px;
     display: flex;
     overflow: hidden;
     flex-direction: column;
@@ -35,7 +49,6 @@
  
 .banner{
     background-image: url("/profile.png");
-    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 11rem;
@@ -43,6 +56,7 @@
     align-items: flex-end;
     justify-content: center;
     box-sizing: border-box;
+    padding: 0 2rem 2rem;
 }
 
 .bannerG{
@@ -61,29 +75,47 @@
 }
 
 .Controler{
-    background-color: white;
-    height: 200px;
+    background-color: rgb(175, 38, 38);
     box-shadow: 0 0.5rem 1rem rgba(black, 0.3);
     border-radius: 50%;
-    transform: translateY(30%);
+    transform: translateY(50%);
     transition: transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
 .menu{
     width: 100%;
-    height: auto;
-    padding-top: 70px;
+    padding-top:40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 10px;
+    z-index: 2;
+}
+
+.Agrupaciones{
+    width: 100%;
+    padding-top:17vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
 }
+
+.Icon{
+    justify-content: left;
+}
     
 .Name{
+    font-size:21px;
     text-align: center;
     padding: 0 2rem 0.5rem;
     margin: 0;
-    color: white ;
+    color:black;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    width: 50%;
 }
 
 .Gender{
@@ -130,11 +162,38 @@
     margin-bottom: 1rem;
 }
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 530px) {
     .Card{
-        max-height: 600px;
-        min-height: 600px;
+        max-height: 300px;
+        min-height: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        
+    }
+
+    .Image{
+        display: none;
+    }
+
+    .Agrupaciones{
+        padding-top:10vh;
+        padding-bottom: 10vh;
+    }
+
+    .menu{
+        padding-top:7vh;
+        padding-bottom: 7vh;
     }
   }
 
   
+
+  @media screen and (max-width: 420px) {
+    .Card{
+        max-height: 200px;
+        min-height: 200px;
+        max-width: 200px;
+        min-width: 200px;
+    }
+  }
+

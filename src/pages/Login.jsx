@@ -25,9 +25,11 @@ function Login() {
     const fetchUserData = async () => {
       if (user != null) {
         const data = await getUserData(user.email);
-        if (data.userRole == 0) {
+        if (data.userRole == "1") {
+          navigate("/landing", { replace: true });
+        } else if (toggle == true) {
           navigate("/agrupaciones", { replace: true });
-        } else {
+        }else{
           navigate("/landing", { replace: true });
         }
       }
@@ -75,7 +77,7 @@ function Login() {
             <img
               className={styles.Logo}
               alt="Logo"
-              src="/logo.png"
+              src="/logo copy.png"
               style={{ marginTop: "2px", width: "25vh", height: "15vh" }}
             />
           </button>

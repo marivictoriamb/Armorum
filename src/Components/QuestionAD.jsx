@@ -3,12 +3,16 @@ import styles from './Question.module.css'
 import { updateUserData } from "../controllers/auth";
 import { deleteClub } from "../controllers/clubs";
 import { useNavigate } from "react-router-dom";
+import { getCategoryById, updateCategoryData } from "../controllers/categories";
 
 
 function Question(props) {
     const navigate = useNavigate();
 
     async function handleData(){
+        const c = await getCategoryById(props.categoryId)
+        const newC = c.agrupations.filter((item) => item !== props.id );
+        await updateCategoryData(props.categoryId, c.name, newC)
         await deleteClub(props.id);
         navigate(`/agrupaciones`);
     }
