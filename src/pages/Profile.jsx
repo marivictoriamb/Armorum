@@ -223,7 +223,7 @@ export default function Profile() {
                   </button>
                 </div>
                 <div className={styles.Form}>
-                  <label className={styles.Input}>
+                  <label className={`${styles.Input} ${styles.nombre}`}>
                     Nombre:{" "}
                     <input
                       required
@@ -236,7 +236,7 @@ export default function Profile() {
                       }}
                     ></input>
                   </label>
-                  <label className={styles.Input}>
+                  <label className={`${styles.Input} ${styles.numero}`}>
                     Numero:{" "}
                     <input
                       required
@@ -249,7 +249,7 @@ export default function Profile() {
                       }}
                     ></input>
                   </label>
-                  <label className={styles.Input}>
+                  <label className={`${styles.Input} ${styles.carrera}`}>
                     Carrera:{" "}
                     <select
                       className={styles.select}
@@ -313,7 +313,7 @@ export default function Profile() {
                       <option value="Derecho"> Derecho </option>
                     </select>
                   </label>
-                  <label className={styles.Input}>
+                  <label className={`${styles.Input} ${styles.correo}`}>
                     Correo:{" "}
                     <input
                       className={styles.input}

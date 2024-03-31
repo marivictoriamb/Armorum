@@ -13,7 +13,7 @@
 
 
 .img {
-  border: rgb(255, 125, 49) 3px solid;
+  border: #FD8204 3px solid;
   border-radius: 10%;
   height: auto;
   width: 200px;
@@ -46,7 +46,7 @@
 
 .Name{
   font-size: 50px;
-  color: rgb(255, 125, 49);
+  color: #FD8204;
   text-shadow: 2px 2px 7px #d89126;
   align-self: center;
   text-align: center;
