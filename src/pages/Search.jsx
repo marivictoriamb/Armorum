@@ -51,7 +51,7 @@ export default function Search(){
                     </div>
                     <div className={styles.Buttons}> 
                     <button className={styles.searchButton} onClick={()=>{handleClick()}}> Buscar </button>
-                    <select className={styles.searchButton} value={type} style={{ maxWidth:"120px", padding:"10px", borderColor:"#FD8204", backgroundColor:"#FD8204", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
+                    <select className={styles.searchButton} value={type} style={{ maxWidth:"150px", padding:"10px", borderColor:"rgb(255, 125, 49)", backgroundColor:"rgb(255, 125, 49)", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
                         <option className={styles.option}value="Nombre"> Nombre </option>
                         <option className={styles.option} value="Categoria"> Categoria </option>
                     </select>
@@ -64,10 +64,9 @@ export default function Search(){
                 {on==true ? (
                 <Game name={name} type={type} user={user}/>
               ) : (
-                <div style={{height:"30vh"}}></div>
+                <div style={{position:"fixed", width:"100%", bottom:"0"}}><Footer/></div>                  
               )}
             </div>
-            <Footer/>
         </div>
         </div>
     )
@@ -110,7 +109,7 @@ export function Game({name, type, user}){
       }
 
     return(
-        <div id="Cards" style={{display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
+        <div >
             {!want  ? (
                     <div style={{display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
                         <CardLoader/>
@@ -119,12 +118,15 @@ export function Game({name, type, user}){
                         <CardLoader/>
                         <CardLoader/>
                         <CardLoader/>
+                       
                     </div>
                 ) : (
-                  <div>
-                  {clubs.length == 0 ? (
-                    <div style={{height:"30vh"}}></div>
+                  <div >
+                  {values.length == 0 ? (
+                    <div style={{position:"fixed", width:"100%", bottom:"0"}}><Footer/></div>                  
                   ):(
+                    <div id="Cards" style={{height:"100%",display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
+                      {
                     clubs.data.map(({ vision,photos, objectives, name,  mision, members, contact, category }, index) => (
                       <ClubCard
                         key={name}
@@ -134,8 +136,13 @@ export function Game({name, type, user}){
                         suscrito={values[index]}
                         photos={photos}
                       />
+
                     ))
+                    }
+                    <div style={{width:"100%", position:"relative", bottom:"0"}}><Footer/></div>                   
+                    </div>
                   )}
+                  
                   </div>
                     )}
         </div>

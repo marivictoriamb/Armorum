@@ -85,17 +85,7 @@ function Register() {
         {popUp && <ErrorRegister />}
         {error && <ErrorUpdate key={type} error={type} />}
         <div className={styles.Top2}>
-          <p
-            style={{
-              fontSize: "20px",
-              width: "90%",
-              textAlign: "center",
-              fontWeight: "600",
-            }}
-          >
-            Crear Cuenta
-          </p>
-          <button
+          <button className={styles.BotonFoto}
             style={{
               backgroundColor: "white",
               border: "none",
@@ -111,6 +101,16 @@ function Register() {
               style={{ marginTop: "2px", width: "25vh", height: "15vh" }}
             />
           </button>
+          <p
+            style={{
+              fontSize: "20px",
+              width: "90%",
+              textAlign: "center",
+              fontWeight: "600",
+            }}
+          >
+            Crear Cuenta
+          </p>
         </div>
         <form onSubmit={handleRegister}>
           <div className={styles.Form}>
@@ -185,7 +185,7 @@ function Register() {
                 Usa de 6 a 8 caracteres
               </label>
             </div>
-            <div className="Number">
+            <div className="Numberrr">
               <p style={{ fontSize: "14px" }}>Telefono</p>
               <div
                 className="input"
@@ -195,24 +195,24 @@ function Register() {
                   borderRadius: "40px",
                   padding: "8px",
                   width: "28vw",
-                  height: "7vh",
+                  height: "50px",
                   color: "black",
                   display: "flex",
                   alignotems: "baseline",
                 }}
               >
                 <select
-                  className="select"
-                  style={{ width: "45%", maxWidth: "340px", border: "none" }}
+                  className={styles.select}
+                  style={{border: "none" }}
                   value={h}
                   onChange={(e) => {
                     setH(e.target.value), setError(false);
                   }}
                 >
-                  <option className="select">0412</option>
-                  <option className="select">0414</option>
-                  <option className="select">0424</option>
-                  <option className="select">0416</option>
+                  <option className={styles.select}>0412</option>
+                  <option className={styles.select}>0414</option>
+                  <option className={styles.select}>0424</option>
+                  <option className={styles.select}>0416</option>
                 </select>
                 <input
                   maxLength="7"

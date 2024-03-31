@@ -310,24 +310,23 @@ export default function ClubProfile() {
 
             <div className={styles.Right}>
               <div className={styles.info}>
-                <h4 className={styles.Description}>
-                  {" "}
-                  Mision: {club[0].mision}
-                </h4>
-                <h4 className={styles.Description}>
-                  {" "}
-                  Vision: {club[0].vision}
-                </h4>
-                <h4 className={styles.Description}>
-                  {" "}
-                  Objetivo: {club[0].objectives}
-                </h4>
-                <h4 className={styles.Description}> Categoria: {category}</h4>
-                <h4 className={styles.Description}> Miembros: </h4>
-                {visitor ? (
-                    ""
-                  ) : (
-                    <div>
+                <h4>Misión</h4>
+                <div className={styles.Description}> {club[0].mision}</div>
+                <h4> Visión </h4> 
+                <div className={styles.Description}> {club[0].vision}</div>
+                <h4> Objetivo </h4> 
+                <div className={styles.Description}> {club[0].objectives}</div>
+                <div className={styles.InfoCard}>
+                <div className={styles.card}> Categoria <div className={styles.cardDescription}> {category}</div> </div>
+                <div className={styles.card}> Contacto <div className={styles.cardDescription}> {club[0].contact}</div> </div>
+                <div className={styles.card}> Año de Creacion <div className={styles.cardDescription}> {club[0].year}</div> </div>
+                </div>
+                </div>
+              </div>
+            </div>
+
+            <div className = {styles.MembersContainer}>
+              <h4>Miembros</h4>
                   {membersNames.length == 0 ? (
                     <div className={styles.Members}>
                       <h4>No hay miembros actualmente</h4>
@@ -343,28 +342,13 @@ export default function ClubProfile() {
                       ))}
                     </div>
                   )}
-                  </div>
-                  )}
-                <h4 className={styles.Description}>
-                  {" "}
-                  Contacto: {club[0].contact}
-                </h4>
-                <h4 className={styles.Description}>
-                  {" "}
-                  Año de Creacion: {club[0].year}
-                </h4>
               </div>
+              <div className={styles.Comments}>
+              <h2>comentarios, esta es el area donde iran los comentarios, faltan los comentarios{" "} </h2>
+              </div>
+              
+              <Footer />
             </div>
-          </div>
-          <div className={styles.Comments}>
-            <h2>
-              {" "}
-              comentarios, esta es el area donde iran los comentarios, faltan
-              los comentarios{" "}
-            </h2>
-          </div>
-          <Footer />
-        </div>
       )}
     </div>
   );

@@ -15,11 +15,16 @@ export default function Forgotten(props) {
     async function handleSubmit(){
         setPopUp(false);
         setPopUp2(false);
-        await sendPasswordResetEmail(auth, email).then(data => {
-            setPopUp(true);
-        }).catch(err => {   
+        if (email.endsWith("@correo.unimet.edu.ve")){
+            await sendPasswordResetEmail(auth, email).then(data => {
+                setPopUp(true);
+            }).catch(err => {   
+                setPopUp2(true);
+            })
+        } else {
             setPopUp2(true);
-        })
+        }
+        
     }
 
     function handleClose(){
@@ -43,7 +48,7 @@ export default function Forgotten(props) {
                     <div className={styles.CorreoInputP}><input onChange={(e) => setEmail(e.target.value)} value={email}    required={true} style={{fontSize: "12px", padding:"10px", paddingLeft:"20px"}}/></div> 
                 </div>
                 <div className={styles.ButtonsP}>
-                    <button className={styles.Establish} onClick={() => {handleSubmit()}}> Cambiar Contraseña </button>
+                    <button className={styles.Establish} type="button" onClick={() => {handleSubmit()}}> Cambiar Contraseña </button>
                     <button className={styles.LoginP} type="button" style={{cursor:"pointer"}}onClick={() => {handleClose()}}>Ir a Inicio de Sesion </button>
                 </div>
             </div>

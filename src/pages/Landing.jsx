@@ -121,6 +121,8 @@ export default function Landing() {
             gap: "5vw",
             alignItems: "center",
             justifyContent: "center",
+            paddingLeft:"5px",
+            paddingRight:"5px",
           }}
         >
           {!want ? (
