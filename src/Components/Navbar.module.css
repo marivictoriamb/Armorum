@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid #FD8204;
 }
 
 .Img{
@@ -49,7 +49,7 @@
 .Words:hover{
     transform: scale(1.02);
     text-decoration: underline;
-    text-decoration-color: orange;
+    text-decoration-color: #FD8204;
 }
 
 @media screen and (max-width: 700px){

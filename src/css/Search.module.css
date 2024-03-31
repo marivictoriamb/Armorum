@@ -22,7 +22,7 @@
   
   .inputbar {
     font-size: 2vh;
-    color: rgb(255, 125, 49);
+    color: #FD8204;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -50,8 +50,8 @@
     border: none;
     padding: 10px;
     border-radius: 30px;
-    border-color: rgb(255, 125, 49);
-    background-color: rgb(255, 125, 49);
+    border-color: #FD8204;
+    background-color: #FD8204;
     cursor: pointer;
     width: 120px;
   }
@@ -59,7 +59,7 @@
   .option{
     font-size: 2vh;
     color: white;
-    background-color: rgb(255, 125, 49)
+    background-color: #FD8204
   }
   
   .searchButton:hover {

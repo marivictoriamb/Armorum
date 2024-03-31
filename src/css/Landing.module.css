@@ -14,8 +14,8 @@ button{
     border: none;
     padding: 1vw;
     border-radius: 30px;
-    border-color: rgb(255, 125, 49);
-    background-color: rgb(255, 125, 49);
+    border-color: #FD8204;
+    background-color: #FD8204;
     cursor: pointer;
 }
 
@@ -48,13 +48,13 @@ button{
 .Option::before, .Option::after{
   content: "";
   height: 2px;
-  background-color: rgb(255, 125, 49);
+  background-color: #FD8204;
   display: block;
 }
 
 .Border{
   border-radius: 40px;
-  border: solid 2px rgb(255, 125, 49);
+  border: solid 2px #FD8204;
 }
 
 #p{
