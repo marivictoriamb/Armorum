@@ -91,7 +91,7 @@ h4 {
   justify-content: center;
   flex-wrap: wrap;
   flex-direction: column;
-  width: 200px;
+  width: 150px;
   font-weight: bold;
   color:#ffffff ;
   margin-top: 20px;
@@ -99,6 +99,7 @@ h4 {
   padding: 20px;
   border-radius: 10px;  
   font-size: 20px; 
+  height: 100px;
 }
 
 .InfoCard{
@@ -284,4 +285,29 @@ h4 {
     }
 
 
+  }
+
+  @media screen and (max-width: 590px) {
+    .Afiliacion, .Description, .cardDescription{
+      font-size: 12px;
+    }
+
+    h4, .card{
+      font-size: 16px;
+    }
+
+    .content{
+      padding-right: 0%;
+    }
+  }
+
+  @media screen and (max-width: 430px) {
+    .left{
+      flex-direction: column;
+      gap:0px
+    }
+
+    .Buttons{
+      gap: 10px;
+    }
   }
