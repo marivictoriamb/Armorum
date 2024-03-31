@@ -122,10 +122,10 @@ export function Game({name, type, user}){
                     </div>
                 ) : (
                   <div >
-                  {values.length == 0 ? (
+                  {clubs.data.length == 0 ? (
                     <div style={{position:"fixed", width:"100%", bottom:"0"}}><Footer/></div>                  
                   ):(
-                    <div id="Cards" style={{height:"100%",display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
+                    <div id="Cards" style={{height:"100vh",display:"flex", flexWrap:"wrap", flexDirection:"row", gap:"5vw", alignItems:"center", justifyContent:"center"}}>
                       {
                     clubs.data.map(({ vision,photos, objectives, name,  mision, members, contact, category }, index) => (
                       <ClubCard

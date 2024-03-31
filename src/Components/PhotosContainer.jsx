@@ -27,7 +27,7 @@ export default function PhotosContainer(props){
             </form>
             <div className={styles.container}>
                     {props.photosUrl.map((url, index) => (
-                        <div className={styles.image}>
+                        <div key={index} className={styles.image}>
                         {props.photos[index] != `agrupaciones/noimage.jpeg` && (
                             <>
                             <img src={url} alt="image"/>

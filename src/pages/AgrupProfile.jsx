@@ -253,7 +253,7 @@ export default function AgrupProfile(){
                     ) : (
                         <div style={{width:"100%"}}>
                         <div style={{ flex: 1, paddingRight: '20px', display: 'flex', justifyContent:"space-between"}}>
-                        <h1 contentEditable="true" onBlur={(e) => setName(e.target.innerText)}>{name}</h1>
+                        <h1 onBlur={(e) => setName(e.target.innerText)}>{name}</h1>
                         </div>
                         <div style={{ flex: 1, borderTop:"solid orange", marginTop:"30px"}}>
                             <h2>Información</h2>
