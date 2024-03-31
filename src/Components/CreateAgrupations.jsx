@@ -52,14 +52,14 @@ export default function CreateAgrupations(props){
         e.preventDefault();
 
         if (/\d{7}$/.test(contact) == true){
+            setUploading(true);
             const result = await getClubsByName(name);
             if (result.length != 0){
                 if (result[0].name.toLowerCase() != name.toLowerCase()){
-                    setUploading(true);
                     create(categoryId, number, contact, categories, members, mision, name, objectives, image, vision, year, navigate);   
                     setPopUp(true)
-                    setUploading(false);
                 }else{
+                    setUploading(false)
                     setType('Ya existe una agrupacion con dicho nombre')
                     setError(true);
                 }
@@ -97,7 +97,8 @@ export default function CreateAgrupations(props){
             })
           );
           setValues(categories);
-
+        
+        setUploading(false)
         setWant(true)
     }
 
@@ -126,7 +127,7 @@ export default function CreateAgrupations(props){
     return(props.trigger) ? (
             <div className={styles.popup} >
                 {error && <ErrorUpdate key={type} error={type}/>}
-            {uploading ? (
+            {uploading== true? (
                 <div className={styles.container}>
                     <Loader/>
                 </div>

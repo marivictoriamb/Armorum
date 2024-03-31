@@ -21,12 +21,8 @@ export default function Landing() {
   const [visitor, IsVisitor] = useState(true);
   const [done, setDone] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const images = [`/unimet1.png`, `/unimet2.png`, `/unimet3.png`, `/unimet4.png`];
 
-
-  const images = [];
-  for (let i = 1; i <= 4; i++) {
-    images.push(`/unimet${i}.png`);
-  }
 
   if (clubs != null && want == false) {
     if (clubs.isLoading != true && clubs.isCharging != true) {
