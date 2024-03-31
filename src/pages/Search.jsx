@@ -51,7 +51,7 @@ export default function Search(){
                     </div>
                     <div className={styles.Buttons}> 
                     <button className={styles.searchButton} onClick={()=>{handleClick()}}> Buscar </button>
-                    <select className={styles.searchButton} value={type} style={{ maxWidth:"120px", padding:"10px", borderColor:"rgb(255, 125, 49)", backgroundColor:"rgb(255, 125, 49)", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
+                    <select className={styles.searchButton} value={type} style={{ maxWidth:"120px", padding:"10px", borderColor:"#FD8204", backgroundColor:"#FD8204", textAlign:"center"}} name="Type" onChange={(e) => {{setType(e.target.value), setOn(false)}}}> 
                         <option className={styles.option}value="Nombre"> Nombre </option>
                         <option className={styles.option} value="Categoria"> Categoria </option>
                     </select>

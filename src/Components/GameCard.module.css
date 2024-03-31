@@ -1,10 +1,10 @@
 .All{
-    font-size:12px;
+    font-size:11px;
     color:#141414;
     background-position: center;
     background-attachment: fixed;
     margin:0;
-    padding: 2rem 0;
+    padding: 0rem 2rem;
     display: grid;
     place-items: center;
     box-sizing: border-box;
@@ -12,11 +12,11 @@
   
   
 .Card{
-    background-color: rgb(250, 188, 129);
+    background-color: #FDB365;
     max-width: 200px;
     min-width: 200px;
-    max-height: 300px;
-    min-height: 300px;
+    max-height: 260px;
+    min-height: 260px;
     display: flex;
     overflow: hidden;
     flex-direction: column;
@@ -26,7 +26,6 @@
  
 
 .bannerG{
-    background-image: url('/background.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
