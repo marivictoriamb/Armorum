@@ -64,7 +64,7 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: orange;
+    background-color: #FD8204;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -100,13 +100,13 @@
   .title {
     font-size: 30px;
     font-weight: bolder;
-    color: orange;
+    color: #FD8204;
     text-align: center;
-    text-shadow:rgb(255, 209, 135) 1px 0 10px;
+    text-shadow:#FDB365 1px 0 10px;
   }
   
   .botonEnviar{
-    background-color: orange;
+    background-color: #FD8204;
     color: white;
     font-size: 20px;
     font-weight: bold;

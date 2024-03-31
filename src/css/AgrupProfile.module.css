@@ -46,7 +46,7 @@
 
 .menu{
     align-self: center;
-    background-color: #ffbc6b;
+    background-color: #FDB365;
     width:95%;
     overflow: hidden;
     margin: 3vh 0px;
@@ -118,7 +118,7 @@
     border: none;
     padding: 1vw;
     border-radius: 30px;
-    background-color: #f57c25;
+    background-color: #FD8204;
     cursor: pointer;
 }
 
@@ -128,8 +128,7 @@
     border: none;
     padding: 1vw;
     border-radius: 30px;
-    border-color: #5b3263;
-    background-color: #f57c25;
+    background-color: #FD8204;
     cursor: pointer;
 }
 
@@ -198,12 +197,12 @@
 
   .boton{
     margin: 10px auto;
-    background-color: #f57c25;
+    background-color: #FD8204;
   }
 
   .Edit{
     margin: 10px auto;
-    background-color: #f57c25;
+    background-color: #FD8204;
     color: white;
     padding: 20px;
     border-radius: 40px;
