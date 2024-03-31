@@ -60,7 +60,7 @@
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 530px) {
     .Img{
         width: 100px;
         height: 40px;
@@ -84,8 +84,8 @@
 
     @media screen and (max-width: 390px) {
         .Img{
-            width: 100px;
-            height: 40px;
+            width: 80px;
+            height: 30px;
         }  
         
         .Buscador{
@@ -99,7 +99,29 @@
         }
 
         .Words{
-            font-size: 10px;
+            font-size: 8px;
         }
         
         }
+
+        @media screen and (max-width: 300px) {
+            .Img{
+                width: 50px;
+                height: 15px;
+            }  
+            
+            .Buscador{
+                width: 0px;
+                height: 0px;
+            }
+            
+            .Profile{
+                width: 20px;
+                height: 20px;
+            }
+    
+            .Words{
+                font-size: 8px;
+            }
+            
+            }

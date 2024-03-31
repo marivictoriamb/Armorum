@@ -25,6 +25,8 @@ import Footer from "../Components/FooterUsuario.jsx";
 import Slider from "../Components/SliderAgrup.jsx";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import PaymentPopup from "../Components/PaymentPopUp.jsx";
+import { getCommentsByAgrupation } from "../controllers/comments.js";
+import CommentSection from "../Components/CommentsSection.jsx";
 
 export default function ClubProfile() {
   const clubName = useParams();
@@ -139,6 +141,7 @@ export default function ClubProfile() {
     }
   }
 
+
   async function fetchClubData() {
     const clubData = await getClubsByName2(clubName.name);
     setClub(clubData);
@@ -243,16 +246,12 @@ export default function ClubProfile() {
   }
 
   useEffect(() => {
-    async function fetchData() {
-      if (user != null) {
-        fetchClubData();
-      } else {
-        fetchCData();
-      }
+    if (user != null) {
+      fetchClubData();
+    } else {
+      fetchCData(); // Asegúrate de que esta función no necesite también cargar los comentarios
     }
-
-    fetchData();
-  }, [user]);
+  }, [user, clubName.name]);
 
   return (
     <div>
@@ -282,10 +281,10 @@ export default function ClubProfile() {
               <h1 className={styles.Name}> {club[0].name} </h1>
               <Slider images={imageUrl} />
               <div className={styles.image}>
-                  {visitor ? (
-                    ""
-                  ) : (
-                    <div className={styles.Buttons}>
+                {visitor ? (
+                  ""
+                ) : (
+                  <div className={styles.Buttons}>
                     <button
                       className={styles.Afiliacion}
                       onClick={() => {
@@ -294,17 +293,20 @@ export default function ClubProfile() {
                     >
                       {show}
                     </button>
-                    <button className={styles.Afiliacion} onClick={() => setShowPaymentPopup(true)}>
-                    Contribucion
-                  </button>
-                  {showPaymentPopup && (
-                    <PaymentPopup
-                      setTrigger={setShowPaymentPopup}
-                      // Aquí pasarías los props necesarios para mostrar la información de la tarjeta
-                    />
-                  )}
+                    <button
+                      className={styles.Afiliacion}
+                      onClick={() => setShowPaymentPopup(true)}
+                    >
+                      Contribucion
+                    </button>
+                    {showPaymentPopup && (
+                      <PaymentPopup
+                        setTrigger={setShowPaymentPopup}
+                        // Aquí pasarías los props necesarios para mostrar la información de la tarjeta
+                      />
+                    )}
                   </div>
-                  )}
+                )}
               </div>
             </div>
 
@@ -312,43 +314,69 @@ export default function ClubProfile() {
               <div className={styles.info}>
                 <h4>Misión</h4>
                 <div className={styles.Description}> {club[0].mision}</div>
-                <h4> Visión </h4> 
+                <h4> Visión </h4>
                 <div className={styles.Description}> {club[0].vision}</div>
-                <h4> Objetivo </h4> 
+                <h4> Objetivo </h4>
                 <div className={styles.Description}> {club[0].objectives}</div>
                 <div className={styles.InfoCard}>
-                <div className={styles.card}> Categoria <div className={styles.cardDescription}> {category}</div> </div>
-                <div className={styles.card}> Contacto <div className={styles.cardDescription}> {club[0].contact}</div> </div>
-                <div className={styles.card}> Año de Creacion <div className={styles.cardDescription}> {club[0].year}</div> </div>
-                </div>
+                  <div className={styles.card}>
+                    {" "}
+                    Categoria{" "}
+                    <div className={styles.cardDescription}>
+                      {" "}
+                      {category}
+                    </div>{" "}
+                  </div>
+                  <div className={styles.card}>
+                    {" "}
+                    Contacto{" "}
+                    <div className={styles.cardDescription}>
+                      {" "}
+                      {club[0].contact}
+                    </div>{" "}
+                  </div>
+                  <div className={styles.card}>
+                    {" "}
+                    Año de Creacion{" "}
+                    <div className={styles.cardDescription}>
+                      {" "}
+                      {club[0].year}
+                    </div>{" "}
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className = {styles.MembersContainer}>
-              <h4>Miembros</h4>
-                  {membersNames.length == 0 ? (
-                    <div className={styles.Members}>
-                      <h4>No hay miembros actualmente</h4>
-                    </div>
-                  ) : (
-                    <div className={styles.Members}>
-                      {membersNames.map((name, index) => (
-                        <GameCard
-                          key={index}
-                          name={name}
-                          image={membersI[index]}
-                        />
-                      ))}
-                    </div>
-                  )}
+          {visitor ? (""):(
+            <div style={{width:"95%"}}>
+            <div className={styles.MembersContainer}>
+            <h4>Miembros</h4>
+            {membersNames.length == 0 ? (
+              <div className={styles.Members}>
+                <h4>No hay miembros actualmente</h4>
               </div>
-              <div className={styles.Comments}>
-              <h2>comentarios, esta es el area donde iran los comentarios, faltan los comentarios{" "} </h2>
+            ) : (
+              <div className={styles.Members}>
+                {membersNames.map((name, index) => (
+                  <GameCard key={index} name={name} image={membersI[index]} />
+                ))}
               </div>
-              
-              <Footer />
-            </div>
+            )}
+          </div>
+          <div className={styles.CommentSection}>
+          Comentarios
+          <div className={styles.Comments}>
+            <CommentSection
+              currentUser={user}
+              agrupationId={club[0]} // Asegúrate de que club[0].id es la ID correcta
+            />
+          </div>
+          </div>
+          </div>
+          )}
+          <Footer />
+        </div>
       )}
     </div>
   );

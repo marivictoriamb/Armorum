@@ -21,7 +21,7 @@
   
   
 .Card{
-    background-color: rgb(250, 188, 129);
+    background-color: #FDB365;
     max-width: 360px;
     min-width: 360px;
     max-height: 450px;
@@ -110,7 +110,7 @@
     margin: 1.5rem;
     border-radius: 40px;
     border: none;
-    background-color: rgb(255, 145, 0);
+    background-color: #FD8204;
     color: white;
 }
 
@@ -124,8 +124,8 @@
     border: none;
     padding: 1vw 2vw;
     border-radius: 30px;
-    border-color: #5b3263;
-    background-color: #5b3263;
+    border-color: #FD8204;
+    background-color: #FD8204;
     cursor: pointer;
     margin-bottom: 1rem;
 }

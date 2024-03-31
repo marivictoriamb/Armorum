@@ -134,6 +134,13 @@ export async function getUserById(id){
     return userSnapshot.data(); // Aqui tienes el objeto club, para acceder a su nombre es objeto.nombre (nombre porque asi esta definido en la base de datos)
 }
 
+export async function getUserIdByUser(id){
+    const usersCollection = collection(db, "users");
+    const userQuery = query(usersCollection, where("id", "==", id));
+    const userSnapshot = await getDocs(userQuery);
+    return userSnapshot.docs[0].ref.path.split("/")[1];
+}
+
 
 
 export async function updateUserData(name, email, userRole, number, carrer, img, agrups){

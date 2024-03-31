@@ -1,9 +1,11 @@
 import React from "react"
 import styles from './Question.module.css'
 import { updateUserData } from "../controllers/auth";
-import { deleteClub } from "../controllers/clubs";
+import { deleteClub, getClubById } from "../controllers/clubs";
 import { useNavigate } from "react-router-dom";
 import { getCategoryById, updateCategoryData } from "../controllers/categories";
+import { deleteComment, getCommentsId } from "../controllers/comments";
+import { deletePhoto } from "../controllers/files";
 
 
 function QuestionAD(props) {
@@ -13,6 +15,22 @@ function QuestionAD(props) {
         const c = await getCategoryById(props.categoryId)
         const newC = c.agrupations.filter((item) => item !== props.id );
         await updateCategoryData(props.categoryId, c.name, newC)
+
+        const comments = await getCommentsId(props.id);
+        const ids = await Promise.all(
+            comments.map(async (item) => {
+              return item.ref.path.split("/")[1];;
+            })
+          );
+        ids.forEach(function(id) {
+            deleteComment(id)
+          });
+
+        const data = await getClubById(props.id)
+        data.photos.forEach(function(img) {
+            deletePhoto(img)
+          });
+        
         await deleteClub(props.id);
         navigate(`/agrupaciones`);
     }
