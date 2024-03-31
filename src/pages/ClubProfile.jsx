@@ -316,12 +316,11 @@ export default function ClubProfile() {
                 <div className={styles.Description}> {club[0].vision}</div>
                 <h4> Objetivo </h4> 
                 <div className={styles.Description}> {club[0].objectives}</div>
-                <h4> Categoria </h4>
-                <div className={styles.Description}> {category}</div>
-                <h4> Contacto </h4>
-                <div className={styles.Description}> {club[0].contact}</div>
-                <h4> Año de Creacion </h4>
-                <div className={styles.Description}> {club[0].year}</div>
+                <div className={styles.InfoCard}>
+                <div className={styles.card}> Categoria <div className={styles.cardDescription}> {category}</div> </div>
+                <div className={styles.card}> Contacto <div className={styles.cardDescription}> {club[0].contact}</div> </div>
+                <div className={styles.card}> Año de Creacion <div className={styles.cardDescription}> {club[0].year}</div> </div>
+                </div>
                 </div>
               </div>
             </div>
