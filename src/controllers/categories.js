@@ -41,7 +41,6 @@ export async function getCategoryId(id){
     const clubsCollections = collection(db, "categories");
     const clubsQuery = query(clubsCollections, where("name", "==", id));
     const clubsSnapshot = await getDocs(clubsQuery);
-
     return clubsSnapshot.docs[0].ref.path.split("/")[1];
 }
 

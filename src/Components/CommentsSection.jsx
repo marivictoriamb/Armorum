@@ -115,7 +115,7 @@ function CommentSection({ currentUser, agrupationId }) {
       )}
         {comments.length == 0 ? (
           <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-            <div className="comment-text">Se el primero en comentar!</div>
+            <div className="comment-text">No hay comentarios</div>
           </div>
         ):(
           <div className="each">

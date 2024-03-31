@@ -13,8 +13,8 @@ function QuestionA(props) {
         if (props.photos[0] != `agrupaciones/noimage.jpeg`){
             photo = props.photos;
         }
-        await updateClubData(props.category, props.contact, props.id, props.members, props.mision, props.name, props.objectives, photo, props.vision, props.year);
-        const c = await getCategoryById(props.category)
+        try{
+            const c = await getCategoryById(props.category)
         const newC = c.agrupations
         newC.push(props.id)
         await updateCategoryData(props.category, c.name, newC)
@@ -22,6 +22,11 @@ function QuestionA(props) {
         const p = await getCategoryById(props.prev)
         const newP = p.agrupations.filter((item) => item !== props.id );
         await updateCategoryData(props.prev, p.name, newP)
+
+        await updateClubData(props.category, props.contact, props.id, props.members, props.mision, props.name, props.objectives, photo, props.vision, props.year);
+        } catch(e){
+            
+        }
 
 
         navigate(`/agrupaciones/${props.name}`);
