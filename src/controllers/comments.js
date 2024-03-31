@@ -21,10 +21,7 @@ export async function getCommentsByAgrupation(agrupationId) {
     orderBy("date", "desc")
   );
   const commentsSnapshot = await getDocs(commentsQuery);
-  const comments = commentsSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const comments = commentsSnapshot.docs.map((doc) => doc.data());
   return comments;
 }
 
@@ -55,6 +52,14 @@ export async function updateComment(commentId, newCommentText) {
 export async function deleteComment(commentId) {
   const commentRef = doc(db, "comments", commentId);
   await deleteDoc(commentRef);
+}
+
+export async function getCommentsId(agrupId){
+  const clubsCollections = collection(db, "comments");
+  const clubsQuery = query(clubsCollections, where("agrupationId", "==", agrupId));
+  const clubsSnapshot = await getDocs(clubsQuery);
+
+  return clubsSnapshot.docs;
 }
 
 export async function getCommentById(commentId) {

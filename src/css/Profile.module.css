@@ -49,7 +49,7 @@
 
 .menu{
     align-self: center;
-    background: linear-gradient(to right,#FD8204, rgb(255, 200, 0) );
+    background: rgb(252, 172, 74);
     width:95%;
     overflow: hidden;
     margin: 3vh 0px;

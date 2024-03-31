@@ -20,6 +20,7 @@ import { Carrusel } from "../Components/Carrusel.jsx";
 import GameCard from "../Components/GameCard.jsx";
 import { deletePhoto, getImageUrl, uploadImages } from '../controllers/files.js';
 import PhotosContainer from '../Components/PhotosContainer.jsx';
+import CommentSection from '../Components/CommentsSection.jsx';
 
 
 
@@ -320,11 +321,7 @@ export default function AgrupProfile(){
                         </div>)}
                     </div>
                     {!done ? (
-                        <div style={{ margin: "30px", display: "flex", flexWrap: "wrap", flexDirection: "row", gap: "5vw", alignItems: "center", justifyContent: "center" }}>
-                            <CardLoader />
-                            <CardLoader />
-                            <CardLoader />
-                        </div>
+                        ""
                     ) : (
                         <div style={{display:"flex", flexDirection:"column", borderTop:"solid orange", marginTop:"30px"}}>
                         <h1>Integrantes</h1>
@@ -341,6 +338,19 @@ export default function AgrupProfile(){
                                 </div>
                             )}
                             
+                        </div>
+                    )}
+                    {!done ? (
+                        ""
+                    ) : (
+                        <div className={styles.CommentSection}>
+                        Comentarios
+                        <div className={styles.Comments}>
+                        <CommentSection
+                            currentUser={null}
+                            agrupationId={club[0]} // Asegúrate de que club[0].id es la ID correcta
+                        />
+                        </div>
                         </div>
                     )}
                 </div>

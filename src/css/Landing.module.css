@@ -45,6 +45,7 @@ button{
   column-gap: 0.05rem;
   text-align: center;
   color: rgb(236, 236, 235);
+  width: 95%;
 }
 
 .Option::before, .Option::after{

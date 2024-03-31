@@ -232,3 +232,28 @@
     }
 
   }
+
+  .CommentSection{
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-self: first baseline;
+    width: 95%;
+    padding-top: 30px;
+  }
+    
+  .Comments::before{
+    content: "";
+    height: 2px;
+    background-color:#FD8204 ;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  @media screen and (max-width:600px){
+    .CommentSection{
+      width: 90%;
+    }
+  }

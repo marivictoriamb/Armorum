@@ -248,7 +248,6 @@ export default function ClubProfile() {
   useEffect(() => {
     if (user != null) {
       fetchClubData();
-      console.log(comments);
     } else {
       fetchCData(); // Asegúrate de que esta función no necesite también cargar los comentarios
     }
@@ -349,7 +348,9 @@ export default function ClubProfile() {
             </div>
           </div>
 
-          <div className={styles.MembersContainer}>
+          {visitor ? (""):(
+            <div style={{width:"95%"}}>
+            <div className={styles.MembersContainer}>
             <h4>Miembros</h4>
             {membersNames.length == 0 ? (
               <div className={styles.Members}>
@@ -363,14 +364,17 @@ export default function ClubProfile() {
               </div>
             )}
           </div>
-          <div className={styles.Comments}></div>
+          <div className={styles.CommentSection}>
+          Comentarios
           <div className={styles.Comments}>
             <CommentSection
               currentUser={user}
-              agrupationId={club && club[0] ? club[0].id : null} // Asegúrate de que club[0].id es la ID correcta
+              agrupationId={club[0]} // Asegúrate de que club[0].id es la ID correcta
             />
           </div>
-
+          </div>
+          </div>
+          )}
           <Footer />
         </div>
       )}

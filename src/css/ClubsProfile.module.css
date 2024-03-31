@@ -151,7 +151,6 @@ h4 {
   border-radius: 10px;
   width: 95%;
   height: auto;
-  margin: 5%;
   padding: 10px;
   padding-top: 0;
   
@@ -188,6 +187,17 @@ h4 {
   align-items: center;
   flex-wrap: wrap;
   padding: 0%;
+}
+
+.CommentSection{
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: first baseline;
+  width: 95%;
+  padding-top: 30px;
 }
   
 .Comments::before{
@@ -287,7 +297,7 @@ h4 {
 
   }
 
-  @media screen and (max-width: 590px) {
+  @media screen and (max-width: 600px) {
     .Afiliacion, .Description, .cardDescription{
       font-size: 12px;
     }
@@ -298,6 +308,15 @@ h4 {
 
     .content{
       padding-right: 0%;
+    }
+
+    .InfoCard, .CommentSection{
+      width: 90%;
+    }
+
+    .MembersContainer{
+      width: 90%;
+      margin: 5px;
     }
   }
 
